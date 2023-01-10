@@ -48,3 +48,4 @@ export const AuthSlice = createSlice({
 export default AuthSlice.reducer;
 
 export const getJWT = (state) => state.auth.jwt;
+export const getAuthMessage = (state) => state.auth.message;
