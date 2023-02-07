@@ -18,7 +18,7 @@ const Login = () => {
   const authMessage = useSelector(getAuthMessage);
 
   if (JWT) {
-    router.push(`/account/register`);
+    router.push(`/deneme`);
   }
 
   return (

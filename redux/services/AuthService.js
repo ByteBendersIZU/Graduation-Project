@@ -6,7 +6,7 @@ export const authService = createAsyncThunk(
   async (auth) => {
     const data = await axios({
       method: "post",
-      url: "http://18.209.21.156:1453/v1/authenticate",
+      url: "http://54.147.214.160:1453/v1/authenticate",
       headers: {},
       data: {
         email: auth.email, // This is the body part

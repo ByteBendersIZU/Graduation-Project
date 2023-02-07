@@ -1,15 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { authService } from "../services/AuthService";
 
+const initialState = {
+  authStatus: "idle",
+  jwt: "",
+  messageCode: "",
+  message: "",
+};
+
 export const AuthSlice = createSlice({
   name: "auth",
-  initialState: {
-    authStatus: "idle",
-    jwt: "",
-    messageCode: "",
-    message: "",
+  initialState:
+    typeof window !== "undefined"
+      ? localStorage.getItem("auth")
+        ? JSON.parse(localStorage.getItem("auth"))
+        : initialState
+      : initialState,
+  reducers: {
+    exitAccount: (state) => {
+      (state.authStatus = "idle"),
+        (state.jwt = ""),
+        (state.messageCode = ""),
+        (state.message = ""),
+        localStorage.removeItem("auth");
+    },
   },
-  reducers: {},
   extraReducers: (builder) => {
     //Auth Controller
     builder
@@ -38,6 +53,7 @@ export const AuthSlice = createSlice({
           state.messageCode = message_code;
         }
         state.authStatus = "succeeded";
+        localStorage.setItem("auth", JSON.stringify(state));
       })
       .addCase(authService.rejected, (state, action) => {
         console.log("rejected", action.error);
@@ -46,6 +62,8 @@ export const AuthSlice = createSlice({
   },
 });
 export default AuthSlice.reducer;
+
+export const { exitAccount } = AuthSlice.actions;
 
 export const getJWT = (state) => state.auth.jwt;
 export const getAuthMessage = (state) => state.auth.message;
