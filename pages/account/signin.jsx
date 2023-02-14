@@ -3,8 +3,11 @@ import { signIn } from "next-auth/react";
 
 //Extensions
 import { Formik } from "formik";
+import { useRouter } from "next/router";
 
 const SignIn = () => {
+  const router = useRouter();
+
   return (
     <div className="w-screen  flex items-center justify-center h-screen">
       <Formik
@@ -31,7 +34,12 @@ const SignIn = () => {
             ...payload,
             redirect: false,
           });
-          console.log(result);
+          console.log("UI Result", result);
+          if (result.ok) {
+            router.push("/dashboard");
+          } else {
+            console.log("başarısız");
+          }
         }}
       >
         {({

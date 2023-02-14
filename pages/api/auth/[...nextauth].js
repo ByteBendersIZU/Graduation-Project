@@ -55,4 +55,8 @@ export default NextAuth({
       return token;
     },
   },
+  jwt: {
+    secret: "test",
+    encryption: true,
+  },
 });
