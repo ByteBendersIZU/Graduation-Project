@@ -8,7 +8,7 @@ export default function Home() {
   const router = useRouter();
 
   const pushLogIn = () => {
-    router.push("/account/login");
+    router.push("/account/signin");
   };
   return (
     <div className={styles.homePage}>

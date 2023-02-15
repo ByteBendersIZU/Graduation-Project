@@ -20,7 +20,6 @@ export default NextAuth({
         // Add logic here to look up the user from the credentials supplied
         // const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
         const { email, password } = credentials;
-        console.log({ email, password });
 
         const user = await axios({
           method: "post",
@@ -35,6 +34,7 @@ export default NextAuth({
 
         if (user && isSuccess) {
           // Any object returned will be saved in `user` property of the JWT
+          console.log("return user", user);
           return user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
@@ -47,14 +47,13 @@ export default NextAuth({
   ],
   callbacks: {
     async session({ session, user, token }) {
-      console.log("session", { session, user });
-      return session;
+      return { token: token, user: user, ...session };
     },
     async jwt({ token, user, account, profile, isNewUser }) {
-      console.log("jwt", { token, user });
       return token;
     },
   },
+  session: { strategy: "jwt" },
   jwt: {
     secret: "test",
     encryption: true,

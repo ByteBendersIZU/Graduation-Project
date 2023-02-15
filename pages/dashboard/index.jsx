@@ -3,16 +3,16 @@ import { useRouter } from "next/router";
 import React from "react";
 
 const Dashboard = () => {
-  const router = useRouter();
-  const { data: session } = useSession({
-    required: true,
-  });
-
-  if (!session) {
-    return <></>;
-  }
+  const { data: session } = useSession();
+  console.log("session", session);
   return (
     <button
+      style={{
+        backgroundColor: "red",
+        padding: "10px",
+        fontSize: "20px",
+        color: "white",
+      }}
       onClick={() => {
         signOut({
           callbackUrl: "/",
@@ -23,5 +23,7 @@ const Dashboard = () => {
     </button>
   );
 };
+
+Dashboard.auth = true;
 
 export default Dashboard;
