@@ -4,7 +4,7 @@ import React from "react";
 
 const Dashboard = () => {
   const { data: session } = useSession();
-  console.log("session", session);
+  console.log("session", session.user);
   return (
     <button
       style={{

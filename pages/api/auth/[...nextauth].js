@@ -1,9 +1,10 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
-import bcrypt from "bcrypt";
+import jwt_decode from "jwt-decode";
 
 export default NextAuth({
+  pages: { signIn: "account/signin" },
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
@@ -21,7 +22,7 @@ export default NextAuth({
         // const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
         const { email, password } = credentials;
 
-        const user = await axios({
+        const data = await axios({
           method: "post",
           url: "http://54.147.214.160:1453/v1/authenticate",
           headers: {},
@@ -30,12 +31,12 @@ export default NextAuth({
             password,
           },
         });
-        const isSuccess = user.data.message_code === "LOGIN_SUCCESS";
+        const isSuccess = data.data.message_code === "LOGIN_SUCCESS";
+        const decode = await jwt_decode(data.data.result.jwt);
 
-        if (user && isSuccess) {
+        if (data && isSuccess) {
           // Any object returned will be saved in `user` property of the JWT
-          console.log("return user", user);
-          return user;
+          return decode;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;
@@ -46,11 +47,19 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async session({ session, user, token }) {
-      return { token: token, user: user, ...session };
-    },
-    async jwt({ token, user, account, profile, isNewUser }) {
+    async jwt({ token, user, account }) {
+      if (account && user) {
+        return {
+          ...token,
+          user: user,
+        };
+      }
+
       return token;
+    },
+    async session({ session, user, token }) {
+      session.user = token.user;
+      return { session };
     },
   },
   session: { strategy: "jwt" },

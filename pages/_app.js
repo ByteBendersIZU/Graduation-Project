@@ -2,6 +2,7 @@ import { Provider } from "react-redux";
 import { store } from "../redux/store";
 import "../styles/globals.css";
 import { SessionProvider, useSession } from "next-auth/react";
+import Menus from "../components/menus";
 
 export default function App({
   Component,
@@ -11,6 +12,7 @@ export default function App({
     <SessionProvider session={session}>
       {Component.auth ? (
         <Auth>
+          <Menus />
           <Component {...pageProps} />
         </Auth>
       ) : (
