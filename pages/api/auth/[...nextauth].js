@@ -51,14 +51,14 @@ export default NextAuth({
       if (account && user) {
         return {
           ...token,
-          user: user,
+          ...user,
         };
       }
 
       return token;
     },
     async session({ session, user, token }) {
-      session.user = token.user;
+      session.user = token;
       return { session };
     },
   },

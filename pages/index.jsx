@@ -18,7 +18,7 @@ export default function Home() {
           Giris Yap
         </button>
       </div>
-      <body className={styles.body}>
+      <div className={styles.body}>
         <div className={styles.first}>
           <h2 className={styles.h2}>
             Buyumek isteyen sirketlerin 1. numarali tercihi
@@ -29,7 +29,7 @@ export default function Home() {
           </p>
           <button className={styles.btn}>Ucretsiz Dene</button>
         </div>
-      </body>
+      </div>
       <div className={styles.footer}>
         <div>Iletisim Bilgileri</div>
         <div>Odeme Yontemleri</div>

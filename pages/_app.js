@@ -1,8 +1,7 @@
-import { Provider } from "react-redux";
-import { store } from "../redux/store";
 import "../styles/globals.css";
 import { SessionProvider, useSession } from "next-auth/react";
 import Menus from "../components/menus";
+import Header from "../components/header";
 
 export default function App({
   Component,
@@ -12,8 +11,13 @@ export default function App({
     <SessionProvider session={session}>
       {Component.auth ? (
         <Auth>
-          <Menus />
-          <Component {...pageProps} />
+          <div>
+            <Header />
+            <div className="flex w-screen h-screen relative">
+              <Menus />
+              <Component {...pageProps} />
+            </div>
+          </div>
         </Auth>
       ) : (
         <Component {...pageProps} />
