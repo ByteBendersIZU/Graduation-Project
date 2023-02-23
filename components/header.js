@@ -6,7 +6,7 @@ const Header = () => {
     <div className="flex w-full justify-between bg-blue-300 p-3">
       <h1>hrConncet</h1>
       <button
-        className="bg-red-600 text-white text-l rounded-xl"
+        className="bg-red-600 text-white text-l rounded-xl p-1 px-2"
         onClick={() => {
           signOut({
             callbackUrl: "/",

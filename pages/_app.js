@@ -11,10 +11,10 @@ export default function App({
     <SessionProvider session={session}>
       {Component.auth ? (
         <Auth>
-          <div>
-            <Header />
-            <div className="flex w-screen h-screen relative">
-              <Menus />
+          <div className="flex">
+            <Menus />
+            <div className="w-screen h-screen relative">
+              <Header />
               <Component {...pageProps} />
             </div>
           </div>
