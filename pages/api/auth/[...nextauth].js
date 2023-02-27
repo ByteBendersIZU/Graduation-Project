@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
 export default NextAuth({
   pages: { signIn: "account/signin" },
@@ -32,11 +31,10 @@ export default NextAuth({
           },
         });
         const isSuccess = data.data.message_code === "LOGIN_SUCCESS";
-        const decode = await jwt_decode(data.data.result.jwt);
 
         if (data && isSuccess) {
           // Any object returned will be saved in `user` property of the JWT
-          return decode;
+          return data.data.result;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;
@@ -54,7 +52,6 @@ export default NextAuth({
           ...user,
         };
       }
-
       return token;
     },
     async session({ session, user, token }) {
