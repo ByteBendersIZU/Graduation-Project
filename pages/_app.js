@@ -15,7 +15,7 @@ export default function App({
             <Layout />
             <div className="w-screen h-screen relative">
               <Header />
-              <div className="p-8 bg-bgMain h-main overflow-scroll">
+              <div className="p-8 bg-bgMain h-main overflow-scroll dark:bg-darkBg dark:text-white">
                 <Component {...pageProps} />
               </div>
             </div>

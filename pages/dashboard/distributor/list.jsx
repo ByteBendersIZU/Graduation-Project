@@ -8,16 +8,34 @@ const List = (props) => {
   console.log("out", props.data[0]);
   // console.log("props", props);
   return (
-    <ul>
-      <li>{props.data[0].activateed}</li>
-      <li>{props.data[0].confirmed}</li>
-      <li>{props.data[0].email}</li>
-      <li>{props.data[0].id}</li>
-      <li>{props.data[0].name}</li>
-      <li>{props.data[0].phoneNumber}</li>
-      <li>{props.data[0].superAdminId}</li>
-      <li>{props.data[0].surname}</li>
-    </ul>
+    <div>
+      <div className="flex">
+        <input
+          type="text"
+          placeholder="Distributor Ara"
+          className=" w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+        <button className=" ml-2 p-2 border border-gray-300 rounded-lg bg-gray-50 sm:text-md dark:text-black">
+          Ara
+        </button>
+      </div>
+      <div>
+        {props.data.map((distributor) => (
+          <ul key={distributor.id} className="flex justify-around py-5">
+            <li>{distributor.name}</li>
+            <li>{distributor.surname}</li>
+            <li>{distributor.email}</li>
+            <li>{distributor.phoneNumber}</li>
+            <li>
+              {distributor.confirmed ? <span>true</span> : <span>false</span>}
+            </li>
+            <li>
+              {distributor.actived ? <span>true</span> : <span>false</span>}
+            </li>
+          </ul>
+        ))}
+      </div>
+    </div>
   );
 };
 
