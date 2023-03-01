@@ -3,8 +3,19 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        bgMain: "#F6F6F8",
+        darkMain: "#262626",
+        darkBg: "#313131",
+      },
+      height: {
+        main: "calc(100vh - 4rem)",
+        ana: "50rem",
+      },
+    },
   },
   plugins: [],
 };
