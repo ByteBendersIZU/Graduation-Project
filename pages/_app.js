@@ -15,7 +15,10 @@ export default function App({
             <Layout />
             <div className="w-screen h-screen relative">
               <Header />
-              <Component {...pageProps} />
+            <div className="p-5">
+            <Component {...pageProps} />
+
+            </div>
             </div>
           </div>
         </Auth>
