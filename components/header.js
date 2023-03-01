@@ -1,22 +1,13 @@
-import { signOut } from "next-auth/react";
+import { decode } from "next-auth/jwt";
+import { useSession } from "next-auth/react";
+import jwt_decode from "jwt-decode";
 import React from "react";
 
 const Header = () => {
-  return (
-    <div className="flex w-full justify-between bg-blue-300 p-3">
-      <h1>hrConncet</h1>
-      <button
-        className="bg-red-600 text-white text-l rounded-xl p-1 px-2"
-        onClick={() => {
-          signOut({
-            callbackUrl: "/",
-          });
-        }}
-      >
-        Sign Out
-      </button>
-    </div>
-  );
+  const session = useSession();
+  const user = jwt_decode(session.data.session.user.jwt);
+  console.log(user);
+  return <div className="flex w-full justify-between p-3">ByteBenders - {user.sub}</div>;
 };
 
 export default Header;
