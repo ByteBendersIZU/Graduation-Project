@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import { SessionProvider, useSession } from "next-auth/react";
-import Menus from "../components/menus";
 import Header from "../components/header";
+import Layout from "../components/Layout";
 
 export default function App({
   Component,
@@ -12,7 +12,7 @@ export default function App({
       {Component.auth ? (
         <Auth>
           <div className="flex">
-            <Menus />
+            <Layout />
             <div className="w-screen h-screen relative">
               <Header />
               <Component {...pageProps} />
