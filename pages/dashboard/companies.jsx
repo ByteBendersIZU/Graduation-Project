@@ -6,4 +6,4 @@ const Companies = () => {
 
 export default Companies;
 
-Companies.auth = true;
+// Companies.auth = true;

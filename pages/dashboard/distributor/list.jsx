@@ -5,7 +5,7 @@ import React from "react";
 
 const List = (props) => {
   // const session = useSession();
-  console.log("out", props.data[0]);
+  console.log("out", props.data);
   // console.log("props", props);
   return (
     <div>
@@ -13,9 +13,9 @@ const List = (props) => {
         <input
           type="text"
           placeholder="Distributor Ara"
-          className=" w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className=" w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:bg-darkBg "
         />
-        <button className=" ml-2 p-2 border border-gray-300 rounded-lg bg-gray-50 sm:text-md">
+        <button className=" ml-2 p-2 border border-gray-300 rounded-lg bg-gray-50 sm:text-md dark:bg-darkBg">
           Ara
         </button>
       </div>

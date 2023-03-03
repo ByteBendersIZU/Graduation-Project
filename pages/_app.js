@@ -15,10 +15,9 @@ export default function App({
             <Layout />
             <div className="w-screen h-screen relative">
               <Header />
-            <div className="p-5">
-            <Component {...pageProps} />
-
-            </div>
+              <div className="p-8 bg-bgMain h-main  dark:bg-darkBg dark:text-white overflow-x-hidden">
+                <Component {...pageProps} />
+              </div>
             </div>
           </div>
         </Auth>

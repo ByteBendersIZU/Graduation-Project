@@ -14,9 +14,8 @@ import {
 } from "./icons";
 
 const menuItems = [
-  {  label: "Home", icon: HomeIcon, link: "/dashboard" },
+  { label: "Home", icon: HomeIcon, link: "/dashboard" },
   {
-
     label: "Distributor",
     icon: UsersIcon,
     subMenus: [
@@ -50,7 +49,7 @@ const SideBar = () => {
   );
 
   const wrapperClasses = classNames(
-    "h-screen px-4 pt-8 pb-4 bg-light flex justify-between flex-col",
+    "h-screen px-4 pt-8 pb-4 bg-light flex justify-between flex-col drop-shadow-lg",
     {
       ["w-80"]: !toggleCollapse,
       ["w-20"]: toggleCollapse,
@@ -66,7 +65,7 @@ const SideBar = () => {
 
   const getNavItemClasses = (menu) => {
     return classNames(
-      "flex items-center cursor-pointer hover:bg-light-lighter rounded w-full overflow-hidden whitespace-nowrap",
+      "flex items-center cursor-pointer hover:bg-light-lighter rounded w-full overflow-hidden whitespace-nowrap"
       // {
       //   ["bg-light-lighter"]: activeMenu.id === menu.id,
       // }
