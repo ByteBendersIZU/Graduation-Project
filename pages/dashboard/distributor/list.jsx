@@ -101,7 +101,6 @@ export const getServerSideProps = async (context) => {
       Authorization: `Bearer ${jwt}`,
     },
   });
-  console.log(result);
 
   return {
     props: {

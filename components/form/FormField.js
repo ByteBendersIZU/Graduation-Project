@@ -7,7 +7,7 @@ const FormField = ({ type, name }) => {
       autoComplete="true"
       type={type}
       name={name}
-      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-darkBg dark:text-white "
     />
   );
 };

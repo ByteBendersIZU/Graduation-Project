@@ -19,7 +19,6 @@ const Header = () => {
 
   const session = useSession();
   const user = jwt_decode(session.data.session.user.jwt);
-  console.log(user);
   return (
     <div className="flex w-full justify-between items-center p-3 drop-shadow-lg shadow-lg h-16 dark:bg-darkMain dark:text-white z-10">
       <div>ByteBenders - {user.sub}</div>
