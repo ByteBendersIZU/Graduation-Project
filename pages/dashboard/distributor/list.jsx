@@ -16,11 +16,11 @@ const List = (props) => {
           type="text"
           onChange={(e) => setInputSearch(e.target.value)}
           placeholder="Search"
-          className=" w-full p-2 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 s dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className=" w-full p-2 border border-gray-300 rounded-lg dark:text-black bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 s dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
       </div>
       <div>
-        <div className="relative m-10 overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="relative my-10 overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
