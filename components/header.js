@@ -3,10 +3,10 @@ import { useSession } from "next-auth/react";
 import jwt_decode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 
-import { BsSun, BsFillMoonStarsFill, BsGithub } from "react-icons/bs";
+import { BsSun, BsFillMoonStarsFill } from "react-icons/bs";
 
 const Header = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState();
   useEffect(() => {
     theme
       ? document.documentElement.classList.add("dark")
@@ -21,7 +21,7 @@ const Header = () => {
   const user = jwt_decode(session.data.session.user.jwt);
   console.log(user);
   return (
-    <div className="flex w-full justify-between p-3 drop-shadow-lg shadow-lg h-16 dark:bg-darkMain dark:text-white">
+    <div className="flex w-full justify-between items-center p-3 drop-shadow-lg shadow-lg h-16 dark:bg-darkMain dark:text-white z-10">
       <div>ByteBenders - {user.sub}</div>
       <button className="  p-2 rounded-full" onClick={() => handleTheme()}>
         {theme ? <BsSun /> : <BsFillMoonStarsFill />}
