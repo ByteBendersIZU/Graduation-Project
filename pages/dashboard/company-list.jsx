@@ -3,6 +3,7 @@ import { getSession, useSession } from "next-auth/react";
 import { useState } from "react";
 
 import React from "react";
+import Pagination from "../../components/ui/pagination";
 
 const CompanyList = (props) => {
   const [inputSearch, setInputSearch] = useState("");
@@ -41,7 +42,7 @@ const CompanyList = (props) => {
                 </th>
               </tr>
             </thead>
-            {/* <tbody>
+            <tbody>
               {getDistributor
                 .filter((distributor) =>
                   keys.some((key) =>
@@ -74,10 +75,11 @@ const CompanyList = (props) => {
                     </td>
                   </tr>
                 ))}
-            </tbody> */}
+            </tbody>
           </table>
         </div>
       </div>
+      <Pagination />
     </div>
   );
 };

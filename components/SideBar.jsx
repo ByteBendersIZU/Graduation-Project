@@ -24,7 +24,7 @@ const menuItems = [
     icon: GrUser,
     subMenus: [
       {
-        title: "Distributor Ekle",
+        title: "Add Distributor",
         src: "/dashboard/distributor/add-distributor",
 
         cName: "sub-nav",
@@ -39,11 +39,11 @@ const menuItems = [
     link: "/dashboard",
   },
   {
-    label: "Organizasyon",
+    label: "Organization",
     icon: GrOrganization,
     subMenus: [
       {
-        title: "Sirket Listesi",
+        title: "Company List",
         src: "/dashboard/company-list",
 
         cName: "sub-nav",

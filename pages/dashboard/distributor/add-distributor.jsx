@@ -19,7 +19,7 @@ const AddDistributor = () => {
   } = useSession();
   return (
     <div>
-      <PageHeader header={"Distribütör Ekle"} />
+      <PageHeader header={"Add Distributor"} />
       <Formik
         initialValues={{
           email: "",
@@ -81,10 +81,10 @@ const AddDistributor = () => {
               />
               <FormToggle
                 type="checkbox"
-                labelName="Muhasebeci"
+                labelName="Accountant"
                 name="accountant"
               />
-              <FormButton type="submit" buttonName="Distribütor Ekle" />
+              <FormButton type="submit" buttonName="Add Distributor" />
             </div>
           </Form>
         )}
