@@ -12,12 +12,16 @@ import {
   UsersIcon,
   VideosIcon,
 } from "./icons";
+import { GrOrganization,GrUser,GrHome,GrLogout } from 'react-icons/gr';
+import { FiArrowLeft } from 'react-icons/fi';
+import { BiDownArrow } from 'react-icons/bi';
+
 
 const menuItems = [
-  { label: "Home", icon: HomeIcon, link: "/dashboard" },
+  { label: "Home", icon: GrHome, link: "/dashboard" },
   {
     label: "Distributor",
-    icon: UsersIcon,
+    icon: GrUser,
     subMenus: [
       {
         title: "Distributor Ekle",
@@ -28,6 +32,19 @@ const menuItems = [
       {
         title: "Distributor List",
         src: "/dashboard/distributor/list",
+
+        cName: "sub-nav",
+      },
+    ],
+    link: "/dashboard",
+  },
+  {
+    label: "Organizasyon",
+    icon: GrOrganization,
+    subMenus: [
+      {
+        title: "Sirket Listesi",
+        src: "/dashboard/company-list",
 
         cName: "sub-nav",
       },
@@ -105,20 +122,19 @@ const SideBar = () => {
               className={collapseIconClasses}
               onClick={handleSidebarToggle}
             >
-              <CollapsIcon />
+              <FiArrowLeft />
             </button>
           )}
         </div>
 
         <div className="flex flex-col items-start mt-8">
-          {menuItems.map(({ icon: Icon, ...menu }) => {
+          {menuItems.map(({ icon: Icon, ...menu },id) => {
             const classes = getNavItemClasses(menu);
             return (
-              <div className={classes}>
+              <div className={classes} key={id} >
                 <ul className="pt-6">
                   <>
                     <li
-                      key={menu.id}
                       className={`flex  rounded-md p-2 cursor-pointer hover:bg-teal-400  text-sm items-center gap-x-4 
               ${menu.gap ? "mt-9" : "mt-2"}  `}
                     >
@@ -129,9 +145,9 @@ const SideBar = () => {
                         <Link href={menu.link}>{menu.label}</Link>
                       )}
                       {menu.subMenus && (
-                        <CollapsIcon
+                        <BiDownArrow
                           onClick={() => setSubMenuOpen(!subMenuOpen)}
-                          className={`rotate-180 ${subMenuOpen && "rotate-90"}`}
+                          className={`${subMenuOpen && "rotate-90"}`}
                         />
                       )}
                     </li>
@@ -166,7 +182,7 @@ const SideBar = () => {
         }}
       >
         <div style={{ width: "2.5rem" }}>
-          <LogoutIcon />
+          <GrLogout />
         </div>
         {!toggleCollapse && (
           <span className={classNames("text-md font-medium text-text-light")}>

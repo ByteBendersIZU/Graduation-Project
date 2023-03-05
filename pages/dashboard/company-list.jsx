@@ -3,20 +3,11 @@ import { getSession, useSession } from "next-auth/react";
 import { useState } from "react";
 
 import React from "react";
-import Pagination from "../../../components/ui/pagination";
 
-const List = (props) => {
+const CompanyList = (props) => {
   const [inputSearch, setInputSearch] = useState("");
   const [getDistributor, setGetDistributor] = useState(props.data);
   const keys = ["name", "surname", "email", "phoneNumber"];
-
-  const handleDelete = async (id) => {
-    try {
-      const res = await axios.delete("http://54.147.214.160:1453/v1/distributor/list")
-    } catch (error) {
-      console.log(error)
-    }
-  };
 
   return (
     <div>
@@ -48,12 +39,9 @@ const List = (props) => {
                 <th scope="col" className="px-6 py-3">
                   Update
                 </th>
-                <th scope="col" className="px-6 py-3">
-                  Delete
-                </th>
               </tr>
             </thead>
-            <tbody>
+            {/* <tbody>
               {getDistributor
                 .filter((distributor) =>
                   keys.some((key) =>
@@ -84,28 +72,19 @@ const List = (props) => {
                         Edit
                       </a>
                     </td>
-                    <td className="px-6 py-4">
-                      <button
-                        // onClick={()=handleDelete(distributor.id)}
-                        className="font-medium text-red-600 dark:text-red-500 hover:underline"
-                      >
-                        Delete
-                      </button>
-                    </td>
                   </tr>
                 ))}
-            </tbody>
+            </tbody> */}
           </table>
         </div>
       </div>
-      <Pagination />
     </div>
   );
 };
 
-List.auth = true;
+CompanyList.auth = true;
 
-export default List;
+export default CompanyList;
 
 export const getServerSideProps = async (context) => {
   const {
@@ -117,7 +96,7 @@ export const getServerSideProps = async (context) => {
     data: { result },
   } = await axios({
     method: "get",
-    url: "http://54.147.214.160:1453/v1/distributor/list",
+    url: "http://54.147.214.160:1453/v1/company/list/true",
     headers: {
       Authorization: `Bearer ${jwt}`,
     },
