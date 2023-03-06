@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import PageHeader from "../../../../components/PageHeader";
 import FormGroup from "../../../../components/form/FormGroup";
-import FormToggle from "../../../../components/form/FormToggle";
 import FormButton from "../../../../components/form/FormButton";
 import { toast } from "react-toastify";
 
@@ -20,7 +19,7 @@ const Id = ({ result }) => {
   } = useSession();
   return (
     <div>
-      <PageHeader header={"Distribütör Ekle"} />
+      <PageHeader header={"Add Distributeur"} />
       <Formik
         initialValues={{
           email: result.email,

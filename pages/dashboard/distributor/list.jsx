@@ -5,6 +5,7 @@ import { useState } from "react";
 import React from "react";
 import Pagination from "../../../components/ui/pagination";
 import Link from "next/link";
+import PageHeader from "../../../components/PageHeader";
 
 const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
@@ -23,6 +24,8 @@ const List = (props) => {
 
   return (
     <div>
+      <PageHeader header={"Distribütör Ekle"} />
+
       <div className="flex">
         <input
           type="text"
