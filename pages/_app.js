@@ -2,6 +2,8 @@ import "../styles/globals.css";
 import { SessionProvider, useSession } from "next-auth/react";
 import Header from "../components/header";
 import Layout from "../components/Layout";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App({
   Component,
@@ -9,6 +11,7 @@ export default function App({
 }) {
   return (
     <SessionProvider session={session}>
+      <ToastContainer position="bottom-right" />
       {Component.auth ? (
         <Auth>
           <div className="flex">

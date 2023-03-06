@@ -1,9 +1,10 @@
 import { Field } from "formik";
 import React from "react";
 
-const FormField = ({ type, name }) => {
+const FormField = ({ type, name, disabled }) => {
   return (
     <Field
+      disabled={disabled}
       autoComplete="true"
       type={type}
       name={name}

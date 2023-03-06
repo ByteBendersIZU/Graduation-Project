@@ -1,16 +1,16 @@
+import { getSession, useSession } from "next-auth/react";
 import React from "react";
 import axios from "axios";
-
-import PageHeader from "../../../components/PageHeader";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
-import FormGroup from "../../../components/form/FormGroup";
-import FormButton from "../../../components/form/FormButton";
-import FormToggle from "../../../components/form/FormToggle";
-import { useSession } from "next-auth/react";
+import PageHeader from "../../../../components/PageHeader";
+import FormGroup from "../../../../components/form/FormGroup";
+import FormToggle from "../../../../components/form/FormToggle";
+import FormButton from "../../../../components/form/FormButton";
 import { toast } from "react-toastify";
 
-const AddDistributor = () => {
+const Id = ({ result }) => {
+  console.log(result);
   const {
     data: {
       session: {
@@ -23,22 +23,17 @@ const AddDistributor = () => {
       <PageHeader header={"Distribütör Ekle"} />
       <Formik
         initialValues={{
-          email: "",
-          password: "",
-          name: "",
-          surname: "",
-          phoneNumber: "",
-          accountant: false,
+          email: result.email,
+          name: result.name,
+          surname: result.surname,
+          phoneNumber: result.phoneNumber,
         }}
         validationSchema={Yup.object({
           email: Yup.string()
             .max(30, "Email must be 30 characters or less")
             .email("Invalid email address")
             .required("Please enter your email"),
-          password: Yup.string()
-            .required("Please enter your password")
-            .min(6, "Password must be 6 characters or more")
-            .max(30, "Password must be 30 characters or less"),
+
           name: Yup.string()
             .required("Please enter your name")
             .min(3, "Name must be 3 characters or more")
@@ -52,7 +47,7 @@ const AddDistributor = () => {
           const payload = { ...values };
           console.log("values", values);
           const data = await axios({
-            method: "post",
+            method: "put",
             url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor`,
             headers: {
               Authorization: `Bearer ${jwt}`,
@@ -81,18 +76,13 @@ const AddDistributor = () => {
                 name="phoneNumber"
                 labelName={"Phone Number"}
               />
-              <FormGroup type="email" name="email" labelName={"Email"} />
               <FormGroup
-                type="password"
-                name="password"
-                labelName={"Password"}
+                type="email"
+                name="email"
+                labelName={"Email"}
+                disabled
               />
-              <FormToggle
-                type="checkbox"
-                labelName="Muhasebeci"
-                name="accountant"
-              />
-              <FormButton type="submit" buttonName="Distribütor Ekle" />
+              <FormButton type="submit" buttonName="Update Distributeur" />
             </div>
           </Form>
         )}
@@ -100,6 +90,30 @@ const AddDistributor = () => {
     </div>
   );
 };
-AddDistributor.auth = true;
 
-export default AddDistributor;
+Id.auth = true;
+export default Id;
+
+export const getServerSideProps = async (context) => {
+  const { id } = context.query;
+  const {
+    session: {
+      user: { jwt },
+    },
+  } = await getSession(context);
+  const {
+    data: { result },
+  } = await axios({
+    method: "get",
+    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/${id}`,
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
+
+  return {
+    props: {
+      result,
+    },
+  };
+};

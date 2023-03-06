@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import React from "react";
 import Pagination from "../../../components/ui/pagination";
+import Link from "next/link";
 
 const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
@@ -12,9 +13,11 @@ const List = (props) => {
 
   const handleDelete = async (id) => {
     try {
-      const res = await axios.delete("http://54.147.214.160:1453/v1/distributor/list")
+      const res = await axios.delete(
+        "http://54.147.214.160:1453/v1/distributor/list"
+      );
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -77,12 +80,12 @@ const List = (props) => {
                     <td className="px-6 py-4">{distributor.email}</td>
                     <td className="px-6 py-4">{distributor.phoneNumber}</td>
                     <td className="px-6 py-4">
-                      <a
-                        href="#"
+                      <Link
+                        href={`update-distributor/${distributor.id}`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Edit
-                      </a>
+                      </Link>
                     </td>
                     <td className="px-6 py-4">
                       <button
