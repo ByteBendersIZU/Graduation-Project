@@ -20,7 +20,10 @@ const AddDistributor = () => {
   } = useSession();
   return (
     <div>
-      <PageHeader header={"Add Distributor"} />
+      <PageHeader
+        header={"Add Distributeur"}
+        breadcrumb={["Distributeur", "Add Distributeur"]}
+      />
       <Formik
         initialValues={{
           email: "",

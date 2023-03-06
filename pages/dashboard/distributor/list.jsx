@@ -13,8 +13,8 @@ const List = (props) => {
   const keys = ["name", "surname", "email", "phoneNumber"];
 
   const changeInput = (value) => {
-    setInputSearch(value)
-  }
+    setInputSearch(value);
+  };
 
   const handleDelete = async (id) => {
     try {
@@ -26,10 +26,12 @@ const List = (props) => {
     }
   };
 
-  
   return (
     <div>
-      <PageHeader header={"Distribütör Ekle"} />
+      <PageHeader
+        header={"Distributeur List"}
+        breadcrumb={["Distributeur", "Distributeur List"]}
+      />
 
       <div className="flex">
         <input

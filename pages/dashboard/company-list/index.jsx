@@ -3,7 +3,8 @@ import { getSession, useSession } from "next-auth/react";
 import { useState } from "react";
 
 import React from "react";
-import Pagination from "../../components/ui/pagination";
+import Pagination from "../../../components/ui/pagination";
+import PageHeader from "../../../components/PageHeader";
 
 const CompanyList = (props) => {
   const [inputSearch, setInputSearch] = useState("");
@@ -12,6 +13,10 @@ const CompanyList = (props) => {
 
   return (
     <div>
+      <PageHeader
+        header={"Organization List"}
+        breadcrumb={["Organization", "Organization List"]}
+      />
       <div className="flex">
         <input
           type="text"

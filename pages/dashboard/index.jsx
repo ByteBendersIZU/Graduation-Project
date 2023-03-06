@@ -1,10 +1,11 @@
 import Link from "next/link";
 import React from "react";
+import PageHeader from "../../components/PageHeader";
 
 const Dashboard = () => {
   return (
-    <div className="mt-10">
-      <Link href="/dashboard/distributor/list">DASHBOARD</Link>
+    <div>
+      <PageHeader header={"Home"} />
     </div>
   );
 };

@@ -3,15 +3,6 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useMemo } from "react";
-import {
-  ArticleIcon,
-  CollapsIcon,
-  HomeIcon,
-  LogoIcon,
-  LogoutIcon,
-  UsersIcon,
-  VideosIcon,
-} from "./icons";
 import { GrOrganization, GrUser, GrHome, GrLogout } from "react-icons/gr";
 import { FiArrowLeft } from "react-icons/fi";
 import { BiDownArrow } from "react-icons/bi";
@@ -69,7 +60,7 @@ const SideBar = () => {
   const wrapperClasses = classNames(
     "h-screen px-4 pt-8 pb-4 bg-light flex justify-between flex-col drop-shadow-lg",
     {
-      ["w-80"]: !toggleCollapse,
+      ["w-60"]: !toggleCollapse,
       ["w-20"]: toggleCollapse,
     }
   );
@@ -83,10 +74,7 @@ const SideBar = () => {
 
   const getNavItemClasses = (menu) => {
     return classNames(
-      "flex items-center cursor-pointer hover:bg-light-lighter rounded w-full overflow-hidden whitespace-nowrap",
-      {
-        ["bg-light-lighter"]: activeMenu.id === menu.id,
-      }
+      "flex items-center cursor-pointer hover:bg-light-lighter rounded w-full overflow-hidden whitespace-nowrap"
     );
   };
 
@@ -133,13 +121,13 @@ const SideBar = () => {
             const classes = getNavItemClasses(menu);
             return (
               <div className={classes} key={menu.id}>
-                <ul className="pt-6">
+                <ul className="">
                   <>
                     <li
-                      className={`flex  rounded-md p-2 cursor-pointer hover:bg-teal-400  text-sm items-center gap-x-4 
+                      className={`flex  rounded-md p-2 cursor-pointer hover:bg-teal-400  text-sm items-center gap-x-4 font-semibold dark:text-gray-500
               ${menu.gap ? "mt-9" : "mt-2"}  `}
                     >
-                      <Icon />
+                      <Icon className="text-2xl" />
                       {menu.subMenus ? (
                         <span className="flex-1">{menu.label}</span>
                       ) : (
