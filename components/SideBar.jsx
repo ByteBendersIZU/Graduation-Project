@@ -12,19 +12,19 @@ import {
   UsersIcon,
   VideosIcon,
 } from "./icons";
-import { GrOrganization,GrUser,GrHome,GrLogout } from 'react-icons/gr';
-import { FiArrowLeft } from 'react-icons/fi';
-import { BiDownArrow } from 'react-icons/bi';
-
+import { GrOrganization, GrUser, GrHome, GrLogout } from "react-icons/gr";
+import { FiArrowLeft } from "react-icons/fi";
+import { BiDownArrow } from "react-icons/bi";
 
 const menuItems = [
-  { label: "Home", icon: GrHome, link: "/dashboard" },
+  { id: 1, label: "Home", icon: GrHome, link: "/dashboard" },
   {
+    id: 2,
     label: "Distributor",
     icon: GrUser,
     subMenus: [
       {
-        title: "Distributor Ekle",
+        title: "Add Distributor",
         src: "/dashboard/distributor/add-distributor",
 
         cName: "sub-nav",
@@ -39,11 +39,12 @@ const menuItems = [
     link: "/dashboard",
   },
   {
-    label: "Organizasyon",
+    id: 3,
+    label: "Organization",
     icon: GrOrganization,
     subMenus: [
       {
-        title: "Sirket Listesi",
+        title: "Company List",
         src: "/dashboard/company-list",
 
         cName: "sub-nav",
@@ -82,10 +83,10 @@ const SideBar = () => {
 
   const getNavItemClasses = (menu) => {
     return classNames(
-      "flex items-center cursor-pointer hover:bg-light-lighter rounded w-full overflow-hidden whitespace-nowrap"
-      // {
-      //   ["bg-light-lighter"]: activeMenu.id === menu.id,
-      // }
+      "flex items-center cursor-pointer hover:bg-light-lighter rounded w-full overflow-hidden whitespace-nowrap",
+      {
+        ["bg-light-lighter"]: activeMenu.id === menu.id,
+      }
     );
   };
 
@@ -128,10 +129,10 @@ const SideBar = () => {
         </div>
 
         <div className="flex flex-col items-start mt-8">
-          {menuItems.map(({ icon: Icon, ...menu },id) => {
+          {menuItems.map(({ icon: Icon, ...menu }) => {
             const classes = getNavItemClasses(menu);
             return (
-              <div className={classes} key={id} >
+              <div className={classes} key={menu.id}>
                 <ul className="pt-6">
                   <>
                     <li
