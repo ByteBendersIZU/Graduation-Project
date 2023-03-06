@@ -10,6 +10,10 @@ const List = (props) => {
   const [getDistributor, setGetDistributor] = useState(props.data);
   const keys = ["name", "surname", "email", "phoneNumber"];
 
+  const changeInput = (value) => {
+    setInputSearch(value)
+  }
+
   const handleDelete = async (id) => {
     try {
       const res = await axios.delete("http://54.147.214.160:1453/v1/distributor/list")
@@ -18,12 +22,13 @@ const List = (props) => {
     }
   };
 
+  
   return (
     <div>
       <div className="flex">
         <input
           type="text"
-          onChange={(e) => setInputSearch(e.target.value)}
+          onChange={(e) => changeInput(e.target.value)}
           placeholder="Search"
           className=" w-full p-2 border border-gray-300 rounded-lg dark:text-black bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 s dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
