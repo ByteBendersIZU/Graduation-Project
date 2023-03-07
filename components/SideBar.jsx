@@ -74,7 +74,7 @@ const SideBar = () => {
 
   const getNavItemClasses = (menu) => {
     return classNames(
-      "flex items-center cursor-pointer hover:bg-light-lighter rounded w-full overflow-hidden whitespace-nowrap"
+      "flex justify-between items-center w-full overflow-hidden hover:block"
     );
   };
 
@@ -124,8 +124,7 @@ const SideBar = () => {
                 <ul className="">
                   <>
                     <li
-                      className={`flex  rounded-md p-2 cursor-pointer hover:bg-teal-400  text-sm items-center gap-x-4 font-semibold dark:text-gray-500
-              ${menu.gap ? "mt-9" : "mt-2"}  `}
+                      className={`flex mt-2 rounded-md p-2 cursor-pointer hover:bg-teal-400  text-sm items-center gap-x-4 font-semibold dark:text-gray-500`}
                     >
                       <Icon className="text-2xl" />
                       {menu.subMenus ? (
@@ -136,7 +135,7 @@ const SideBar = () => {
                       {menu.subMenus && (
                         <BiDownArrow
                           onClick={() => setSubMenuOpen(!subMenuOpen)}
-                          className={`${subMenuOpen && "rotate-90"}`}
+                          className={` ${subMenuOpen && "rotate-90"}`}
                         />
                       )}
                     </li>
@@ -145,7 +144,7 @@ const SideBar = () => {
                         {menu.subMenus.map((subMenuItem, idx) => (
                           <li
                             key={idx}
-                            className="flex px-10 cursor-pointer text-center text-sm text-black-100 py-1"
+                            className="flex px-10 mt-2 cursor-pointer text-center text-sm text-black-100 py-1"
                           >
                             <Link href={subMenuItem.src}>
                               {subMenuItem.title}

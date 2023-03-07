@@ -9,6 +9,8 @@ import PageHeader from "../../../components/PageHeader";
 
 const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
+  const [num, setNum] = useState(1);
+  const [cur, setCur] = useState(1);
   const [getDistributor, setGetDistributor] = useState(props.data);
   const keys = ["name", "surname", "email", "phoneNumber"];
 
@@ -111,7 +113,6 @@ const List = (props) => {
           </table>
         </div>
       </div>
-      <Pagination />
     </div>
   );
 };
