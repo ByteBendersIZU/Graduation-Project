@@ -11,6 +11,13 @@ const CompanyList = (props) => {
   const [getDistributor, setGetDistributor] = useState(props.data);
   const keys = ["name", "surname", "email", "phoneNumber"];
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostsPerPage] = useState(10);
+
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexFirstPost = indexOfLastPost - postPerPage;
+  const currentPosts = getDistributor.slice(indexFirstPost, indexOfLastPost);
+
   return (
     <div>
       <PageHeader
@@ -48,7 +55,7 @@ const CompanyList = (props) => {
               </tr>
             </thead>
             <tbody>
-              {getDistributor
+              {currentPosts
                 .filter((distributor) =>
                   keys.some((key) =>
                     distributor[key]

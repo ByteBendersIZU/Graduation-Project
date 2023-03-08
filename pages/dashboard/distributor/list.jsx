@@ -10,11 +10,16 @@ import Table from "../../../components/ui/Table";
 
 const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
-  const [num, setNum] = useState(1);
-  const [cur, setCur] = useState(1);
   const [getDistributor, setGetDistributor] = useState(props.data);
   const inputKeys = ["name", "surname", "email", "phoneNumber"];
   const titles = ["name", "surname", "e-mail", "phone Number"];
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostsPerPage] = useState(10);
+
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexFirstPost = indexOfLastPost - postPerPage;
+  const currentPosts = getDistributor.slice(indexFirstPost, indexOfLastPost);
 
   const changeInput = (value) => {
     setInputSearch(value);
@@ -71,7 +76,7 @@ const List = (props) => {
               </tr>
             </thead>
             <tbody>
-              {getDistributor
+              {currentPosts
                 .filter((distributor) =>
                   inputKeys.some((key) =>
                     distributor[key]
@@ -111,8 +116,13 @@ const List = (props) => {
             </tbody>
           </table>
         </div>
+        <Pagination
+          postsPerPage={postPerPage}
+          totalPosts={getDistributor.length}
+        />
       </div>
-      <Table data={getDistributor} column={inputKeys} titles={titles} />
+
+      {/* <Table data={getDistributor} column={inputKeys} titles={titles} /> */}
     </div>
   );
 };
