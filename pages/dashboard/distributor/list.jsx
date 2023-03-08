@@ -6,13 +6,15 @@ import React from "react";
 import Pagination from "../../../components/ui/pagination";
 import Link from "next/link";
 import PageHeader from "../../../components/PageHeader";
+import Table from "../../../components/ui/Table";
 
 const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
   const [num, setNum] = useState(1);
   const [cur, setCur] = useState(1);
   const [getDistributor, setGetDistributor] = useState(props.data);
-  const keys = ["name", "surname", "email", "phoneNumber"];
+  const inputKeys = ["name", "surname", "email", "phoneNumber"];
+  const titles = ["name", "surname", "e-mail", "phone Number"];
 
   const changeInput = (value) => {
     setInputSearch(value);
@@ -71,7 +73,7 @@ const List = (props) => {
             <tbody>
               {getDistributor
                 .filter((distributor) =>
-                  keys.some((key) =>
+                  inputKeys.some((key) =>
                     distributor[key]
                       .toLowerCase()
                       .includes(inputSearch.toLowerCase())
@@ -100,10 +102,7 @@ const List = (props) => {
                       </Link>
                     </td>
                     <td className="px-6 py-4">
-                      <button
-                        // onClick={()=handleDelete(distributor.id)}
-                        className="font-medium text-red-600 dark:text-red-500 hover:underline"
-                      >
+                      <button className="font-medium text-red-600 dark:text-red-500 hover:underline">
                         Delete
                       </button>
                     </td>
@@ -113,6 +112,7 @@ const List = (props) => {
           </table>
         </div>
       </div>
+      <Table data={getDistributor} column={inputKeys} titles={titles} />
     </div>
   );
 };
