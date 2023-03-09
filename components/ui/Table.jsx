@@ -1,6 +1,7 @@
 import React from "react";
+import Link from "next/link";
 
-const Table = ({ data, column, titles }) => {
+const Table = ({ data, column, titles, buttons, inputSearch }) => {
   return (
     <div className="relative my-10 overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -12,9 +13,15 @@ const Table = ({ data, column, titles }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
-            <TableRow item={item} column={column} />
-          ))}
+          {data
+            .filter((item) =>
+              column.some((key) =>
+                item[key].toLowerCase().includes(inputSearch.toLowerCase())
+              )
+            )
+            .map((item, index) => (
+              <TableRow item={item} column={column} buttons={buttons} />
+            ))}
         </tbody>
       </table>
     </div>
@@ -26,12 +33,26 @@ const TableHeadItem = ({ item }) => (
     {item}
   </th>
 );
-const TableRow = ({ item, column }) => (
-  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-    {column.map((columnItem, index) => (
-      <td className="px-6 py-4">{item[`${columnItem}`]}</td>
-    ))}
-  </tr>
-);
+const TableRow = ({ item, column, buttons }) => {
+  return (
+    <>
+      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        {column.map((columnItem, index) => (
+          <td className="px-6 py-4">{item[`${columnItem}`]}</td>
+        ))}
+        <td className="px-6 py-4">
+          {buttons.map((button) => (
+            <Link
+              href={`${button.href}/${item.id}`}
+              className="mr-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            >
+              {button.name}
+            </Link>
+          ))}
+        </td>
+      </tr>
+    </>
+  );
+};
 
 export default Table;
