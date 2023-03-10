@@ -6,13 +6,34 @@ import React from "react";
 import Pagination from "../../../components/ui/pagination";
 import Link from "next/link";
 import PageHeader from "../../../components/PageHeader";
+import Table from "../../../components/ui/Table";
+import Input from "../../../components/ui/Input";
 
 const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
   const [getDistributor, setGetDistributor] = useState(props.data);
-  const keys = ["name", "surname", "email", "phoneNumber"];
+  const inputKeys = ["name", "surname", "email", "phoneNumber"];
+  const titles = ["name", "surname", "e-mail", "phone Number", "Edit"];
+  const buttons = [
+    { name: "update", href: "update-distributor" },
+    { name: "delete", href: "#" },
+  ];
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostsPerPage] = useState(10);
+
+  const filtredList = getDistributor.filter((distributor) =>
+    inputKeys.some((key) =>
+      distributor[key].toLowerCase().includes(inputSearch.toLowerCase())
+    )
+  );
+
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexFirstPost = indexOfLastPost - postPerPage;
+  const currentPosts = filtredList.slice(indexFirstPost, indexOfLastPost);
 
   const changeInput = (value) => {
+    setCurrentPage(1);
     setInputSearch(value);
   };
 
@@ -26,6 +47,10 @@ const List = (props) => {
     }
   };
 
+  const handleCurrentPage = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div>
       <PageHeader
@@ -33,14 +58,7 @@ const List = (props) => {
         breadcrumb={["Distributeur", "Distributeur List"]}
       />
 
-      <div className="flex">
-        <input
-          type="text"
-          onChange={(e) => changeInput(e.target.value)}
-          placeholder="Search"
-          className=" w-full p-2 border border-gray-300 rounded-lg dark:text-black bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 s dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-      </div>
+      <Input />
       <div>
         <div className="relative my-10 overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -67,51 +85,52 @@ const List = (props) => {
               </tr>
             </thead>
             <tbody>
-              {getDistributor
-                .filter((distributor) =>
-                  keys.some((key) =>
-                    distributor[key]
-                      .toLowerCase()
-                      .includes(inputSearch.toLowerCase())
-                  )
-                )
-                .map((distributor) => (
-                  <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                    key={distributor.id}
+              {currentPosts.map((distributor) => (
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  key={distributor.id}
+                >
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    {distributor.name}
+                  </th>
+                  <td className="px-6 py-4">{distributor.surname}</td>
+                  <td className="px-6 py-4">{distributor.email}</td>
+                  <td className="px-6 py-4">{distributor.phoneNumber}</td>
+                  <td className="px-6 py-4">
+                    <Link
+                      href={`update-distributor/${distributor.id}`}
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
-                      {distributor.name}
-                    </th>
-                    <td className="px-6 py-4">{distributor.surname}</td>
-                    <td className="px-6 py-4">{distributor.email}</td>
-                    <td className="px-6 py-4">{distributor.phoneNumber}</td>
-                    <td className="px-6 py-4">
-                      <Link
-                        href={`update-distributor/${distributor.id}`}
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                      >
-                        Edit
-                      </Link>
-                    </td>
-                    <td className="px-6 py-4">
-                      <button
-                        // onClick={()=handleDelete(distributor.id)}
-                        className="font-medium text-red-600 dark:text-red-500 hover:underline"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                      Edit
+                    </Link>
+                  </td>
+                  <td className="px-6 py-4">
+                    <button className="font-medium text-red-600 dark:text-red-500 hover:underline">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
+        <Pagination
+          postsPerPage={postPerPage}
+          totalPosts={filtredList.length}
+          handleCurrentPage={handleCurrentPage}
+        />
       </div>
-      <Pagination />
+
+      <Table
+        data={currentPosts}
+        column={inputKeys}
+        titles={titles}
+        buttons={buttons}
+        inputSearch={inputSearch}
+      />
     </div>
   );
 };

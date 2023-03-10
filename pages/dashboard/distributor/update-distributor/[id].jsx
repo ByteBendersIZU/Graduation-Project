@@ -35,7 +35,6 @@ const Id = ({ result }) => {
             .max(30, "Email must be 30 characters or less")
             .email("Invalid email address")
             .required("Please enter your email"),
-
           name: Yup.string()
             .required("Please enter your name")
             .min(3, "Name must be 3 characters or more")
