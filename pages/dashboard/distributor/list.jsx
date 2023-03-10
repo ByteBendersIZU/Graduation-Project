@@ -4,7 +4,6 @@ import { useState } from "react";
 
 import React from "react";
 import Pagination from "../../../components/ui/pagination";
-import Link from "next/link";
 import PageHeader from "../../../components/PageHeader";
 import Table from "../../../components/ui/Table";
 import Input from "../../../components/ui/Input";
@@ -37,16 +36,6 @@ const List = (props) => {
     setInputSearch(value);
   };
 
-  const handleDelete = async (id) => {
-    try {
-      const res = await axios.delete(
-        "http://54.147.214.160:1453/v1/distributor/list"
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleCurrentPage = (page) => {
     setCurrentPage(page);
   };
@@ -57,79 +46,18 @@ const List = (props) => {
         header={"Distributeur List"}
         breadcrumb={["Distributeur", "Distributeur List"]}
       />
-
-      <Input />
-      <div>
-        <div className="relative my-10 overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3">
-                  Distributor name
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Surname
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  E-mail
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Phone Number
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Update
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Delete
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentPosts.map((distributor) => (
-                <tr
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                  key={distributor.id}
-                >
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    {distributor.name}
-                  </th>
-                  <td className="px-6 py-4">{distributor.surname}</td>
-                  <td className="px-6 py-4">{distributor.email}</td>
-                  <td className="px-6 py-4">{distributor.phoneNumber}</td>
-                  <td className="px-6 py-4">
-                    <Link
-                      href={`update-distributor/${distributor.id}`}
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    >
-                      Edit
-                    </Link>
-                  </td>
-                  <td className="px-6 py-4">
-                    <button className="font-medium text-red-600 dark:text-red-500 hover:underline">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <Pagination
-          postsPerPage={postPerPage}
-          totalPosts={filtredList.length}
-          handleCurrentPage={handleCurrentPage}
-        />
-      </div>
-
+      <Input changeInput={changeInput} /> 
       <Table
         data={currentPosts}
         column={inputKeys}
         titles={titles}
         buttons={buttons}
         inputSearch={inputSearch}
+      />
+      <Pagination
+        postsPerPage={postPerPage}
+        totalPosts={filtredList.length}
+        handleCurrentPage={handleCurrentPage}
       />
     </div>
   );
