@@ -44,6 +44,10 @@ export default NextAuth({
       },
     }),
   ],
+  //distribute3@hrconnect.com
+  //	etrpyul@hrconnect.com
+  //distributor@hrconnect.com
+  //furk22an@hrconnect.co32m
   callbacks: {
     async jwt({ token, user, account }) {
       if (account && user) {

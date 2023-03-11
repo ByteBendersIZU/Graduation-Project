@@ -11,6 +11,7 @@ import AdminPage from "../../components/userPages/adminPage";
 const Dashboard = () => {
   const session = useSession();
   const user = jwt_decode(session.data.session.user.jwt);
+  console.log(user);
   return (
     <div>
       <PageHeader header={`Home - ${user.sub.toUpperCase()}`} />
