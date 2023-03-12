@@ -21,7 +21,7 @@ const Header = () => {
   const user = jwt_decode(session.data.session.user.jwt);
   return (
     <div className="flex w-full justify-between items-center p-3 drop-shadow-lg shadow-lg h-16 dark:bg-darkMain dark:text-white z-10">
-      <div>ByteBenders - {user.sub}</div>
+      <div>ByteBenders - {user.role.slice(5)}</div>
       <button className="  p-2 rounded-full" onClick={() => handleTheme()}>
         {theme ? <BsSun /> : <BsFillMoonStarsFill />}
       </button>

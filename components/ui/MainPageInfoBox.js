@@ -1,6 +1,9 @@
 import React from "react";
-//ICONS
 
+//ICONS
+import { FaBuilding } from "react-icons/fa";
+import { GiBookAura } from "react-icons/gi";
+import { CgProfile } from "react-icons/cg";
 const MainPageInfoBox = ({ number, text, icon }) => {
   return (
     <div className="flex items-center justify-between bg-white shadow-md p-5 px-10 dark:bg-darkMain">

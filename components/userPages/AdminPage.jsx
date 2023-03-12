@@ -37,6 +37,7 @@ const AdminPage = () => {
         </div>
         <CgProfile />
       </div>
+      {/* <MainPageInfoBox number={"20"} text={"Number"} icon={CgProfile} /> */}
     </div>
   );
 };

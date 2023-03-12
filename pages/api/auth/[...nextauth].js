@@ -31,7 +31,6 @@ export default NextAuth({
           },
         });
         const isSuccess = data.data.message_code === "LOGIN_SUCCESS";
-
         if (data && isSuccess) {
           // Any object returned will be saved in `user` property of the JWT
           return data.data.result;
