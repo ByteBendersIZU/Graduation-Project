@@ -46,7 +46,7 @@ const List = (props) => {
         header={"Distributeur List"}
         breadcrumb={["Distributeur", "Distributeur List"]}
       />
-      <Input changeInput={changeInput} /> 
+      <Input changeInput={changeInput} />
       <Table
         data={currentPosts}
         column={inputKeys}
@@ -77,7 +77,7 @@ export const getServerSideProps = async (context) => {
     data: { result },
   } = await axios({
     method: "get",
-    url: "http://54.147.214.160:1453/v1/distributor/list",
+    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/list`,
     headers: {
       Authorization: `Bearer ${jwt}`,
     },

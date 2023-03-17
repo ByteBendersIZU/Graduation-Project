@@ -23,7 +23,7 @@ export default NextAuth({
 
         const data = await axios({
           method: "post",
-          url: "http://54.147.214.160:1453/v1/authenticate",
+          url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/authenticate`,
           headers: {},
           data: {
             email,

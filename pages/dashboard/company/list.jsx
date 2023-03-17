@@ -9,13 +9,17 @@ import Table from "../../../components/ui/Table";
 import Input from "../../../components/ui/Input";
 
 const List = (props) => {
+  console.log(props)
   const [inputSearch, setInputSearch] = useState("");
   const [getDistributor, setGetDistributor] = useState(props.data);
-  const inputKeys = ["name", "surname", "email", "phoneNumber"];
-  const titles = ["name", "surname", "e-mail", "phone Number", "Edit"];
+  const inputKeys = ["name", "email"];
+  const titles = ["Company name", "e-mail", "Edit"];
   const buttons = [
-    { name: "update", href: "update-distributor" },
-    { name: "delete", href: "#" },
+    { name: "Update", href: "update-distributor" },
+    { name: "Company edit", href: "#" },
+    { name: "Admin edit", href: "#" },
+    { name: "Change password", href: "#" },
+    { name: "Passive", href: "#" },
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,7 +81,7 @@ export const getServerSideProps = async (context) => {
     data: { result },
   } = await axios({
     method: "get",
-    url: `http://54.147.214.160:1453/v1/company/list/true`,
+    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/list/false`,
     headers: {
       Authorization: `Bearer ${jwt}`,
     },
