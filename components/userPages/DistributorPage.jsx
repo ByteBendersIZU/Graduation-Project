@@ -1,7 +1,41 @@
 import React from "react";
-
+import CountUp from "react-countup";
+//ICONS
+import { FaBuilding } from "react-icons/fa";
+import { BsFillPeopleFill } from "react-icons/bs";
+import { MdPendingActions } from "react-icons/md";
 const DistributorPage = () => {
-  return <div>DistributorPage</div>;
+  return (
+    <div className="grid grid-flow-col grid-cols-3 gap-x-10">
+      <div className="flex items-center justify-between bg-white shadow-md p-5 px-10 dark:bg-darkMain rounded-lg">
+        <div>
+          <p className="font-semibold text-3xl mb-1">
+            <CountUp end={42} />
+          </p>
+          <p className="text-gray-500 font-normal">Number of Companies</p>
+        </div>
+        <FaBuilding className="text-2xl" />
+      </div>
+      <div className="flex items-center justify-between bg-white shadow-md p-5 px-10 dark:bg-darkMain rounded-lg">
+        <div>
+          <p className="font-semibold text-3xl mb-1">
+            <CountUp end={4} />
+          </p>
+          <p className="text-gray-500 font-normal">Pending Support Requests</p>
+        </div>
+        <MdPendingActions className="text-2xl" />
+      </div>
+      <div className="flex items-center justify-between bg-white shadow-md p-5 px-10 dark:bg-darkMain rounded-lg">
+        <div>
+          <p className="font-semibold text-3xl mb-1">
+            <CountUp end={8} />
+          </p>
+          <p className="text-gray-500 font-normal">Support Members</p>
+        </div>
+        <BsFillPeopleFill className="text-2xl" />
+      </div>
+    </div>
+  );
 };
 
 export default DistributorPage;

@@ -17,7 +17,7 @@ const Dashboard = () => {
     <div>
       <PageHeader header={`Home - ${user.sub.toUpperCase()}`} />
       {user.role === "ROLE_SUPER_ADMIN" && <AdminPage />}
-      {user.sub === "ROLE_DISTRIBUTOR" && <DistributorPage />}
+      {user.role === "ROLE_DISTRIBUTOR" && <DistributorPage />}
     </div>
   );
 };

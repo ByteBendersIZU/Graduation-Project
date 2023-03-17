@@ -1,14 +1,21 @@
-import { getSession, useSession } from "next-auth/react";
 import React from "react";
 import axios from "axios";
+
+import PageHeader from "../../../components/PageHeader";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
-import PageHeader from "../../../../components/PageHeader";
-import FormGroup from "../../../../components/form/FormGroup";
-import FormButton from "../../../../components/form/FormButton";
+import FormGroup from "../../../components/form/FormGroup";
+import FormButton from "../../../components/form/FormButton";
+import FormToggle from "../../../components/form/FormToggle";
+import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
-const Id = ({ result }) => {
+import { Country, State, City } from "country-state-city";
+import DropDown from "../../../components/form/DropDown";
+import { useRouter } from "next/router";
+
+const UpdateCompany = ({ result }) => {
+  console.log(result);
   const {
     data: {
       session: {
@@ -19,26 +26,15 @@ const Id = ({ result }) => {
   return (
     <div>
       <PageHeader
-        header={"Add Distributeur"}
-        breadcrumb={["Distributeur", "Update Distributeur"]}
+        header={"Update Company"}
+        breadcrumb={["Company", "Update Company"]}
       />
       <Formik
         initialValues={{
-          email: result.email,
-          name: result.name,
-          surname: result.surname,
-          phoneNumber: result.phoneNumber,
+          ...result,
         }}
         validationSchema={Yup.object({
-          email: Yup.string()
-            .max(30, "Email must be 30 characters or less")
-            .email("Invalid email address")
-            .required("Please enter your email"),
           name: Yup.string()
-            .required("Please enter your name")
-            .min(3, "Name must be 3 characters or more")
-            .max(30, "Name must be 30 characters or less"),
-          surname: Yup.string()
             .required("Please enter your surname")
             .min(3, "Surname must be 3 characters or more")
             .max(30, "Surname must be 30 characters or less"),
@@ -48,7 +44,7 @@ const Id = ({ result }) => {
           console.log("values", values);
           const data = await axios({
             method: "put",
-            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor`,
+            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
             headers: {
               Authorization: `Bearer ${jwt}`,
             },
@@ -69,20 +65,22 @@ const Id = ({ result }) => {
         {() => (
           <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
             <div className=" w-3/4">
-              <FormGroup type="text" name="name" labelName={"Name"} />
-              <FormGroup type="text" name="surname" labelName={"Surname"} />
+              <FormGroup type="text" name="name" labelName={"Company Name"} />
               <FormGroup
                 type="text"
-                name="phoneNumber"
-                labelName={"Phone Number"}
+                name="companyShortName"
+                labelName={"Company Short Name"}
               />
-              <FormGroup
-                type="email"
-                name="email"
-                labelName={"Email"}
-                disabled
-              />
-              <FormButton type="submit" buttonName="Update Distributeur" />
+              <FormGroup type="email" name="email" labelName={"Email"} />
+              <FormGroup type="text" name="webSite" labelName={"Web Site"} />
+              <FormGroup type="text" name="taxName" labelName={"Tax Name"} />
+              <FormGroup type="text" name="taxNo" labelName={"Tax No"} />
+              <FormGroup type="text" name="tel" labelName={"Tel No"} />
+              <FormGroup type="text" name="tel2" labelName={"Tel No 2"} />
+              <DropDown name="countryId" labelName={"Country"} />
+              <FormGroup type="text" name="zipCode" labelName={"Zip Code"} />
+              <FormGroup type="text" name="address" labelName={"Address"} />
+              <FormButton type="submit" buttonName="Update Distributor" />
             </div>
           </Form>
         )}
@@ -91,8 +89,9 @@ const Id = ({ result }) => {
   );
 };
 
-Id.auth = true;
-export default Id;
+UpdateCompany.auth = true;
+
+export default UpdateCompany;
 
 export const getServerSideProps = async (context) => {
   const { id } = context.query;
@@ -101,11 +100,12 @@ export const getServerSideProps = async (context) => {
       user: { jwt },
     },
   } = await getSession(context);
+
   const {
     data: { result },
   } = await axios({
     method: "get",
-    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/${id}`,
+    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/${id}`,
     headers: {
       Authorization: `Bearer ${jwt}`,
     },
@@ -117,3 +117,5 @@ export const getServerSideProps = async (context) => {
     },
   };
 };
+
+//deneme id : 84bbceee-1f9f-4122-a421-180047c59287
