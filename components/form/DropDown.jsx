@@ -1,21 +1,24 @@
 import { Field } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import FormError from "./FormError";
 import FormLabel from "./FormLabel";
 
 import { Country, State, City } from "country-state-city";
 
-const DropDown = ({ name, labelName }) => {
+const DropDown = ({ name, labelName, options, handleCurrentCity }) => {
+  const [city, setCity] = useState();
   return (
     <div className="my-5">
       <FormLabel htmlFor={name} labelName={labelName} />
       <Field
         as="select"
-        name="color"
+        name={name}
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-darkBg dark:text-white "
       >
-        {Country.getAllCountries().map((country, index) => (
-          <option key={country.index} value={country.index}>{country.name}</option>
+        {options.map((option, index) => (
+          <option key={index} value={option.name}>
+            {option.name}
+          </option>
         ))}
       </Field>
       <FormError name={name} />
