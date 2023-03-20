@@ -13,7 +13,7 @@ import { Country, State, City } from "country-state-city";
 import DropDown from "../../../components/form/DropDown";
 import CompanyPack from "../../../components/companyForm/CompanyPack";
 
-const AddCompany = () => {
+const CompanyLicence = () => {
   const [cities, setCities] = useState(State.getStatesOfCountry("TR"));
   const [adminGender, setAdminGender] = useState([
     { value: 0, name: "Erkek" },
@@ -34,30 +34,12 @@ const AddCompany = () => {
       />
       <Formik
         initialValues={{
-          identificationNumber: "",
-          distributorId: "",
-          active: false,
-          name: "",
-          companyShortName: "",
-          email: "",
-          webSite: "",
-          taxName: "",
-          taxNo: "",
-          tel: "",
-          tel2: "",
-          countryId: "",
-          cityId: 0,
-          districtId: 0,
-          neighborhoodId: 0,
-          zipCode: "",
-          address: "",
-          adminName: "",
-          adminSecondName: "",
-          adminSurname: "",
-          adminGender: 0,
-          adminNationalityId: 0,
-          adminEmail: "",
-          password: "",
+          startDate: "yyyy-MM-dd",
+          licenceType: 0,
+          currentType: 0,
+          userLimit: 1,
+          invoice: "",
+          paymentType: 0,
         }}
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
@@ -99,44 +81,7 @@ const AddCompany = () => {
               />
               <FormGroup type="text" name="webSite" labelName={"Web Site"} />
               <FormGroup type="text" name="taxName" labelName={"Tax Name*"} />
-              <FormGroup type="text" name="taxNo" labelName={"Tax No"} />
-              <FormGroup type="text" name="tel" labelName={"Tel No"} />
-              <FormGroup type="text" name="tel2" labelName={"Tel No 2"} />
               <DropDown options={cities} name="cityId" labelName={"City"} />
-              <FormGroup type="text" name="zipCode" labelName={"Zip Code*"} />
-              <FormGroup type="text" name="address" labelName={"Address*"} />
-              <h3>Company Managament</h3>
-              <FormGroup
-                type="text"
-                name="adminName"
-                labelName={"adminName*"}
-              />
-              <FormGroup
-                type="text"
-                name="adminSecondName"
-                labelName={"adminSecondName"}
-              />
-              <FormGroup
-                type="text"
-                name="adminSurname"
-                labelName={"adminSurname*"}
-              />
-              <FormGroup
-                type="text"
-                name="adminEmail"
-                labelName={"adminEmail*"}
-              />
-              <FormGroup
-                type="password"
-                name="password"
-                labelName={"password*"}
-              />
-              <h3 className="mb-5">{values.countryId}</h3>
-              <CompanyPack packageName="Personel Paketi" />
-
-              <h3 className="mb-5">Company Licance</h3>
-
-              <FormButton type="submit" buttonName="Add Company" />
             </div>
           </Form>
         )}
@@ -145,6 +90,6 @@ const AddCompany = () => {
   );
 };
 
-AddCompany.auth = true;
+CompanyLicence.auth = true;
 
-export default AddCompany;
+export default CompanyLicence;

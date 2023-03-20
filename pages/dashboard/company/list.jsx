@@ -9,13 +9,13 @@ import Table from "../../../components/ui/Table";
 import Input from "../../../components/ui/Input";
 
 const List = (props) => {
-  console.log(props)
+  console.log(props);
   const [inputSearch, setInputSearch] = useState("");
   const [getDistributor, setGetDistributor] = useState(props.data);
-  const inputKeys = ["name", "email"];
-  const titles = ["Company name", "e-mail", "Edit"];
+  const inputKeys = ["name", "cityName", "email", "workersCount"];
+  const titles = ["Company name", "Address", "E-mail", "Workers Count", "Edit"];
   const buttons = [
-    { name: "Update", href: "update-distributor" },
+    { name: "Update", href: "./" },
     { name: "Company edit", href: "#" },
     { name: "Admin edit", href: "#" },
     { name: "Change password", href: "#" },
@@ -50,7 +50,7 @@ const List = (props) => {
         header={"Distributeur List"}
         breadcrumb={["Distributeur", "Distributeur List"]}
       />
-      <Input changeInput={changeInput} /> 
+      <Input changeInput={changeInput} />
       <Table
         data={currentPosts}
         column={inputKeys}
