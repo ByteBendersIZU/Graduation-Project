@@ -26,6 +26,70 @@ const AddCompany = () => {
       },
     },
   } = useSession();
+
+  const companyFunc = async ({ values }) => {
+    // const data = await axios({
+    //   method: "post",
+    //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
+    //   headers: {
+    //     Authorization: `Bearer ${jwt}`,
+    //   },
+    //   data: {
+    //     ...values,
+    //   },
+    // }).catch(function (error) {
+    //   if (error.response) {
+    //     toast.error(error.response.data.message);
+    //   }
+    // });
+    // console.log(data);
+    // if (data.data.code) {
+    //   toast.success(data.data.message);
+    // }
+    console.log(values);
+  };
+  const companyPackFunc = async ({ values }) => {
+    // const data = await axios({
+    //   method: "post",
+    //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-packages`,
+    //   headers: {
+    //     Authorization: `Bearer ${jwt}`,
+    //   },
+    //   data: {
+    //     ...values,
+    //   },
+    // }).catch(function (error) {
+    //   if (error.response) {
+    //     toast.error(error.response.data.message);
+    //   }
+    // });
+    // console.log(data);
+    // if (data.data.code) {
+    //   toast.success(data.data.message);
+    // }
+    console.log(values);
+  };
+  const companyPaymentFuck = async ({ values }) => {
+    // const data = await axios({
+    //   method: "post",
+    //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-payment`,
+    //   headers: {
+    //     Authorization: `Bearer ${jwt}`,
+    //   },
+    //   data: {
+    //     ...values,
+    //   },
+    // }).catch(function (error) {
+    //   if (error.response) {
+    //     toast.error(error.response.data.message);
+    //   }
+    // });
+    // console.log(data);
+    // if (data.data.code) {
+    //   toast.success(data.data.message);
+    // }
+    console.log(values);
+  };
   return (
     <div>
       <PageHeader
@@ -34,53 +98,56 @@ const AddCompany = () => {
       />
       <Formik
         initialValues={{
-          identificationNumber: "",
-          distributorId: "",
-          active: false,
-          name: "",
-          companyShortName: "",
-          email: "",
-          webSite: "",
-          taxName: "",
-          taxNo: "",
-          tel: "",
-          tel2: "",
-          countryId: "",
-          cityId: 0,
-          districtId: 0,
-          neighborhoodId: 0,
-          zipCode: "",
-          address: "",
-          adminName: "",
-          adminSecondName: "",
-          adminSurname: "",
-          adminGender: 0,
-          adminNationalityId: 0,
-          adminEmail: "",
-          password: "",
+          company: {
+            identificationNumber: "",
+            distributorId: "",
+            active: false,
+            name: "",
+            companyShortName: "",
+            email: "",
+            webSite: "",
+            taxName: "",
+            taxNo: "",
+            tel: "",
+            tel2: "",
+            countryId: "",
+            cityId: 0,
+            districtId: 0,
+            neighborhoodId: 0,
+            zipCode: "",
+            address: "",
+            adminName: "",
+            adminSecondName: "",
+            adminSurname: "",
+            adminGender: 0,
+            adminNationalityId: 0,
+            adminEmail: "",
+            password: "",
+          },
+          companyPackages: {
+            packages: [
+              {
+                packagesName: "",
+                price: "",
+              },
+            ],
+          },
+          companyPayment: {
+            startDate: new Date(),
+            licenseType:0,
+            userLimit:0,
+            totalPrice:0,
+            paymentType:0,
+            
+          },
         }}
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
           const payload = { ...values };
           console.log("values", values);
-          const data = await axios({
-            method: "post",
-            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-            },
-            data: {
-              ...values,
-            },
-          }).catch(function (error) {
-            if (error.response) {
-              toast.error(error.response.data.message);
-            }
-          });
-          console.log(data);
-          if (data.data.code) {
-            toast.success(data.data.message);
-          }
+          await companyFunc(values.company);
+          await companyPaymentFuck(values.companyPackages);
+          await companyPackFunc(values.companyPayment);
         }}
       >
         {({ values }) => (
@@ -132,7 +199,7 @@ const AddCompany = () => {
                 labelName={"password*"}
               />
               <h3 className="mb-5">{values.countryId}</h3>
-              <CompanyPack packageName="Personel Paketi" />
+              <CompanyPack values={values.companyPackages} />
 
               <h3 className="mb-5">Company Licance</h3>
 
