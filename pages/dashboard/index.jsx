@@ -12,7 +12,6 @@ import DistributorPage from "../../components/userPages/DistributorPage";
 const Dashboard = () => {
   const session = useSession();
   const user = jwt_decode(session.data.session.user.jwt);
-  console.log(user);
   return (
     <div>
       <PageHeader header={`Home - ${user.sub.toUpperCase()}`} />

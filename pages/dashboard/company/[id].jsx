@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 import PageHeader from "../../../components/PageHeader";
@@ -9,13 +9,14 @@ import FormButton from "../../../components/form/FormButton";
 import FormToggle from "../../../components/form/FormToggle";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-
 import { Country, State, City } from "country-state-city";
+
 import DropDown from "../../../components/form/DropDown";
 import { useRouter } from "next/router";
 
 const UpdateCompany = ({ result }) => {
   console.log(result);
+  const [cities, setCities] = useState(State.getStatesOfCountry("TR"));
   const {
     data: {
       session: {
@@ -77,6 +78,7 @@ const UpdateCompany = ({ result }) => {
               <FormGroup type="text" name="taxNo" labelName={"Tax No"} />
               <FormGroup type="text" name="tel" labelName={"Tel No"} />
               <FormGroup type="text" name="tel2" labelName={"Tel No 2"} />
+              <DropDown name="countryId" labelName={"Country"} />
               <FormGroup type="text" name="zipCode" labelName={"Zip Code"} />
               <FormGroup type="text" name="address" labelName={"Address"} />
               <FormButton type="submit" buttonName="Update Distributor" />
