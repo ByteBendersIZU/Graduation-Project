@@ -119,7 +119,7 @@ const SideBar = () => {
   const [menuItems, setMenuItems] = useState();
   const user = jwt_decode(session.data.session.user.jwt);
   useEffect(() => {
-    if (user.role === "ROLE_SUPERADMIN") {
+    if (user.role === "ROLE_SUPER_ADMIN") {
       setMenuItems(adminMenuItems);
     } else if (user.role === "ROLE_DISTRIBUTOR") {
       setMenuItems(distributorMenuItems);
