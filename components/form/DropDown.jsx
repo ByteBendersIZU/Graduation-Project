@@ -5,7 +5,7 @@ import FormLabel from "./FormLabel";
 
 import { Country, State, City } from "country-state-city";
 
-const DropDown = ({ name, labelName, options, handleCurrentCity }) => {
+const DropDown = ({ name, labelName, options, selected }) => {
   const [city, setCity] = useState();
   return (
     <div className="my-5">
@@ -13,6 +13,7 @@ const DropDown = ({ name, labelName, options, handleCurrentCity }) => {
       <Field
         as="select"
         name={name}
+        value={selected}
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-darkBg dark:text-white "
       >
         {options.map((option, index) => (

@@ -1,5 +1,4 @@
 import React from "react";
-import MainPageInfoBox from "../ui/MainPageInfoBox";
 import CountUp from "react-countup";
 
 //ICONS
@@ -37,7 +36,6 @@ const AdminPage = () => {
         </div>
         <CgProfile />
       </div>
-      {/* <MainPageInfoBox number={"20"} text={"Number"} icon={CgProfile} /> */}
     </div>
   );
 };
