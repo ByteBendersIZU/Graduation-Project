@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import FormError from "./FormError";
 import FormLabel from "./FormLabel";
 
-import { Country, State, City } from "country-state-city";
-
 const DropDown = ({ name, labelName, options, selected }) => {
   const [city, setCity] = useState();
   return (

@@ -13,7 +13,7 @@ import { Country, State, City } from "country-state-city";
 import DropDown from "../../../components/form/DropDown";
 import CompanyPack from "../../../components/companyForm/CompanyPack";
 import CompanyLicence from "../../../components/companyForm/CompanyLicence";
-import AddCompanyForm from "../../../components/FormComponents/AddCompanyForm";
+import AddCompanyForm from "../../../components/companyForm/AddCompanyForm";
 
 const AddCompany = () => {
   const [cities, setCities] = useState(State.getStatesOfCountry("TR"));
@@ -30,66 +30,66 @@ const AddCompany = () => {
   } = useSession();
 
   const companyFunc = async ({ values }) => {
-    // const data = await axios({
-    //   method: "post",
-    //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
-    //   headers: {
-    //     Authorization: `Bearer ${jwt}`,
-    //   },
-    //   data: {
-    //     ...values,
-    //   },
-    // }).catch(function (error) {
-    //   if (error.response) {
-    //     toast.error(error.response.data.message);
-    //   }
-    // });
-    // console.log(data);
-    // if (data.data.code) {
-    //   toast.success(data.data.message);
-    // }
+    const data = await axios({
+      method: "post",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+      data: {
+        ...values,
+      },
+    }).catch(function (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      }
+    });
+    console.log(data);
+    if (data.data.code) {
+      toast.success(data.data.message);
+    }
     console.log(values);
   };
   const companyPackFunc = async ({ values }) => {
-    // const data = await axios({
-    //   method: "post",
-    //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-packages`,
-    //   headers: {
-    //     Authorization: `Bearer ${jwt}`,
-    //   },
-    //   data: {
-    //     ...values,
-    //   },
-    // }).catch(function (error) {
-    //   if (error.response) {
-    //     toast.error(error.response.data.message);
-    //   }
-    // });
-    // console.log(data);
-    // if (data.data.code) {
-    //   toast.success(data.data.message);
-    // }
+    const data = await axios({
+      method: "post",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-packages`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+      data: {
+        ...values,
+      },
+    }).catch(function (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      }
+    });
+    console.log(data);
+    if (data.data.code) {
+      toast.success(data.data.message);
+    }
     console.log(values);
   };
   const companyPaymentFuck = async ({ values }) => {
-    // const data = await axios({
-    //   method: "post",
-    //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-payment`,
-    //   headers: {
-    //     Authorization: `Bearer ${jwt}`,
-    //   },
-    //   data: {
-    //     ...values,
-    //   },
-    // }).catch(function (error) {
-    //   if (error.response) {
-    //     toast.error(error.response.data.message);
-    //   }
-    // });
-    // console.log(data);
-    // if (data.data.code) {
-    //   toast.success(data.data.message);
-    // }
+    const data = await axios({
+      method: "post",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-payment`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+      data: {
+        ...values,
+      },
+    }).catch(function (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      }
+    });
+    console.log(data);
+    if (data.data.code) {
+      toast.success(data.data.message);
+    }
     console.log(values);
   };
   return (
@@ -151,7 +151,6 @@ const AddCompany = () => {
             licenseType: 0,
             userLimit: 0,
             totalPrice: 0,
-            paymentType: 0,
           },
         }}
         validationSchema={Yup.object({})}
@@ -192,10 +191,9 @@ const AddCompany = () => {
               <CompanyPack packages={values.packages} />
               <h3 className="mt-10 text-2xl text-red-500">Company Licence</h3>
               <hr />
-              {/* <CompanyLicence
-                packageName="Personel Paketi"
-                packages={values.packages}
-              /> */}
+              <CompanyLicence
+                companyPayment={values.companyPayment}
+              />
 
               <FormButton type="submit" buttonName="Add Company" />
             </div>

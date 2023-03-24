@@ -11,18 +11,34 @@ import FormGroup from "../form/FormGroup";
 import DropDown from "../form/DropDown";
 
 const CompanyLicence = () => {
+  const [licenceType, setLicencetype] = useState([
+    { value: 0, name: "Monthly Licence" },
+    { value: 1, name: "Yearly Licence" },
+  ]);
   return (
     <div className="mt-8">
-      <FormGroup type="text" name="name" labelName={"Company Name*"} />
       <FormGroup
-        type="text"
-        name="companyShortName"
-        labelName={"Company Short Name*"}
+        type="date"
+        name="companyPayment.dartDate"
+        labelName={"Company Name"}
       />
-      <FormGroup type="email" name="email" labelName={"Company Email*"} />
-      <FormGroup type="text" name="webSite" labelName={"Web Site"} />
-      <FormGroup type="text" name="taxName" labelName={"Tax Name*"} />
-      <DropDown options={cities} name="cityId" labelName={"City"} />
+      <DropDown
+        options={licenceType}
+        name="companyPayment.licenceType"
+        labelName={"Licence Type"}
+      />
+      <FormGroup
+        type="number"
+        name="companyPayment.userLimit"
+        labelName={"User Limit"}
+      />
+      <FormGroup
+        type="number"
+        value='99'
+        disabled={true}
+        name="companyPayment.totalPrice"
+        labelName={"Total Price"}
+      />
     </div>
   );
 };
