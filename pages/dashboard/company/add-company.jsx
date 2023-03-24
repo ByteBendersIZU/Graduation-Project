@@ -29,7 +29,8 @@ const AddCompany = () => {
     },
   } = useSession();
 
-  const companyFunc = async ({ values }) => {
+  const companyFunc = async (values) => {
+    console.log("compFunc", values);
     const data = await axios({
       method: "post",
       url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
@@ -100,30 +101,28 @@ const AddCompany = () => {
       <Formik
         initialValues={{
           company: {
-            identificationNumber: "",
-            distributorId: "",
-            active: false,
-            name: "",
+            active: true,
+            address: "",
+            adminEmail: "",
+            adminGender: 0,
+            adminName: "",
+            adminNationalityId: 0,
+            adminSecondName: "",
+            adminSurname: "",
+            areaCode: "",
+            cityId: 0,
             companyShortName: "",
+            countryId: 0,
             email: "",
-            webSite: "",
+            identificationNumber: "",
+            name: "",
+            password: "",
             taxName: "",
             taxNo: "",
             tel: "",
             tel2: "",
-            countryId: "",
-            cityId: 0,
-            districtId: 0,
-            neighborhoodId: 0,
+            webSite: "",
             zipCode: "",
-            address: "",
-            adminName: "",
-            adminSecondName: "",
-            adminSurname: "",
-            adminGender: 0,
-            adminNationalityId: 0,
-            adminEmail: "",
-            password: "",
           },
           packages: {
             packages: [
@@ -153,10 +152,9 @@ const AddCompany = () => {
         }}
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
-          const payload = { ...values };
-          console.log("values", values.company);
+          // console.log("submit values", values.company);
           const newCompany = await companyFunc(values.company);
-          console.log("new comp", newCompany);
+          console.log("new comp", newCompany.data.result.id); // üstteki func istek atınca buraya comp id düşüyor halledersin ordan sonrasını
           // await companyPaymentFuck(values.packages);
           // await companyPackFunc(values.companyPayment);
         }}
