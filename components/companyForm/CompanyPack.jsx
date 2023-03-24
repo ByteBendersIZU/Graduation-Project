@@ -10,7 +10,7 @@ const CompanyPack = ({ packages }) => {
     <div className="flex justify-around bg-white mt-8">
       <div>
         <Field type="checkbox" name="packages.toggle0" />
-        <h3>Bordro Paketi</h3>
+        <h3>Personel Paketi</h3>
         <div className="">
           <FormGroup
             disabled={!packages.toggle0}
