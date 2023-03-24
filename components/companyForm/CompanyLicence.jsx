@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
 
-import * as Yup from "yup";
-import { Formik, Form, Field } from "formik";
-import { useSession } from "next-auth/react";
-import { toast } from "react-toastify";
-
-import { Country, State, City } from "country-state-city";
 import FormGroup from "../form/FormGroup";
 import DropDown from "../form/DropDown";
 
@@ -19,7 +12,7 @@ const CompanyLicence = () => {
     <div className="mt-8">
       <FormGroup
         type="date"
-        name="companyPayment.dartDate"
+        name="companyPayment.startDate"
         labelName={"Company Name"}
       />
       <DropDown

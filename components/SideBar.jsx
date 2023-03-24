@@ -149,7 +149,7 @@ const SideBar = () => {
 
   const getNavItemClasses = (menu) => {
     return classNames(
-      "flex justify-between items-center w-full overflow-hidden hover:block"
+      "flex justify-between items-center w-full overflow-hidden "
     );
   };
 

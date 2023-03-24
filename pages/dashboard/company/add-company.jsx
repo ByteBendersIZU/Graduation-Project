@@ -44,11 +44,10 @@ const AddCompany = () => {
         toast.error(error.response.data.message);
       }
     });
-    console.log(data);
     if (data.data.code) {
       toast.success(data.data.message);
     }
-    console.log(values);
+    return data;
   };
   const companyPackFunc = async ({ values }) => {
     const data = await axios({
@@ -127,7 +126,6 @@ const AddCompany = () => {
             password: "",
           },
           packages: {
-            companyId: "",
             packages: [
               {
                 packagesName: "Personel Paketi",
@@ -148,7 +146,7 @@ const AddCompany = () => {
           },
           companyPayment: {
             startDate: new Date(),
-            licenseType: 0,
+            licenceType: 0,
             userLimit: 0,
             totalPrice: 0,
           },
@@ -156,28 +154,11 @@ const AddCompany = () => {
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
           const payload = { ...values };
-          console.log("values", values);
-          // const data = await axios({
-          //   method: "post",
-          //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
-          //   headers: {
-          //     Authorization: `Bearer ${jwt}`,
-          //   },
-          //   data: {
-          //     ...values,
-          //   },
-          // }).catch(function (error) {
-          //   if (error.response) {
-          //     toast.error(error.response.data.message);
-          //   }
-          // });
-          // console.log(data);
-          // if (data.data.code) {
-          //   toast.success(data.data.message);
-          // }
-          await companyFunc(values.company);
-          await companyPaymentFuck(values.companyPackages);
-          await companyPackFunc(values.companyPayment);
+          console.log("values", values.company);
+          const newCompany = await companyFunc(values.company);
+          console.log("new comp", newCompany);
+          // await companyPaymentFuck(values.packages);
+          // await companyPackFunc(values.companyPayment);
         }}
       >
         {({ values }) => (
@@ -191,9 +172,7 @@ const AddCompany = () => {
               <CompanyPack packages={values.packages} />
               <h3 className="mt-10 text-2xl text-red-500">Company Licence</h3>
               <hr />
-              <CompanyLicence
-                companyPayment={values.companyPayment}
-              />
+              <CompanyLicence companyPayment={values.companyPayment} />
 
               <FormButton type="submit" buttonName="Add Company" />
             </div>
