@@ -78,7 +78,11 @@ const UpdateCompany = ({ result }) => {
               <FormGroup type="text" name="taxNo" labelName={"Tax No"} />
               <FormGroup type="text" name="tel" labelName={"Tel No"} />
               <FormGroup type="text" name="tel2" labelName={"Tel No 2"} />
-              <DropDown name="countryId" labelName={"Country"} />
+              <DropDown
+                name="cityName"
+                labelName={"City Name"}
+                options={cities}
+              />
               <FormGroup type="text" name="zipCode" labelName={"Zip Code"} />
               <FormGroup type="text" name="address" labelName={"Address"} />
               <FormButton type="submit" buttonName="Update Distributor" />
