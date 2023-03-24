@@ -1,22 +1,19 @@
-import React, { useState } from "react";
 import axios from "axios";
-
-import PageHeader from "../../../components/PageHeader";
+import { getSession, useSession } from "next-auth/react";
+import React, { useState } from "react";
+import PageHeader from "../../../../components/PageHeader";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
-import FormGroup from "../../../components/form/FormGroup";
-import FormButton from "../../../components/form/FormButton";
-import FormToggle from "../../../components/form/FormToggle";
-import { getSession, useSession } from "next-auth/react";
-import { toast } from "react-toastify";
+import FormGroup from "../../../../components/form/FormGroup";
+import FormButton from "../../../../components/form/FormButton";
+import DropDown from "../../../../components/form/DropDown";
+
 import { Country, State, City } from "country-state-city";
+import { toast } from "react-toastify";
 
-import DropDown from "../../../components/form/DropDown";
-import { useRouter } from "next/router";
-
-const UpdateCompany = ({ result }) => {
-  console.log(result);
-  const [cities, setCities] = useState(State.getStatesOfCountry("TR"));
+const updatePeople = ({ user }) => {
+  const [cities, setCities] = useState(Country.getAllCountries());
+  console.log("USER", user);
   const {
     data: {
       session: {
@@ -28,11 +25,11 @@ const UpdateCompany = ({ result }) => {
     <div>
       <PageHeader
         header={"Update Company"}
-        breadcrumb={["Company", "Update Company"]}
+        breadcrumb={["Personel", "Kişi Listesi", "Kişi Güncelle"]}
       />
       <Formik
         initialValues={{
-          ...result,
+          ...user,
         }}
         validationSchema={Yup.object({
           name: Yup.string()
@@ -45,7 +42,7 @@ const UpdateCompany = ({ result }) => {
           console.log("values", values);
           const data = await axios({
             method: "put",
-            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
+            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/user`,
             headers: {
               Authorization: `Bearer ${jwt}`,
             },
@@ -66,26 +63,35 @@ const UpdateCompany = ({ result }) => {
         {() => (
           <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
             <div className=" w-3/4">
-              <FormGroup type="text" name="name" labelName={"Company Name"} />
+              <FormGroup type="text" name="name" labelName={"Name"} />
               <FormGroup
                 type="text"
-                name="companyShortName"
-                labelName={"Company Short Name"}
+                name="secondName"
+                labelName={"Second Name"}
               />
-              <FormGroup type="email" name="email" labelName={"Email"} />
-              <FormGroup type="text" name="webSite" labelName={"Web Site"} />
-              <FormGroup type="text" name="taxName" labelName={"Tax Name"} />
-              <FormGroup type="text" name="taxNo" labelName={"Tax No"} />
-              <FormGroup type="text" name="tel" labelName={"Tel No"} />
-              <FormGroup type="text" name="tel2" labelName={"Tel No 2"} />
+              <FormGroup type="text" name="surname" labelName={"Surname"} />
+              {/* <DropDown
+                name="gender"
+                labelName={"Gender"}
+                options={[
+                  { name: "Erkek", value: 0 },
+                  { name: "Kadın", value: 1 },
+                ]}
+              />
               <DropDown
-                name="cityName"
-                labelName={"City Name"}
+                type="text"
+                name="nationality"
+                labelName={"Nationality"}
                 options={cities}
+              /> */}
+              <FormGroup
+                type="text"
+                name="identificationNumber"
+                labelName={"Identification Number"}
               />
-              <FormGroup type="text" name="zipCode" labelName={"Zip Code"} />
-              <FormGroup type="text" name="address" labelName={"Address"} />
-              <FormButton type="submit" buttonName="Update Distributor" />
+              <FormGroup type="text" name="tel" labelName={"Tel No"} />
+              <FormGroup type="email" name="email" labelName={"Email"} />
+              <FormButton type="submit" buttonName="Update" />
             </div>
           </Form>
         )}
@@ -94,9 +100,9 @@ const UpdateCompany = ({ result }) => {
   );
 };
 
-UpdateCompany.auth = true;
+export default updatePeople;
 
-export default UpdateCompany;
+updatePeople.auth = true;
 
 export const getServerSideProps = async (context) => {
   const { id } = context.query;
@@ -110,7 +116,7 @@ export const getServerSideProps = async (context) => {
     data: { result },
   } = await axios({
     method: "get",
-    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/${id}`,
+    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/user/${id}`,
     headers: {
       Authorization: `Bearer ${jwt}`,
     },
@@ -118,9 +124,9 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      result,
+      user: result,
     },
   };
 };
 
-//deneme id : 84bbceee-1f9f-4122-a421-180047c59287
+//deneme id : f9e1a7a1-acea-45ed-9e4b-d31ffcfb06c3
