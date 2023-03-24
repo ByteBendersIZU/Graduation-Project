@@ -28,6 +28,70 @@ const AddCompany = () => {
       },
     },
   } = useSession();
+
+  const companyFunc = async ({ values }) => {
+    // const data = await axios({
+    //   method: "post",
+    //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
+    //   headers: {
+    //     Authorization: `Bearer ${jwt}`,
+    //   },
+    //   data: {
+    //     ...values,
+    //   },
+    // }).catch(function (error) {
+    //   if (error.response) {
+    //     toast.error(error.response.data.message);
+    //   }
+    // });
+    // console.log(data);
+    // if (data.data.code) {
+    //   toast.success(data.data.message);
+    // }
+    console.log(values);
+  };
+  const companyPackFunc = async ({ values }) => {
+    // const data = await axios({
+    //   method: "post",
+    //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-packages`,
+    //   headers: {
+    //     Authorization: `Bearer ${jwt}`,
+    //   },
+    //   data: {
+    //     ...values,
+    //   },
+    // }).catch(function (error) {
+    //   if (error.response) {
+    //     toast.error(error.response.data.message);
+    //   }
+    // });
+    // console.log(data);
+    // if (data.data.code) {
+    //   toast.success(data.data.message);
+    // }
+    console.log(values);
+  };
+  const companyPaymentFuck = async ({ values }) => {
+    // const data = await axios({
+    //   method: "post",
+    //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-payment`,
+    //   headers: {
+    //     Authorization: `Bearer ${jwt}`,
+    //   },
+    //   data: {
+    //     ...values,
+    //   },
+    // }).catch(function (error) {
+    //   if (error.response) {
+    //     toast.error(error.response.data.message);
+    //   }
+    // });
+    // console.log(data);
+    // if (data.data.code) {
+    //   toast.success(data.data.message);
+    // }
+    console.log(values);
+  };
   return (
     <div>
       <PageHeader
@@ -82,6 +146,13 @@ const AddCompany = () => {
             toggle1: false,
             toggle2: false,
           },
+          companyPayment: {
+            startDate: new Date(),
+            licenseType: 0,
+            userLimit: 0,
+            totalPrice: 0,
+            paymentType: 0,
+          },
         }}
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
@@ -105,6 +176,9 @@ const AddCompany = () => {
           // if (data.data.code) {
           //   toast.success(data.data.message);
           // }
+          await companyFunc(values.company);
+          await companyPaymentFuck(values.companyPackages);
+          await companyPackFunc(values.companyPayment);
         }}
       >
         {({ values }) => (
@@ -118,10 +192,10 @@ const AddCompany = () => {
               <CompanyPack packages={values.packages} />
               <h3 className="mt-10 text-2xl text-red-500">Company Licence</h3>
               <hr />
-              <CompanyLicence
+              {/* <CompanyLicence
                 packageName="Personel Paketi"
                 packages={values.packages}
-              />
+              /> */}
 
               <FormButton type="submit" buttonName="Add Company" />
             </div>
