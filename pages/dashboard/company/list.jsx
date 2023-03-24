@@ -17,7 +17,7 @@ const List = (props) => {
   const buttons = [
     { name: "Update", href: "./" },
     { name: "Company edit", href: "#" },
-    { name: "Admin edit", href: "#" },
+    { name: "Admin edit", href: "../contacts/update-people" },
     { name: "Change password", href: "#" },
     { name: "Passive", href: "#" },
   ];
