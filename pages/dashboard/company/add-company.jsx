@@ -124,6 +124,7 @@ const AddCompany = () => {
             zipCode: "",
           },
           packages: {
+            companyId: "",
             packages: [
               {
                 packagesName: "Personel Paketi",
@@ -143,6 +144,7 @@ const AddCompany = () => {
             toggle2: false,
           },
           companyPayment: {
+            companyId: "",
             startDate: new Date(),
             licenceType: 0,
             userLimit: 0,
@@ -153,9 +155,9 @@ const AddCompany = () => {
         onSubmit={async (values, { setSubmitting }) => {
           // console.log("submit values", values.company);
           const newCompany = await companyFunc(values.company);
-          console.log("new comp", newCompany.data.result.id); // üstteki func istek atınca buraya comp id düşüyor halledersin ordan sonrasını
-          // await companyPaymentFuck(values.packages);
-          // await companyPackFunc(values.companyPayment);
+          console.log("new comp", newCompany.data.result.id);
+          await companyPaymentFuck(values.packages);
+          await companyPackFunc(values.companyPayment);
         }}
       >
         {({ values }) => (
