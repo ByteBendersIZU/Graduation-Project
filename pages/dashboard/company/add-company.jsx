@@ -10,7 +10,6 @@ import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
 import { Country, State, City } from "country-state-city";
-import DropDown from "../../../components/form/DropDown";
 import CompanyPack from "../../../components/companyForm/CompanyPack";
 import CompanyLicence from "../../../components/companyForm/CompanyLicence";
 import AddCompanyForm from "../../../components/companyForm/AddCompanyForm";
