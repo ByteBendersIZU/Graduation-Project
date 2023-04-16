@@ -10,6 +10,47 @@ import { BsFillPersonFill, BsFillPersonCheckFill } from "react-icons/bs";
 import { GrOrganization, GrUser, GrHome, GrLogout } from "react-icons/gr";
 import { FiArrowLeft } from "react-icons/fi";
 import { BiDownArrow } from "react-icons/bi";
+const companyMenuItems = [
+  { id: 1, label: "Home", icon: GrHome, link: "/dashboard" },
+  {
+    id: 2,
+    label: "Organizasyon",
+    icon: GrOrganization,
+    subMenus: [
+      {
+        title: "Manage Permission",
+        src: "/dashboard/organization/branch-list",
+
+        cName: "sub-nav",
+      },
+      {
+        title: "Branch List",
+        src: "/dashboard/organization/branch-list",
+
+        cName: "sub-nav",
+      },
+      {
+        title: "Department List",
+        src: "/dashboard/organization/branch-list",
+
+        cName: "sub-nav",
+      },
+      {
+        title: "Position List",
+        src: "/dashboard/organization/branch-list",
+
+        cName: "sub-nav",
+      },
+      {
+        title: "Customers",
+        src: "/dashboard/organization/branch-list",
+
+        cName: "sub-nav",
+      },
+    ],
+    link: "/dashboard",
+  },
+];
 const distributorMenuItems = [
   { id: 1, label: "Home", icon: GrHome, link: "/dashboard" },
   {
@@ -123,6 +164,8 @@ const SideBar = () => {
       setMenuItems(adminMenuItems);
     } else if (user.role === "ROLE_DISTRIBUTOR") {
       setMenuItems(distributorMenuItems);
+    } else if (user.role === "ROLE_COMPANY_ADMIN") {
+      setMenuItems(companyMenuItems);
     }
   }, []);
   const router = useRouter();
