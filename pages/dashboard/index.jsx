@@ -12,6 +12,7 @@ import CompanyPage from "../../components/userPages/CompanyPage";
 
 const Dashboard = () => {
   const session = useSession();
+  console.log(session);
   const user = jwt_decode(session.data.session.user.jwt);
   console.log(user);
   return (
