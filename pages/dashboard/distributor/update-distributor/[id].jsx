@@ -9,6 +9,7 @@ import FormButton from "../../../../components/form/FormButton";
 import { toast } from "react-toastify";
 
 const Id = ({ result }) => {
+  console.log(result);
   const {
     data: {
       session: {
@@ -30,10 +31,6 @@ const Id = ({ result }) => {
           phoneNumber: result.phoneNumber,
         }}
         validationSchema={Yup.object({
-          email: Yup.string()
-            .max(30, "Email must be 30 characters or less")
-            .email("Invalid email address")
-            .required("Please enter your email"),
           name: Yup.string()
             .required("Please enter your name")
             .min(3, "Name must be 3 characters or more")
@@ -66,12 +63,23 @@ const Id = ({ result }) => {
           }
         }}
       >
-        {() => (
+        {({ values }) => (
           <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
             <div className=" w-3/4">
-              <FormGroup type="text" name="name" labelName={"Name"} />
-              <FormGroup type="text" name="surname" labelName={"Surname"} />
               <FormGroup
+                type="text"
+                name="name"
+                labelName={"Name"}
+                value={values.name}
+              />
+              <FormGroup
+                type="text"
+                name="surname"
+                labelName={"Surname"}
+                value={values.surname}
+              />
+              <FormGroup
+                value={values.phoneNumber}
                 type="text"
                 name="phoneNumber"
                 labelName={"Phone Number"}
@@ -80,7 +88,7 @@ const Id = ({ result }) => {
                 type="email"
                 name="email"
                 labelName={"Email"}
-                disabled
+                value={values.email}
               />
               <FormButton type="submit" buttonName="Update Distributeur" />
             </div>

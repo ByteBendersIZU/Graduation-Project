@@ -63,28 +63,74 @@ const UpdateCompany = ({ result }) => {
           }
         }}
       >
-        {() => (
+        {({ values }) => (
           <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
             <div className=" w-3/4">
-              <FormGroup type="text" name="name" labelName={"Company Name"} />
+              <FormGroup
+                type="text"
+                name="name"
+                labelName={"Company Name"}
+                value={values.name}
+              />
               <FormGroup
                 type="text"
                 name="companyShortName"
                 labelName={"Company Short Name"}
+                value={values.companyShortName}
               />
-              <FormGroup type="email" name="email" labelName={"Email"} />
-              <FormGroup type="text" name="webSite" labelName={"Web Site"} />
-              <FormGroup type="text" name="taxName" labelName={"Tax Name"} />
-              <FormGroup type="text" name="taxNo" labelName={"Tax No"} />
-              <FormGroup type="text" name="tel" labelName={"Tel No"} />
-              <FormGroup type="text" name="tel2" labelName={"Tel No 2"} />
+              <FormGroup
+                type="email"
+                name="email"
+                labelName={"Email"}
+                value={values.email}
+              />
+              <FormGroup
+                type="text"
+                name="webSite"
+                labelName={"Web Site"}
+                value={values.webSite}
+              />
+              <FormGroup
+                type="text"
+                name="taxName"
+                labelName={"Tax Name"}
+                value={values.taxName}
+              />
+              <FormGroup
+                type="text"
+                name="taxNo"
+                labelName={"Tax No"}
+                value={values.name}
+              />
+              <FormGroup
+                type="text"
+                name="tel"
+                labelName={"Tel No"}
+                value={values.tel}
+              />
+              <FormGroup
+                type="text"
+                name="tel2"
+                labelName={"Tel No 2"}
+                value={values.tel2}
+              />
               <DropDown
                 name="cityName"
                 labelName={"City Name"}
                 options={cities}
               />
-              <FormGroup type="text" name="zipCode" labelName={"Zip Code"} />
-              <FormGroup type="text" name="address" labelName={"Address"} />
+              <FormGroup
+                type="text"
+                name="zipCode"
+                labelName={"Zip Code"}
+                value={values.zipCode}
+              />
+              <FormGroup
+                type="text"
+                name="address"
+                labelName={"Address"}
+                value={values.address}
+              />
               <FormButton type="submit" buttonName="Update Distributor" />
             </div>
           </Form>
