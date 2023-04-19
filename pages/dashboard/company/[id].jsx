@@ -34,12 +34,7 @@ const UpdateCompany = ({ result }) => {
         initialValues={{
           ...result,
         }}
-        validationSchema={Yup.object({
-          name: Yup.string()
-            .required("Please enter your surname")
-            .min(3, "Surname must be 3 characters or more")
-            .max(30, "Surname must be 30 characters or less"),
-        })}
+        validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
           const payload = { ...values };
           console.log("values", values);

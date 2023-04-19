@@ -13,6 +13,7 @@ import { Country, State, City } from "country-state-city";
 import CompanyPack from "../../../components/companyForm/CompanyPack";
 import CompanyLicence from "../../../components/companyForm/CompanyLicence";
 import AddCompanyForm from "../../../components/companyForm/AddCompanyForm";
+import { CheckLg } from "react-bootstrap-icons";
 
 const AddCompany = () => {
   const [cities, setCities] = useState(State.getStatesOfCountry("TR"));
@@ -47,9 +48,11 @@ const AddCompany = () => {
     if (data.data.code) {
       toast.success(data.data.message);
     }
+    console.log(data);
     return data;
   };
-  const companyPackFunc = async ({ values }) => {
+  const companyPackFunc = async (values,compId) => {
+    const stringId = compId.toString();
     const data = await axios({
       method: "post",
       url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-packages`,
@@ -57,6 +60,7 @@ const AddCompany = () => {
         Authorization: `Bearer ${jwt}`,
       },
       data: {
+        companyId: stringId,
         ...values,
       },
     }).catch(function (error) {
@@ -68,9 +72,20 @@ const AddCompany = () => {
     if (data.data.code) {
       toast.success(data.data.message);
     }
-    console.log(values);
+    console.log(data);
+    return data;
   };
-  const companyPaymentFuck = async ({ values }) => {
+  const companyPaymentFunc = async (values, compId) => {
+    const startDate = new Date();
+    let endDate = new Date();
+    if (values.licenseType === 0) {
+      const newDate = new Date(startDate);
+      endDate = newDate.setMonth(newDate.getMonth() + 1);
+    } else if (values.licenseType === 1) {
+      const newDate = new Date(startDate);
+      endDate = newDate.setFullYear(newDate.getFullYear() + 1);
+    }
+    const stringId = compId.toString();
     const data = await axios({
       method: "post",
       url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-payment`,
@@ -78,6 +93,9 @@ const AddCompany = () => {
         Authorization: `Bearer ${jwt}`,
       },
       data: {
+        companyId: stringId,
+        startDate,
+        endDate,
         ...values,
       },
     }).catch(function (error) {
@@ -85,11 +103,11 @@ const AddCompany = () => {
         toast.error(error.response.data.message);
       }
     });
-    console.log(data);
     if (data.data.code) {
       toast.success(data.data.message);
     }
-    console.log(values);
+    console.log(data);
+    return data;
   };
   return (
     <div>
@@ -130,7 +148,7 @@ const AddCompany = () => {
                 price: "",
               },
               {
-                packagesName1: "Vardiya Paketi",
+                packagesName: "Vardiya Paketi",
                 price: "",
               },
               {
@@ -143,19 +161,21 @@ const AddCompany = () => {
             toggle2: false,
           },
           companyPayment: {
-            startDate: new Date(),
-            licenceType: 0,
+            licenseType: 0,
             userLimit: 0,
             totalPrice: 0,
+            invoice: "9000",
+            paymentState: 0,
+            paymentType: 0,
+            currencyType: 0,
           },
         }}
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
-          // console.log("submit values", values.company);
           const newCompany = await companyFunc(values.company);
-          console.log("new comp", newCompany.data.result.id); // üstteki func istek atınca buraya comp id düşüyor halledersin ordan sonrasını
-          // await companyPaymentFuck(values.packages);
-          // await companyPackFunc(values.companyPayment);
+          const compId = await newCompany.data.result.id;
+          await companyPackFunc(values.packages,compId);
+          await companyPaymentFunc(values.companyPayment, compId);
         }}
       >
         {({ values }) => (

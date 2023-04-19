@@ -4,21 +4,16 @@ import FormGroup from "../form/FormGroup";
 import DropDown from "../form/DropDown";
 
 const CompanyLicence = () => {
-  const [licenceType, setLicencetype] = useState([
+  const [licenseType, setLicencetype] = useState([
     { value: 0, name: "Monthly Licence" },
     { value: 1, name: "Yearly Licence" },
   ]);
   return (
     <div className="mt-8">
-      <FormGroup
-        type="date"
-        name="companyPayment.startDate"
-        labelName={"Company Name"}
-      />
       <DropDown
-        options={licenceType}
-        name="companyPayment.licenceType"
-        labelName={"Licence Type"}
+        options={licenseType}
+        name="companyPayment.licenseType"
+        labelName={"License Type"}
       />
       <FormGroup
         type="number"
