@@ -16,7 +16,6 @@ import { useRouter } from "next/router";
 
 const UpdateCompany = ({ result }) => {
   console.log(result);
-  const [cities, setCities] = useState(State.getStatesOfCountry("TR"));
   const {
     data: {
       session: {
@@ -32,7 +31,7 @@ const UpdateCompany = ({ result }) => {
       />
       <Formik
         initialValues={{
-          ...result,
+          name: result.name,
         }}
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
@@ -58,7 +57,7 @@ const UpdateCompany = ({ result }) => {
           }
         }}
       >
-        {() => (
+        {({ values }) => (
           <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
             <div className=" w-3/4">
               <FormGroup type="text" name="name" labelName={"Company Name"} />
@@ -73,11 +72,6 @@ const UpdateCompany = ({ result }) => {
               <FormGroup type="text" name="taxNo" labelName={"Tax No"} />
               <FormGroup type="text" name="tel" labelName={"Tel No"} />
               <FormGroup type="text" name="tel2" labelName={"Tel No 2"} />
-              <DropDown
-                name="cityName"
-                labelName={"City Name"}
-                options={cities}
-              />
               <FormGroup type="text" name="zipCode" labelName={"Zip Code"} />
               <FormGroup type="text" name="address" labelName={"Address"} />
               <FormButton type="submit" buttonName="Update Company" />
@@ -117,5 +111,3 @@ export const getServerSideProps = async (context) => {
     },
   };
 };
-
-//deneme id : 84bbceee-1f9f-4122-a421-180047c59287

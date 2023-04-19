@@ -9,7 +9,6 @@ import FormButton from "../../../../components/form/FormButton";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
-
 const UpdateCompany = ({ result }) => {
   console.log(result);
   const {
@@ -58,23 +57,13 @@ const UpdateCompany = ({ result }) => {
             <div className=" w-3/4">
               <FormGroup
                 type="text"
-                name="company.adminName"
-                labelName={"Admin Name*"}
-              />
-              <FormGroup
-                type="text"
-                name="company.adminSecondName"
-                labelName={"Admin Second Name"}
-              />
-              <FormGroup
-                type="text"
-                name="company.adminSurname"
-                labelName={"Admin Surname*"}
-              />
-              <FormGroup
-                type="text"
                 name="company.adminEmail"
                 labelName={"Admin Email*"}
+              />
+              <FormGroup
+                type="password"
+                name="company.password"
+                labelName={"Password*"}
               />
               <FormButton type="submit" buttonName="Update" />
             </div>

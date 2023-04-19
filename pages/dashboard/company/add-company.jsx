@@ -4,7 +4,6 @@ import axios from "axios";
 import PageHeader from "../../../components/PageHeader";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
-import FormGroup from "../../../components/form/FormGroup";
 import FormButton from "../../../components/form/FormButton";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
@@ -13,7 +12,6 @@ import { Country, State, City } from "country-state-city";
 import CompanyPack from "../../../components/companyForm/CompanyPack";
 import CompanyLicence from "../../../components/companyForm/CompanyLicence";
 import AddCompanyForm from "../../../components/companyForm/AddCompanyForm";
-import { CheckLg } from "react-bootstrap-icons";
 
 const AddCompany = () => {
   const [cities, setCities] = useState(State.getStatesOfCountry("TR"));

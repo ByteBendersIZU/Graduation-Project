@@ -17,8 +17,8 @@ const List = (props) => {
   const buttons = [
     { name: "Update", href: "./" },
     { name: "Company edit", href: "#" },
-    // { name: "Admin edit", href: "../contacts/update-people" },
-    { name: "Change password", href: "#" },
+    { name: "Admin edit", href: "../contacts/update-people" },
+    { name: "Admin password", href: "../contacts/change-password-people" },
     { name: "Passive", href: "#" },
   ];
 
@@ -47,8 +47,8 @@ const List = (props) => {
   return (
     <div>
       <PageHeader
-        header={"Distributeur List"}
-        breadcrumb={["Distributeur", "Distributeur List"]}
+        header={"Company List"}
+        breadcrumb={["Company", "Company List"]}
       />
       <Input changeInput={changeInput} />
       <Table
