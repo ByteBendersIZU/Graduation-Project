@@ -16,7 +16,6 @@ const List = (props) => {
   const titles = ["Company name", "Address", "E-mail", "Workers Count", "Edit"];
   const buttons = [
     { name: "Update", href: "./" },
-    { name: "Company edit", href: "#" },
     { name: "Admin edit", href: "../contacts/update-people" },
     { name: "Admin password", href: "../contacts/change-password-people" },
     { name: "Passive", href: "#" },

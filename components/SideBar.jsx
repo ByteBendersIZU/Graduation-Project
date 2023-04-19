@@ -1,115 +1,20 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import jwt_decode from "jwt-decode";
-import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { signOut, useSession } from "next-auth/react";
 
-//ICONST
-import { BsFillPersonFill, BsFillPersonCheckFill } from "react-icons/bs";
-import { GrOrganization, GrUser, GrHome, GrLogout } from "react-icons/gr";
+//ICONS
+import { GrLogout } from "react-icons/gr";
 import { FiArrowLeft } from "react-icons/fi";
 import { BiDownArrow } from "react-icons/bi";
-const distributorMenuItems = [
-  { id: 1, label: "Home", icon: GrHome, link: "/dashboard" },
-  {
-    id: 2,
-    label: "Organizasyon",
-    icon: GrOrganization,
-    subMenus: [
-      {
-        title: "Company List",
-        src: "/dashboard/company/list",
-
-        cName: "sub-nav",
-      },
-      {
-        title: "Add Company",
-        src: "/dashboard/company/add-company",
-
-        cName: "sub-nav",
-      },
-    ],
-    link: "/dashboard",
-  },
-  {
-    id: 3,
-    label: "Personel",
-    icon: BsFillPersonFill,
-    subMenus: [
-      {
-        title: "Support Employee",
-        src: "/dashboard",
-
-        cName: "sub-nav",
-      },
-      {
-        title: "Add Support Employee",
-        src: "/dashboard",
-
-        cName: "sub-nav",
-      },
-    ],
-    link: "/dashboard",
-  },
-  {
-    id: 4,
-    label: "Support",
-    icon: BsFillPersonCheckFill,
-    subMenus: [
-      {
-        title: "Support Request List",
-        src: "/dashboard",
-
-        cName: "sub-nav",
-      },
-      {
-        title: "Create Support Request",
-        src: "/dashboard",
-
-        cName: "sub-nav",
-      },
-    ],
-    link: "/dashboard",
-  },
-];
-const adminMenuItems = [
-  { id: 1, label: "Home", icon: GrHome, link: "/dashboard" },
-  {
-    id: 2,
-    label: "Distributor",
-    icon: GrUser,
-    subMenus: [
-      {
-        title: "Add Distributor",
-        src: "/dashboard/distributor/add-distributor",
-
-        cName: "sub-nav",
-      },
-      {
-        title: "Distributor List",
-        src: "/dashboard/distributor/list",
-
-        cName: "sub-nav",
-      },
-    ],
-    link: "/dashboard",
-  },
-  {
-    id: 3,
-    label: "Organization",
-    icon: BsFillPersonFill,
-    subMenus: [
-      {
-        title: "Company List",
-        src: "/dashboard/company-list",
-
-        cName: "sub-nav",
-      },
-    ],
-    link: "/dashboard",
-  },
-];
+//HELPERS
+import {
+  adminMenuItems,
+  companyMenuItems,
+  distributorMenuItems,
+} from "../pages/helpers/SideLinks";
 
 const SideBar = () => {
   const [subMenuOpen, setSubMenuOpen] = useState(false);
@@ -123,6 +28,8 @@ const SideBar = () => {
       setMenuItems(adminMenuItems);
     } else if (user.role === "ROLE_DISTRIBUTOR") {
       setMenuItems(distributorMenuItems);
+    } else if (user.role === "ROLE_COMPANY_ADMIN") {
+      setMenuItems(companyMenuItems);
     }
   }, []);
   const router = useRouter();

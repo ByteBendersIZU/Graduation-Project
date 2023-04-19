@@ -9,10 +9,6 @@ import FormButton from "../../../components/form/FormButton";
 import FormToggle from "../../../components/form/FormToggle";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-import { Country, State, City } from "country-state-city";
-
-import DropDown from "../../../components/form/DropDown";
-import { useRouter } from "next/router";
 
 const UpdateCompany = ({ result }) => {
   console.log(result);
@@ -31,7 +27,7 @@ const UpdateCompany = ({ result }) => {
       />
       <Formik
         initialValues={{
-          name: result.name,
+          ...result
         }}
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
@@ -60,20 +56,54 @@ const UpdateCompany = ({ result }) => {
         {({ values }) => (
           <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
             <div className=" w-3/4">
-              <FormGroup type="text" name="name" labelName={"Company Name"} />
+              <FormGroup
+                type="text"
+                name="name"
+                labelName={"Company Name"}
+                value={values.name}
+              />
               <FormGroup
                 type="text"
                 name="companyShortName"
                 labelName={"Company Short Name"}
+                value={values.companyShortName}
               />
-              <FormGroup type="email" name="email" labelName={"Email"} />
-              <FormGroup type="text" name="webSite" labelName={"Web Site"} />
-              <FormGroup type="text" name="taxName" labelName={"Tax Name"} />
-              <FormGroup type="text" name="taxNo" labelName={"Tax No"} />
-              <FormGroup type="text" name="tel" labelName={"Tel No"} />
-              <FormGroup type="text" name="tel2" labelName={"Tel No 2"} />
-              <FormGroup type="text" name="zipCode" labelName={"Zip Code"} />
-              <FormGroup type="text" name="address" labelName={"Address"} />
+              <FormGroup
+                type="email"
+                name="email"
+                labelName={"Email"}
+                value={values.email}
+              />
+              <FormGroup
+                type="text"
+                name="webSite"
+                labelName={"Web Site"}
+                value={values.webSite}
+              />
+              <FormGroup
+                type="text"
+                name="taxName"
+                labelName={"Tax Name"}
+                value={values.taxName}
+              />
+              <FormGroup
+                type="text"
+                name="taxNo"
+                labelName={"Tax No"}
+                value={values.taxNo}
+              />
+              <FormGroup
+                type="text"
+                name="tel"
+                labelName={"Tel No"}
+                value={values.tel}
+              />
+              <FormGroup
+                type="text"
+                name="tel2"
+                labelName={"Tel No 2"}
+                value={values.tel2}
+              />
               <FormButton type="submit" buttonName="Update Company" />
             </div>
           </Form>
