@@ -1,11 +1,8 @@
 import React from "react";
 import FormGroup from "../form/FormGroup";
-import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
-import { toast } from "react-toastify";
 
 const CompanyPack = ({ packages }) => {
-  const packagesName = ["Personel Paketi", "Vardiya Paketi", "Bordro Paketi"];
   return (
     <div className="flex justify-around bg-white mt-8">
       <div>

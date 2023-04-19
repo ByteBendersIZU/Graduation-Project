@@ -35,27 +35,27 @@ const AddCompanyForm = () => {
       <FormGroup
         type="text"
         name="company.adminName"
-        labelName={"adminName*"}
+        labelName={"Admin Name*"}
       />
       <FormGroup
         type="text"
         name="company.adminSecondName"
-        labelName={"adminSecondName"}
+        labelName={"Admin Second Name"}
       />
       <FormGroup
         type="text"
         name="company.adminSurname"
-        labelName={"adminSurname*"}
+        labelName={"Admin Surname*"}
       />
       <FormGroup
         type="text"
         name="company.adminEmail"
-        labelName={"adminEmail*"}
+        labelName={"Admin Email*"}
       />
       <FormGroup
         type="password"
         name="company.password"
-        labelName={"password*"}
+        labelName={"Password*"}
       />
     </div>
   );
