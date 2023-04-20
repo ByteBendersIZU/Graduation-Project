@@ -27,7 +27,7 @@ const UpdateCompany = ({ result }) => {
       />
       <Formik
         initialValues={{
-          ...result
+          ...result,
         }}
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
@@ -103,6 +103,18 @@ const UpdateCompany = ({ result }) => {
                 name="tel2"
                 labelName={"Tel No 2"}
                 value={values.tel2}
+              />
+              <FormGroup
+                type="text"
+                name="zipCode"
+                labelName={"Zip Code"}
+                value={values.zipCode}
+              />
+              <FormGroup
+                type="text"
+                name="address"
+                labelName={"Address"}
+                value={values.address}
               />
               <FormButton type="submit" buttonName="Update Company" />
             </div>

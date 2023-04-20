@@ -60,6 +60,7 @@ const UpdateCompany = ({ result }) => {
                 type="text"
                 name="company.adminName"
                 labelName={"Admin Name*"}
+                value={values.adminName}
               />
               <FormGroup
                 type="text"

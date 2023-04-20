@@ -13,13 +13,16 @@ const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
   const [getDistributor, setGetDistributor] = useState(props.data);
   const inputKeys = ["name", "cityName", "email", "workersCount"];
-  const titles = ["Company name", "Address", "E-mail", "Workers Count", "Edit"];
+  const titles = ["Company name", "Address", "E-mail", "Workers Count", "Edit","State"];
   const buttons = [
     { name: "Update", href: "./" },
     { name: "Admin edit", href: "../contacts/update-people" },
     { name: "Admin password", href: "../contacts/change-password-people" },
-    { name: "Passive", href: "#" },
   ];
+  // const stateButtons = [
+  //   {name:'Passive Admin'},
+  //   {name:'Passive Company'},
+  // ]
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
@@ -55,6 +58,7 @@ const List = (props) => {
         column={inputKeys}
         titles={titles}
         buttons={buttons}
+        // stateButtons={stateButtons}
         inputSearch={inputSearch}
       />
       <Pagination
