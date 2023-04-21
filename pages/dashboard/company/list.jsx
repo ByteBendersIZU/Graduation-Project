@@ -9,11 +9,17 @@ import Table from "../../../components/ui/Table";
 import Input from "../../../components/ui/Input";
 
 const List = (props) => {
-  console.log(props);
   const [inputSearch, setInputSearch] = useState("");
-  const [getDistributor, setGetDistributor] = useState(props.data);
+  const [getCompany, setGetCompany] = useState(props.data);
   const inputKeys = ["name", "cityName", "email", "workersCount"];
-  const titles = ["Company name", "Address", "E-mail", "Workers Count", "Edit","State"];
+  const titles = [
+    "Company name",
+    "Address",
+    "E-mail",
+    "Workers Count",
+    "Edit",
+    "State",
+  ];
   const buttons = [
     { name: "Update", href: "./" },
     { name: "Admin edit", href: "../contacts/update-people" },
@@ -27,9 +33,9 @@ const List = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
 
-  const filtredList = getDistributor.filter((distributor) =>
+  const filtredList = getCompany.filter((company) =>
     inputKeys.some((key) =>
-      distributor[key].toLowerCase().includes(inputSearch.toLowerCase())
+      company[key].toLowerCase().includes(inputSearch.toLowerCase())
     )
   );
 

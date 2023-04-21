@@ -15,7 +15,7 @@ const List = (props) => {
   const titles = ["name", "surname", "e-mail", "phone Number", "Edit"];
   const buttons = [
     { name: "update", href: "update-distributor" },
-    { name: "delete", href: "#" },
+    { name: "password", href: "change-password-distributor" },
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
