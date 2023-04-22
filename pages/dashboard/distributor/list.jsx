@@ -12,7 +12,7 @@ const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
   const [getDistributor, setGetDistributor] = useState(props.data);
   const inputKeys = ["name", "surname", "email", "phoneNumber"];
-  const titles = ["name", "surname", "e-mail", "phone Number", "Edit"];
+  const titles = ["name", "surname", "e-mail", "phone Number", "Edit", "Change State"];
   const buttons = [
     { name: "update", href: "update-distributor" },
     { name: "password", href: "change-password-distributor" },
@@ -53,6 +53,7 @@ const List = (props) => {
         titles={titles}
         buttons={buttons}
         inputSearch={inputSearch}
+
       />
       <Pagination
         postsPerPage={postPerPage}

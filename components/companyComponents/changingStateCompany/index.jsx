@@ -4,7 +4,7 @@ import axios from "axios";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
-const ChangingState = ({ id, stateButton }) => {
+const ChangingStateCompany = ({ id, stateButton }) => {
   const {
     data: {
       session: {
@@ -62,6 +62,6 @@ const ChangingState = ({ id, stateButton }) => {
   );
 };
 
-ChangingState.auth = true;
+ChangingStateCompany.auth = true;
 
-export default ChangingState;
+export default ChangingStateCompany;
