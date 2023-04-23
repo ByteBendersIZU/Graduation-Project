@@ -9,7 +9,7 @@ import FormButton from "../../../../components/form/FormButton";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
-const UpdateCompany = ({ result }) => {
+const ChangePasswordDist = ({ result }) => {
   console.log(result);
   const {
     data: {
@@ -26,15 +26,19 @@ const UpdateCompany = ({ result }) => {
       />
       <Formik
         initialValues={{
-          name: result.name,
+          adminEmail: result.adminEmail,
+          password: "",
+          rePassword: "",
         }}
-        validationSchema={Yup.object({})}
+        validationSchema={Yup.object({
+          //email sifre denetle
+        })}
         onSubmit={async (values, { setSubmitting }) => {
           const payload = { ...values };
           console.log("values", values);
           const data = await axios({
             method: "put",
-            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
+            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/password`,
             headers: {
               Authorization: `Bearer ${jwt}`,
             },
@@ -57,13 +61,19 @@ const UpdateCompany = ({ result }) => {
             <div className=" w-3/4">
               <FormGroup
                 type="text"
-                name="company.adminEmail"
-                labelName={"Admin Email*"}
+                name="adminEmail"
+                labelName={"Email"}
+                value={values.adminEmail}
               />
               <FormGroup
                 type="password"
-                name="company.password"
-                labelName={"Password*"}
+                name="password"
+                labelName={"New password"}
+              />
+              <FormGroup
+                type="password"
+                name="rePassword"
+                labelName={"New password again"}
               />
               <FormButton type="submit" buttonName="Update" />
             </div>
@@ -74,9 +84,9 @@ const UpdateCompany = ({ result }) => {
   );
 };
 
-UpdateCompany.auth = true;
+ChangePasswordDist.auth = true;
 
-export default UpdateCompany;
+export default ChangePasswordDist;
 
 export const getServerSideProps = async (context) => {
   const { id } = context.query;

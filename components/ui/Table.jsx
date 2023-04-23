@@ -3,7 +3,14 @@ import Link from "next/link";
 import ChangingStateCompany from "../companyComponents/changingStateCompany";
 import ChancingStateDistributor from "../distributorComponents/changingStateDistributor";
 
-const Table = ({ data, column, titles, buttons, inputSearch }) => {
+const Table = ({
+  data,
+  column,
+  titles,
+  buttons,
+  stateButtons,
+  inputSearch,
+}) => {
   return (
     <div className="relative my-10 overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -22,7 +29,12 @@ const Table = ({ data, column, titles, buttons, inputSearch }) => {
               )
             )
             .map((item) => (
-              <TableRow item={item} column={column} buttons={buttons} />
+              <TableRow
+                item={item}
+                column={column}
+                buttons={buttons}
+                stateButtons={stateButtons}
+              />
             ))}
         </tbody>
       </table>
@@ -35,7 +47,7 @@ const TableHeadItem = ({ item }) => (
     {item}
   </th>
 );
-const TableRow = ({ item, column, buttons }) => {
+const TableRow = ({ item, column, buttons, stateButtons }) => {
   return (
     <>
       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -53,11 +65,15 @@ const TableRow = ({ item, column, buttons }) => {
             </Link>
           ))}
         </td>
-        {/* <td className="px-6 py-4">
+        <td className="px-6 py-4">
           {stateButtons.map((stateButton, index) => (
-            <ChancingStateDistributor id={item.id} status={item.actived} stateButton={stateButton} />
+            <ChancingStateDistributor
+              id={item.id}
+              status={item.actived}
+              stateButton={stateButton}
+            />
           ))}
-        </td> */}
+        </td>
       </tr>
     </>
   );

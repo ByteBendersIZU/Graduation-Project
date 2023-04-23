@@ -13,6 +13,8 @@ const ChancingStateDistributor = ({ id, status, stateButton }) => {
     },
   } = useSession();
 
+  const [state, setState] = useState(status);
+
   const distActive = async (id) => {
     console.log(id);
     const data = await axios({
@@ -29,6 +31,7 @@ const ChancingStateDistributor = ({ id, status, stateButton }) => {
     if (data.data.code) {
       toast.success(data.data.message);
     }
+    console.log(data);
     return data;
   };
   const distUnactive = async (id) => {
@@ -50,16 +53,18 @@ const ChancingStateDistributor = ({ id, status, stateButton }) => {
   };
   const stateController = (id) => {
     if (status === true) {
-      distActive(id);
-    } else {
       distUnactive(id);
+      setState(!state);
+    } else {
+      distActive(id);
+      setState(!state);
     }
   };
 
   return (
     <div>
       <button onClick={() => stateController(id)}>
-        {status ? "Passive" : "Active"}
+        {state ? "Passive" : "Active"}
       </button>
     </div>
   );

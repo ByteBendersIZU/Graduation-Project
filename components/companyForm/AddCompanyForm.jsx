@@ -5,7 +5,6 @@ import FormGroup from "../form/FormGroup";
 import { Country, State, City } from "country-state-city";
 
 const AddCompanyForm = () => {
-  const [cities, setCities] = useState(State.getStatesOfCountry("TR"));
   return (
     <div>
       <h3 className="text-2xl text-red-500">Company Informations</h3>
@@ -26,7 +25,6 @@ const AddCompanyForm = () => {
       <FormGroup type="text" name="company.taxNo" labelName={"Tax No"} />
       <FormGroup type="text" name="company.tel" labelName={"Tel No"} />
       <FormGroup type="text" name="company.tel2" labelName={"Tel No 2"} />
-      {/* <DropDown options={cities} name="company.cityId" labelName={"City"} /> */}
       <FormGroup type="text" name="company.zipCode" labelName={"Zip Code*"} />
       <FormGroup type="text" name="company.address" labelName={"Address*"} />
 

@@ -28,7 +28,6 @@ const AddCompany = () => {
   } = useSession();
 
   const companyFunc = async (values) => {
-    console.log("compFunc", values);
     const data = await axios({
       method: "post",
       url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
@@ -46,7 +45,6 @@ const AddCompany = () => {
     if (data.data.code) {
       toast.success(data.data.message);
     }
-    console.log(data);
     return data;
   };
   const companyPackFunc = async (values,compId) => {
@@ -70,7 +68,6 @@ const AddCompany = () => {
     if (data.data.code) {
       toast.success(data.data.message);
     }
-    console.log(data);
     return data;
   };
   const companyPaymentFunc = async (values, compId) => {
@@ -104,7 +101,6 @@ const AddCompany = () => {
     if (data.data.code) {
       toast.success(data.data.message);
     }
-    console.log(data);
     return data;
   };
   return (
@@ -183,12 +179,11 @@ const AddCompany = () => {
               <h3 className="mt-10 text-2xl text-red-500">
                 Package Management
               </h3>
-              <hr />
+              <br />
               <CompanyPack packages={values.packages} />
               <h3 className="mt-10 text-2xl text-red-500">Company Licence</h3>
-              <hr />
+              <br />
               <CompanyLicence companyPayment={values.companyPayment} />
-
               <FormButton type="submit" buttonName="Add Company" />
             </div>
           </Form>

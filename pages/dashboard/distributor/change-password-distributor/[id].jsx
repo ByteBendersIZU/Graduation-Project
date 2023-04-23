@@ -21,8 +21,8 @@ const ChangePasswordDist = ({ result }) => {
   return (
     <div>
       <PageHeader
-        header={"Update Admin"}
-        breadcrumb={["Company", "Update Admin"]}
+        header={"Update Password"}
+        breadcrumb={["Distributor", "Update Password"]}
       />
       <Formik
         initialValues={{
