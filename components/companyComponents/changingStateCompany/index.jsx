@@ -5,7 +5,6 @@ import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
 const ChancingStateDistributor = ({ id, status }) => {
-  console.log(status);
   const {
     data: {
       session: {

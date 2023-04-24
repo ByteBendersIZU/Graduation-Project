@@ -16,7 +16,6 @@ const ChancingStateDistributor = ({ id, status, stateButton }) => {
   const [state, setState] = useState(status);
 
   const distActive = async (id) => {
-    console.log(id);
     const data = await axios({
       method: "put",
       url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/active/${id}`,
@@ -31,7 +30,6 @@ const ChancingStateDistributor = ({ id, status, stateButton }) => {
     if (data.data.code) {
       toast.success(data.data.message);
     }
-    console.log(data);
     return data;
   };
   const distUnactive = async (id) => {

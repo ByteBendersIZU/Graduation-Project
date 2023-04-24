@@ -17,7 +17,6 @@ const List = (props) => {
     { name: "update", href: "update-distributor" },
     { name: "password", href: "change-password-distributor" },
   ];
-  const stateButtons = [{name:"Passive"}]
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
@@ -54,7 +53,6 @@ const List = (props) => {
         titles={titles}
         buttons={buttons}
         inputSearch={inputSearch}
-        stateButtons={stateButtons}
       />
       <Pagination
         postsPerPage={postPerPage}

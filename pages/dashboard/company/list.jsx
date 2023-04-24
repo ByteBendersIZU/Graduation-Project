@@ -17,14 +17,13 @@ const List = (props) => {
     "E-mail",
     "Workers Count",
     "Edit",
-    "State",
+    "Change State",
   ];
   const buttons = [
     { name: "Update", href: "./" },
     { name: "Admin edit", href: "../contacts/update-people" },
     { name: "Admin password", href: "../contacts/change-password-people" },
   ];
-
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);

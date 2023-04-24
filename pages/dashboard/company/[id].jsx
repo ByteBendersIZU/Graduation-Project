@@ -11,7 +11,6 @@ import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
 const UpdateCompany = ({ result }) => {
-  console.log(result);
   const {
     data: {
       session: {
@@ -32,7 +31,6 @@ const UpdateCompany = ({ result }) => {
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
           const payload = { ...values };
-          console.log("values", values);
           const data = await axios({
             method: "put",
             url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
@@ -47,7 +45,6 @@ const UpdateCompany = ({ result }) => {
               toast.error(error.response.data.message);
             }
           });
-          console.log(data);
           if (data.data.code) {
             toast.success(data.data.message);
           }

@@ -64,7 +64,6 @@ const AddCompany = () => {
         toast.error(error.response.data.message);
       }
     });
-    console.log(data);
     if (data.data.code) {
       toast.success(data.data.message);
     }
