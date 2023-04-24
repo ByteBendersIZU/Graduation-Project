@@ -5,16 +5,15 @@ import { useState } from "react";
 import React from "react";
 import Pagination from "../../../components/ui/pagination";
 import PageHeader from "../../../components/PageHeader";
-import Table from "../../../components/ui/Table";
+import Table from "../../../components/companyComponents/CompanyTable/index";
 import Input from "../../../components/ui/Input";
 
 const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
   const [getCompany, setGetCompany] = useState(props.data);
-  const inputKeys = ["name", "cityName", "email", "workersCount"];
+  const inputKeys = ["name", "email", "workersCount"];
   const titles = [
     "Company name",
-    "Address",
     "E-mail",
     "Workers Count",
     "Edit",
@@ -25,10 +24,7 @@ const List = (props) => {
     { name: "Admin edit", href: "../contacts/update-people" },
     { name: "Admin password", href: "../contacts/change-password-people" },
   ];
-  // const stateButtons = [
-  //   {name:'Passive Admin'},
-  //   {name:'Passive Company'},
-  // ]
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
@@ -64,7 +60,6 @@ const List = (props) => {
         column={inputKeys}
         titles={titles}
         buttons={buttons}
-        // stateButtons={stateButtons}
         inputSearch={inputSearch}
       />
       <Pagination

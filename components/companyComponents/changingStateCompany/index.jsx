@@ -4,7 +4,8 @@ import axios from "axios";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
-const ChangingStateCompany = ({ id, stateButton }) => {
+const ChancingStateDistributor = ({ id, status }) => {
+  console.log(status);
   const {
     data: {
       session: {
@@ -13,7 +14,9 @@ const ChangingStateCompany = ({ id, stateButton }) => {
     },
   } = useSession();
 
-  const adminActive = async (id) => {
+  const [state, setState] = useState(status);
+
+  const companyActive = async (id) => {
     const data = await axios({
       method: "post",
       url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/company-admin-active/${id}`,
@@ -28,11 +31,9 @@ const ChangingStateCompany = ({ id, stateButton }) => {
     if (data.data.code) {
       toast.success(data.data.message);
     }
-    console.log(data);
     return data;
   };
-  const adminPassive = async (id) => {
-    console.log(id);
+  const companyUnactive = async (id) => {
     const data = await axios({
       method: "post",
       url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/company-admin-passive/${id}`,
@@ -44,24 +45,30 @@ const ChangingStateCompany = ({ id, stateButton }) => {
         toast.error(error.response.data.message);
       }
     });
-    console.log(data);
     if (data.data.code) {
       toast.success(data.data.message);
     }
-    console.log(data);
     return data;
   };
+  const stateController = (id) => {
+    if (status === true) {
+      companyActive(id);
+      setState(!state);
+    } else {
+      companyUnactive(id);
+      setState(!state);
+    }
+  };
+
   return (
     <div>
-      <form>
-        <button onClick={async () => await adminPassive(id)}>
-          {stateButton.name}
-        </button>
-      </form>
+      <button onClick={() => stateController(id)}>
+        {state ? "Passive" : "Active"}
+      </button>
     </div>
   );
 };
 
-ChangingStateCompany.auth = true;
+ChancingStateDistributor.auth = true;
 
-export default ChangingStateCompany;
+export default ChancingStateDistributor;

@@ -3,28 +3,39 @@ import { getSession, useSession } from "next-auth/react";
 import { useState } from "react";
 
 import React from "react";
-import Pagination from "../../../components/ui/pagination";
-import PageHeader from "../../../components/PageHeader";
-import Table from "../../../components/distributorComponents/DistributorTable";
-import Input from "../../../components/ui/Input";
+import Pagination from "../../../../components/ui/pagination";
+import PageHeader from "../../../../components/PageHeader";
+import Table from "../../../../components/ui/Table";
+import Input from "../../../../components/ui/Input";
 
 const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
-  const [getDistributor, setGetDistributor] = useState(props.data);
-  const inputKeys = ["name", "surname", "email", "phoneNumber"];
-  const titles = ["name", "surname", "e-mail", "phone Number", "Edit", "Change State"];
-  const buttons = [
-    { name: "update", href: "update-distributor" },
-    { name: "password", href: "change-password-distributor" },
+  const [getCompany, setGetCompany] = useState(props.data);
+  const inputKeys = ["name", "cityName", "email", "workersCount"];
+  const titles = [
+    "Company name",
+    "Address",
+    "E-mail",
+    "Workers Count",
+    "Edit",
+    "State",
   ];
-  const stateButtons = [{name:"Passive"}]
+  const buttons = [
+    { name: "Update", href: "./" },
+    { name: "Admin edit", href: "../contacts/update-people" },
+    { name: "Admin password", href: "../contacts/change-password-people" },
+  ];
+  // const stateButtons = [
+  //   {name:'Passive Admin'},
+  //   {name:'Passive Company'},
+  // ]
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
 
-  const filtredList = getDistributor.filter((distributor) =>
+  const filtredList = getCompany.filter((company) =>
     inputKeys.some((key) =>
-      distributor[key].toLowerCase().includes(inputSearch.toLowerCase())
+      company[key].toLowerCase().includes(inputSearch.toLowerCase())
     )
   );
 
@@ -44,8 +55,8 @@ const List = (props) => {
   return (
     <div>
       <PageHeader
-        header={"Distributor List"}
-        breadcrumb={["Distributor", "Distributor List"]}
+        header={"Company List"}
+        breadcrumb={["Company", "Company List"]}
       />
       <Input changeInput={changeInput} />
       <Table
@@ -54,7 +65,6 @@ const List = (props) => {
         titles={titles}
         buttons={buttons}
         inputSearch={inputSearch}
-        stateButtons={stateButtons}
       />
       <Pagination
         postsPerPage={postPerPage}
@@ -79,7 +89,7 @@ export const getServerSideProps = async (context) => {
     data: { result },
   } = await axios({
     method: "get",
-    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/list`,
+    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/list/false`,
     headers: {
       Authorization: `Bearer ${jwt}`,
     },
