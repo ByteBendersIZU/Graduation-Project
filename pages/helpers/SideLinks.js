@@ -41,6 +41,26 @@ export const companyMenuItems = [
     ],
     link: "/dashboard",
   },
+  {
+    id: 3,
+    label: "Staff",
+    icon: BsFillPersonFill,
+    subMenus: [
+      {
+        title: "Manage Permission",
+        src: "/dashboard/organization/branch-list",
+
+        cName: "sub-nav",
+      },
+      {
+        title: "Branch List",
+        src: "/dashboard/organization/branch-list",
+
+        cName: "sub-nav",
+      },
+    ],
+    link: "/dashboard",
+  },
 ];
 export const distributorMenuItems = [
   { id: 1, label: "Home", icon: GrHome, link: "/dashboard" },

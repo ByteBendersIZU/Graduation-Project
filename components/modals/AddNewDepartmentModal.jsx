@@ -1,4 +1,11 @@
-import { Button, Modal } from "flowbite-react";
+import {
+  Button,
+  Checkbox,
+  Label,
+  Modal,
+  Progress,
+  TextInput,
+} from "flowbite-react";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import { useSession } from "next-auth/react";
@@ -7,10 +14,12 @@ import { toast } from "react-toastify";
 import React, { useState } from "react";
 import FormGroup from "../form/FormGroup";
 import FormButton from "../form/FormButton";
-import { addNewBranchYup } from "../../pages/yupValidations/yupValidations";
-import { MdOutlineModeEdit } from "react-icons/md";
+import {
+  addNewBranchYup,
+  addNewDepartmentYup,
+} from "../../pages/yupValidations/yupValidations";
 
-const UpdateBranch = ({ branch }) => {
+const AddNewDepartmentModal = () => {
   const {
     data: {
       session: {
@@ -21,29 +30,24 @@ const UpdateBranch = ({ branch }) => {
   const [show, setShow] = useState(false);
   return (
     <React.Fragment>
-      <div
-        className="text-blue-600 cursor-pointer"
-        onClick={() => setShow(true)}
-      >
-        <MdOutlineModeEdit />
-      </div>
+      <Button onClick={() => setShow(true)}>Add Department</Button>
       <Modal show={show} onClose={() => setShow(false)}>
-        <Modal.Header>Update Branch</Modal.Header>
+        <Modal.Header>Add New Department</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
             <Formik
               initialValues={{
-                ...branch,
+                name: "",
               }}
-              validationSchema={addNewBranchYup}
+              validationSchema={addNewDepartmentYup}
               onSubmit={async (values, { setSubmitting }) => {
                 const payload = { ...values };
                 setSubmitting(false);
                 setShow(false);
                 console.log("values", values);
                 const data = await axios({
-                  method: "put",
-                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/branch`,
+                  method: "post",
+                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/department`,
                   headers: {
                     Authorization: `Bearer ${jwt}`,
                   },
@@ -61,23 +65,15 @@ const UpdateBranch = ({ branch }) => {
                 }
               }}
             >
-              {({ values }) => (
+              {() => (
                 <Form className="px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
                   <div>
                     <FormGroup
                       type="text"
                       name="name"
-                      value={values.name}
-                      labelName={"Branch Name"}
+                      labelName={"Department Name"}
                     />
-                    <FormGroup
-                      type="text"
-                      name="address"
-                      value={values.address}
-                      labelName={"Branch Location"}
-                    />
-
-                    <FormButton type="submit" buttonName="Add New Branch" />
+                    <FormButton type="submit" buttonName="Add New Department" />
                   </div>
                 </Form>
               )}
@@ -89,4 +85,4 @@ const UpdateBranch = ({ branch }) => {
   );
 };
 
-export default UpdateBranch;
+export default AddNewDepartmentModal;

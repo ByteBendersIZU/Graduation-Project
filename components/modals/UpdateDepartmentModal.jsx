@@ -7,10 +7,13 @@ import { toast } from "react-toastify";
 import React, { useState } from "react";
 import FormGroup from "../form/FormGroup";
 import FormButton from "../form/FormButton";
-import { addNewBranchYup } from "../../pages/yupValidations/yupValidations";
+import {
+  addNewBranchYup,
+  addNewDepartmentYup,
+} from "../../pages/yupValidations/yupValidations";
 import { MdOutlineModeEdit } from "react-icons/md";
 
-const UpdateBranch = ({ branch }) => {
+const UpdateDepartmentModal = ({ department }) => {
   const {
     data: {
       session: {
@@ -28,14 +31,14 @@ const UpdateBranch = ({ branch }) => {
         <MdOutlineModeEdit />
       </div>
       <Modal show={show} onClose={() => setShow(false)}>
-        <Modal.Header>Update Branch</Modal.Header>
+        <Modal.Header>Update Department</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
             <Formik
               initialValues={{
-                ...branch,
+                ...department,
               }}
-              validationSchema={addNewBranchYup}
+              validationSchema={addNewDepartmentYup}
               onSubmit={async (values, { setSubmitting }) => {
                 const payload = { ...values };
                 setSubmitting(false);
@@ -43,7 +46,7 @@ const UpdateBranch = ({ branch }) => {
                 console.log("values", values);
                 const data = await axios({
                   method: "put",
-                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/branch`,
+                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/department`,
                   headers: {
                     Authorization: `Bearer ${jwt}`,
                   },
@@ -70,12 +73,6 @@ const UpdateBranch = ({ branch }) => {
                       value={values.name}
                       labelName={"Branch Name"}
                     />
-                    <FormGroup
-                      type="text"
-                      name="address"
-                      value={values.address}
-                      labelName={"Branch Location"}
-                    />
 
                     <FormButton type="submit" buttonName="Add New Branch" />
                   </div>
@@ -89,4 +86,4 @@ const UpdateBranch = ({ branch }) => {
   );
 };
 
-export default UpdateBranch;
+export default UpdateDepartmentModal;

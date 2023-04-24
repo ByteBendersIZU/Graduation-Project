@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 
-const RemoveBranch = ({ id }) => {
+const RemoveDepartmentList = ({ id }) => {
   const {
     data: {
       session: {
@@ -19,7 +19,7 @@ const RemoveBranch = ({ id }) => {
   const handleDelete = async () => {
     const data = await axios({
       method: "delete",
-      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/branch/${id}`,
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/department/${id}`,
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
@@ -49,7 +49,7 @@ const RemoveBranch = ({ id }) => {
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Are you sure you want to delete this branch?
+              Are you sure you want to delete this department?
             </h3>
             <div className="flex justify-center gap-4">
               <Button
@@ -71,4 +71,4 @@ const RemoveBranch = ({ id }) => {
   );
 };
 
-export default RemoveBranch;
+export default RemoveDepartmentList;

@@ -3,29 +3,24 @@ import React, { useState } from "react";
 import PageHeader from "../../../../components/PageHeader";
 import Pagination from "../../../../components/ui/pagination";
 import Input from "../../../../components/ui/Input";
-import NewTable from "../../../../components/ui/NewTable";
 import NewBranchModal from "../../../../components/modals/AddNewBranchModal";
-import { MdDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
 import { getSession } from "next-auth/react";
 import axios from "axios";
 import UpdateBranch from "../../../../components/modals/UpdateBranchModel";
 import RemoveBranch from "../../../../components/modals/RemoveBranch";
+import { useRouter } from "next/router";
 
 const BranchList = ({ data }) => {
+  // to refresh the page after update or delete
+  // const router = useRouter();
+  // const refreshData = () => {
+  //   console.log("refreshed");
+  //   router.replace(router.asPath);
+  // };
+
   const [inputSearch, setInputSearch] = useState("");
   const [getBranches, setGetBranches] = useState(data);
   const inputKeys = ["name", "address"];
-  const titles = ["Company name", "deneme", "deneme"];
-  const buttons = [
-    {
-      name: "Update",
-      href: "#",
-      isModal: true,
-      modal: { title: "Add New Branch" },
-    },
-    { name: "Update", href: "#", isModal: true, comp: <div>buttonComp 2</div> },
-    { name: "Delete", href: "#", isModal: false },
-  ];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
@@ -90,9 +85,9 @@ const BranchList = ({ data }) => {
                     </th>
                     <td className="px-6 py-4">{branch.address}</td>
                     <td className="px-6 py-4 flex justify-end text-xl gap-3">
-                      <UpdateBranch />
+                      <UpdateBranch branch={branch} />
 
-                      <RemoveBranch />
+                      <RemoveBranch id={branch.id} />
                     </td>
                   </tr>
                 ))}
