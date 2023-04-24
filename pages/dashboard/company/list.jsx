@@ -5,29 +5,32 @@ import { useState } from "react";
 import React from "react";
 import Pagination from "../../../components/ui/pagination";
 import PageHeader from "../../../components/PageHeader";
-import Table from "../../../components/ui/Table";
+import Table from "../../../components/companyComponents/CompanyTable/index";
 import Input from "../../../components/ui/Input";
 
 const List = (props) => {
-  console.log(props);
   const [inputSearch, setInputSearch] = useState("");
-  const [getDistributor, setGetDistributor] = useState(props.data);
-  const inputKeys = ["name", "cityName", "email", "workersCount"];
-  const titles = ["Company name", "Address", "E-mail", "Workers Count", "Edit"];
+  const [getCompany, setGetCompany] = useState(props.data);
+  const inputKeys = ["name", "email", "workersCount"];
+  const titles = [
+    "Company name",
+    "E-mail",
+    "Workers Count",
+    "Edit",
+    "Change State",
+  ];
   const buttons = [
     { name: "Update", href: "./" },
-    { name: "Company edit", href: "#" },
-    // { name: "Admin edit", href: "../contacts/update-people" },
-    { name: "Change password", href: "#" },
-    { name: "Passive", href: "#" },
+    { name: "Admin edit", href: "../contacts/update-people" },
+    { name: "Admin password", href: "../contacts/change-password-people" },
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
 
-  const filtredList = getDistributor.filter((distributor) =>
+  const filtredList = getCompany.filter((company) =>
     inputKeys.some((key) =>
-      distributor[key].toLowerCase().includes(inputSearch.toLowerCase())
+      company[key].toLowerCase().includes(inputSearch.toLowerCase())
     )
   );
 
@@ -47,8 +50,8 @@ const List = (props) => {
   return (
     <div>
       <PageHeader
-        header={"Distributeur List"}
-        breadcrumb={["Distributeur", "Distributeur List"]}
+        header={"Company List"}
+        breadcrumb={["Company", "Company List"]}
       />
       <Input changeInput={changeInput} />
       <Table

@@ -9,14 +9,8 @@ import FormButton from "../../../components/form/FormButton";
 import FormToggle from "../../../components/form/FormToggle";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-import { Country, State, City } from "country-state-city";
-
-import DropDown from "../../../components/form/DropDown";
-import { useRouter } from "next/router";
 
 const UpdateCompany = ({ result }) => {
-  console.log(result);
-  const [cities, setCities] = useState(State.getStatesOfCountry("TR"));
   const {
     data: {
       session: {
@@ -37,7 +31,6 @@ const UpdateCompany = ({ result }) => {
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
           const payload = { ...values };
-          console.log("values", values);
           const data = await axios({
             method: "put",
             url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
@@ -52,7 +45,6 @@ const UpdateCompany = ({ result }) => {
               toast.error(error.response.data.message);
             }
           });
-          console.log(data);
           if (data.data.code) {
             toast.success(data.data.message);
           }
@@ -95,7 +87,7 @@ const UpdateCompany = ({ result }) => {
                 type="text"
                 name="taxNo"
                 labelName={"Tax No"}
-                value={values.name}
+                value={values.taxNo}
               />
               <FormGroup
                 type="text"
@@ -109,11 +101,6 @@ const UpdateCompany = ({ result }) => {
                 labelName={"Tel No 2"}
                 value={values.tel2}
               />
-              <DropDown
-                name="cityName"
-                labelName={"City Name"}
-                options={cities}
-              />
               <FormGroup
                 type="text"
                 name="zipCode"
@@ -126,7 +113,7 @@ const UpdateCompany = ({ result }) => {
                 labelName={"Address"}
                 value={values.address}
               />
-              <FormButton type="submit" buttonName="Update Distributor" />
+              <FormButton type="submit" buttonName="Update Company" />
             </div>
           </Form>
         )}
@@ -163,5 +150,3 @@ export const getServerSideProps = async (context) => {
     },
   };
 };
-
-//deneme id : 84bbceee-1f9f-4122-a421-180047c59287

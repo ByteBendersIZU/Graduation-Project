@@ -4,7 +4,6 @@ import axios from "axios";
 import PageHeader from "../../../components/PageHeader";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
-import FormGroup from "../../../components/form/FormGroup";
 import FormButton from "../../../components/form/FormButton";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
@@ -13,7 +12,6 @@ import { Country, State, City } from "country-state-city";
 import CompanyPack from "../../../components/companyForm/CompanyPack";
 import CompanyLicence from "../../../components/companyForm/CompanyLicence";
 import AddCompanyForm from "../../../components/companyForm/AddCompanyForm";
-import { CheckLg } from "react-bootstrap-icons";
 
 const AddCompany = () => {
   const [cities, setCities] = useState(State.getStatesOfCountry("TR"));
@@ -30,7 +28,6 @@ const AddCompany = () => {
   } = useSession();
 
   const companyFunc = async (values) => {
-    console.log("compFunc", values);
     const data = await axios({
       method: "post",
       url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
@@ -48,7 +45,6 @@ const AddCompany = () => {
     if (data.data.code) {
       toast.success(data.data.message);
     }
-    console.log(data);
     return data;
   };
   const companyPackFunc = async (values,compId) => {
@@ -68,11 +64,9 @@ const AddCompany = () => {
         toast.error(error.response.data.message);
       }
     });
-    console.log(data);
     if (data.data.code) {
       toast.success(data.data.message);
     }
-    console.log(data);
     return data;
   };
   const companyPaymentFunc = async (values, compId) => {
@@ -106,7 +100,6 @@ const AddCompany = () => {
     if (data.data.code) {
       toast.success(data.data.message);
     }
-    console.log(data);
     return data;
   };
   return (
@@ -185,12 +178,11 @@ const AddCompany = () => {
               <h3 className="mt-10 text-2xl text-red-500">
                 Package Management
               </h3>
-              <hr />
+              <br />
               <CompanyPack packages={values.packages} />
               <h3 className="mt-10 text-2xl text-red-500">Company Licence</h3>
-              <hr />
+              <br />
               <CompanyLicence companyPayment={values.companyPayment} />
-
               <FormButton type="submit" buttonName="Add Company" />
             </div>
           </Form>
