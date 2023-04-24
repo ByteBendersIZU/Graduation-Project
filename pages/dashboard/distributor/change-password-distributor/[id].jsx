@@ -9,8 +9,7 @@ import FormButton from "../../../../components/form/FormButton";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
-
-const UpdateCompany = ({ result }) => {
+const ChangePasswordDist = ({ result }) => {
   const {
     data: {
       session: {
@@ -21,19 +20,23 @@ const UpdateCompany = ({ result }) => {
   return (
     <div>
       <PageHeader
-        header={"Update Admin"}
-        breadcrumb={["Company", "Update Admin"]}
+        header={"Update Password"}
+        breadcrumb={["Distributor", "Update Password"]}
       />
       <Formik
         initialValues={{
-          name: result.name,
+          email: result.email,
+          password: "",
+          rePassword: "",
         }}
-        validationSchema={Yup.object({})}
+        validationSchema={Yup.object({
+          //email sifre denetle
+        })}
         onSubmit={async (values, { setSubmitting }) => {
           const payload = { ...values };
           const data = await axios({
             method: "put",
-            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
+            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/password`,
             headers: {
               Authorization: `Bearer ${jwt}`,
             },
@@ -45,6 +48,7 @@ const UpdateCompany = ({ result }) => {
               toast.error(error.response.data.message);
             }
           });
+          console.log(data);
           if (data.data.code) {
             toast.success(data.data.message);
           }
@@ -55,24 +59,19 @@ const UpdateCompany = ({ result }) => {
             <div className=" w-3/4">
               <FormGroup
                 type="text"
-                name="company.adminName"
-                labelName={"Admin Name*"}
-                value={values.adminName}
+                name="email"
+                labelName={"Email"}
+                value={values.email}
               />
               <FormGroup
-                type="text"
-                name="company.adminSecondName"
-                labelName={"Admin Second Name"}
+                type="password"
+                name="password"
+                labelName={"New password"}
               />
               <FormGroup
-                type="text"
-                name="company.adminSurname"
-                labelName={"Admin Surname*"}
-              />
-              <FormGroup
-                type="text"
-                name="company.adminEmail"
-                labelName={"Admin Email*"}
+                type="password"
+                name="rePassword"
+                labelName={"New password again"}
               />
               <FormButton type="submit" buttonName="Update" />
             </div>
@@ -83,9 +82,9 @@ const UpdateCompany = ({ result }) => {
   );
 };
 
-UpdateCompany.auth = true;
+ChangePasswordDist.auth = true;
 
-export default UpdateCompany;
+export default ChangePasswordDist;
 
 export const getServerSideProps = async (context) => {
   const { id } = context.query;
@@ -99,7 +98,7 @@ export const getServerSideProps = async (context) => {
     data: { result },
   } = await axios({
     method: "get",
-    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/${id}`,
+    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/${id}`,
     headers: {
       Authorization: `Bearer ${jwt}`,
     },

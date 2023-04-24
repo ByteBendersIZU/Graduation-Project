@@ -1,16 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import ChangingStateCompany from "../companyComponents/changingStateCompany";
 import ChancingStateDistributor from "../distributorComponents/changingStateDistributor";
 
-const Table = ({
-  data,
-  column,
-  titles,
-  buttons,
-  stateButtons,
-  inputSearch,
-}) => {
+const Table = ({ data, column, titles, buttons, inputSearch }) => {
   return (
     <div className="relative my-10 overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -29,12 +21,7 @@ const Table = ({
               )
             )
             .map((item) => (
-              <TableRow
-                item={item}
-                column={column}
-                buttons={buttons}
-                stateButtons={stateButtons}
-              />
+              <TableRow item={item} column={column} buttons={buttons} />
             ))}
         </tbody>
       </table>
@@ -47,7 +34,7 @@ const TableHeadItem = ({ item }) => (
     {item}
   </th>
 );
-const TableRow = ({ item, column, buttons, stateButtons }) => {
+const TableRow = ({ item, column, buttons }) => {
   return (
     <>
       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -65,16 +52,10 @@ const TableRow = ({ item, column, buttons, stateButtons }) => {
             </Link>
           ))}
         </td>
-        
-        {/* <td className="px-6 py-4">
-          {stateButtons.map((stateButton, index) => (
-            <ChancingStateDistributor
-              id={item.id}
-              status={item.actived}
-              stateButton={stateButton}
-            />
-          ))}
-        </td> */}
+
+        <td className="px-6 py-4">
+          <ChancingStateDistributor id={item.id} status={item.actived} />
+        </td>
       </tr>
     </>
   );

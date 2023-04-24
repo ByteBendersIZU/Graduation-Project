@@ -154,7 +154,7 @@ export const adminMenuItems = [
     subMenus: [
       {
         title: "Company List",
-        src: "/dashboard/company-list",
+        src: "/dashboard/company/admin-list",
 
         cName: "sub-nav",
       },
