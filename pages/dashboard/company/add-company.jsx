@@ -103,27 +103,28 @@ const AddCompany = () => {
     }
     return data;
   };
-  // const companySettingFunc = async (values) => {
-  //   const data = await axios({
-  //     method: "put",
-  //     url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-setting/bb75585b-995e-460b-874e-69961dbd2b12`,
-  //     headers: {
-  //       Authorization: `Bearer ${jwt}`,
-  //     },
-  //     data: {
-  //       ...values,
-  //     },
-  //   }).catch(function (error) {
-  //     if (error.response) {
-  //       toast.error(error.response.data.message);
-  //     }
-  //   });
-  //   if (data.data.code) {
-  //     toast.success(data.data.message);
-  //   }
-  //   console.log(data)
-  //   return data;
-  // };
+  const companySettingFunc = async (values) => {
+    console.log(values);
+    const data = await axios({
+      method: "put",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-setting/884e55e6-d318-4c2b-9368-bc934dad14db`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+      data: {
+        ...values,
+      },
+    }).catch(function (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      }
+    });
+    if (data.data.code) {
+      toast.success(data.data.message);
+    }
+    console.log(data);
+    return data;
+  };
   return (
     <div>
       <PageHeader
@@ -185,25 +186,25 @@ const AddCompany = () => {
             currencyType: 0,
           },
           companySetting: [
-            { settingKey: "timebookType", settingValue: 0 },
-            { settingKey: "workingHour", settingValue: 0 },
-            { settingKey: "timeBookConnectionShift", settingValue: 0 },
+            { settingKey: "timebookType", settingValue: "" },
+            { settingKey: "workingHour", settingValue: "" },
+            { settingKey: "timeBookConnectionShift", settingValue: "" },
           ],
         }}
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
-          const newCompany = await companyFunc(values.company);
-          const compId = await newCompany.data.result.id;
-          await companyPackFunc(values.packages, compId);
-          await companyPaymentFunc(values.companyPayment, compId);
+          // const newCompany = await companyFunc(values.company);
+          // const compId = await newCompany.data.result.id;
+          // await companyPackFunc(values.packages, compId);
+          // await companyPaymentFunc(values.companyPayment, compId);
 
-          // await companySettingFunc(values.companySetting);
+          await companySettingFunc(values.companySetting);
         }}
       >
         {({ values }) => (
           <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
             <div className=" w-3/4">
-              <AddCompanyForm company={values.company} />
+              {/* <AddCompanyForm company={values.company} />
               <h3 className="mt-10 text-2xl text-blue-500">
                 Package Management
               </h3>
@@ -212,10 +213,10 @@ const AddCompany = () => {
               <h3 className="mt-10 text-2xl text-blue-500">Company Licence</h3>
               <br />
               <CompanyLicence companyPayment={values.companyPayment} />
-              {/* <h3 className="mt-10 text-2xl text-blue-500">Shift Setting</h3>
+              <h3 className="mt-10 text-2xl text-blue-500">Shift Setting</h3> */}
               <br />
-              <CompanySetting />
-              <FormButton type="submit" buttonName="Add Company" /> */}
+              <CompanySetting companySetting={values.companySetting} />
+              <FormButton type="submit" buttonName="Add Company" />
             </div>
           </Form>
         )}

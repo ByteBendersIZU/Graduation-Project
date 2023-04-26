@@ -7,7 +7,7 @@ import { Country, State, City } from "country-state-city";
 const AddCompanyForm = () => {
   return (
     <div>
-      <h3 className="text-2xl text-red-500">Company Informations</h3>
+      <h3 className="text-2xl text-blue-500">Company Informations</h3>
       <hr />
       <FormGroup type="text" name="company.name" labelName={"Company Name*"} />
       <FormGroup
@@ -28,7 +28,7 @@ const AddCompanyForm = () => {
       <FormGroup type="text" name="company.zipCode" labelName={"Zip Code*"} />
       <FormGroup type="text" name="company.address" labelName={"Address*"} />
 
-      <h3 className="mt-10 text-2xl text-red-500">Company Managament</h3>
+      <h3 className="mt-10 text-2xl text-blue-500">Company Managament</h3>
       <hr />
       <FormGroup
         type="text"
