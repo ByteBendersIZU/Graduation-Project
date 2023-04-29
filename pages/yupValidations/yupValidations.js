@@ -16,3 +16,9 @@ export const addNewDepartmentYup = Yup.object({
     .min(3, "Department Name must be 3 characters or more")
     .required("Department Name is Required"),
 });
+export const addNewCustomerYup = Yup.object({
+  customer: Yup.string()
+    .max(30, "Customer Name must be 30 characters or less")
+    .min(3, "Customer Name must be 3 characters or more")
+    .required("Customer Name is Required"),
+});

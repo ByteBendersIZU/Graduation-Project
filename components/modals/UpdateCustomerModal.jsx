@@ -7,10 +7,10 @@ import { toast } from "react-toastify";
 import React, { useState } from "react";
 import FormGroup from "../form/FormGroup";
 import FormButton from "../form/FormButton";
-import { addNewDepartmentYup } from "../../pages/yupValidations/yupValidations";
+import { addNewCustomerYup } from "../../pages/yupValidations/yupValidations";
 import { MdOutlineModeEdit } from "react-icons/md";
 
-const UpdateDepartmentModal = ({ department }) => {
+const UpdateCustomerModal = ({ customer }) => {
   const {
     data: {
       session: {
@@ -28,14 +28,14 @@ const UpdateDepartmentModal = ({ department }) => {
         <MdOutlineModeEdit />
       </div>
       <Modal show={show} onClose={() => setShow(false)}>
-        <Modal.Header>Update Department</Modal.Header>
+        <Modal.Header>Update Customer</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
             <Formik
               initialValues={{
-                ...department,
+                ...customer,
               }}
-              validationSchema={addNewDepartmentYup}
+              validationSchema={addNewCustomerYup}
               onSubmit={async (values, { setSubmitting }) => {
                 const payload = { ...values };
                 setSubmitting(false);
@@ -43,7 +43,7 @@ const UpdateDepartmentModal = ({ department }) => {
                 console.log("values", values);
                 const data = await axios({
                   method: "put",
-                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/department`,
+                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-customer`,
                   headers: {
                     Authorization: `Bearer ${jwt}`,
                   },
@@ -66,12 +66,11 @@ const UpdateDepartmentModal = ({ department }) => {
                   <div>
                     <FormGroup
                       type="text"
-                      name="name"
-                      value={values.name}
-                      labelName={"Department Name"}
+                      name="customer"
+                      value={values.customer}
+                      labelName={"Customer Name"}
                     />
-
-                    <FormButton type="submit" buttonName="Update Department" />
+                    <FormButton type="submit" buttonName="Update Customer" />
                   </div>
                 </Form>
               )}
@@ -83,4 +82,4 @@ const UpdateDepartmentModal = ({ department }) => {
   );
 };
 
-export default UpdateDepartmentModal;
+export default UpdateCustomerModal;

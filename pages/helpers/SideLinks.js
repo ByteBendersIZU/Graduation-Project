@@ -34,7 +34,7 @@ export const companyMenuItems = [
       },
       {
         title: "Customers",
-        src: "/dashboard/organization/branch-list",
+        src: "/dashboard/organization/customer-list",
 
         cName: "sub-nav",
       },
