@@ -104,16 +104,13 @@ const AddCompany = () => {
     return data;
   };
   const companySettingFunc = async (values) => {
-    console.log(values);
     const data = await axios({
       method: "put",
-      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-setting/884e55e6-d318-4c2b-9368-bc934dad14db`,
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-setting/6c75bfb3-02cb-4085-ae69-28d9593e9aa0`,
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
-      data: {
-        ...values,
-      },
+      data: values,
     }).catch(function (error) {
       if (error.response) {
         toast.error(error.response.data.message);
@@ -193,18 +190,17 @@ const AddCompany = () => {
         }}
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
-          // const newCompany = await companyFunc(values.company);
-          // const compId = await newCompany.data.result.id;
-          // await companyPackFunc(values.packages, compId);
-          // await companyPaymentFunc(values.companyPayment, compId);
-
+          const newCompany = await companyFunc(values.company);
+          const compId = await newCompany.data.result.id;
+          await companyPackFunc(values.packages, compId);
+          await companyPaymentFunc(values.companyPayment, compId);
           await companySettingFunc(values.companySetting);
         }}
       >
         {({ values }) => (
           <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
             <div className=" w-3/4">
-              {/* <AddCompanyForm company={values.company} />
+              <AddCompanyForm company={values.company} />
               <h3 className="mt-10 text-2xl text-blue-500">
                 Package Management
               </h3>
@@ -213,9 +209,9 @@ const AddCompany = () => {
               <h3 className="mt-10 text-2xl text-blue-500">Company Licence</h3>
               <br />
               <CompanyLicence companyPayment={values.companyPayment} />
-              <h3 className="mt-10 text-2xl text-blue-500">Shift Setting</h3> */}
+              <h3 className="mt-10 text-2xl text-blue-500">Shift Setting</h3>
               <br />
-              <CompanySetting companySetting={values.companySetting} />
+              <CompanySetting />
               <FormButton type="submit" buttonName="Add Company" />
             </div>
           </Form>
