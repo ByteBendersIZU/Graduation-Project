@@ -9,8 +9,11 @@ import FormGroup from "../form/FormGroup";
 import FormButton from "../form/FormButton";
 import { addNewCustomerYup } from "../../pages/yupValidations/yupValidations";
 import { MdOutlineModeEdit } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { updateCustomer } from "../../redux/services/CompanyCustomerService";
 
 const UpdateCustomerModal = ({ customer }) => {
+  const dispatch = useDispatch();
   const {
     data: {
       session: {
@@ -40,25 +43,26 @@ const UpdateCustomerModal = ({ customer }) => {
                 const payload = { ...values };
                 setSubmitting(false);
                 setShow(false);
-                console.log("values", values);
-                const data = await axios({
-                  method: "put",
-                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-customer`,
-                  headers: {
-                    Authorization: `Bearer ${jwt}`,
-                  },
-                  data: {
-                    ...values,
-                  },
-                }).catch(function (error) {
-                  if (error.response) {
-                    toast.error(error.response.data.message);
-                  }
-                });
-                console.log(data);
-                if (data.data.code) {
-                  toast.success(data.data.message);
-                }
+                dispatch(updateCustomer(values));
+                // console.log("values", values);
+                // const data = await axios({
+                //   method: "put",
+                //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-customer`,
+                //   headers: {
+                //     Authorization: `Bearer ${jwt}`,
+                //   },
+                //   data: {
+                //     ...values,
+                //   },
+                // }).catch(function (error) {
+                //   if (error.response) {
+                //     toast.error(error.response.data.message);
+                //   }
+                // });
+                // console.log(data);
+                // if (data.data.code) {
+                //   toast.success(data.data.message);
+                // }
               }}
             >
               {({ values }) => (
