@@ -54,7 +54,7 @@ const TableRow = ({ item, column, buttons }) => {
         </td>
 
         <td className="px-6 py-4">
-          <ChancingStateCompany id={item.companyAdminId} status={item.companyAdmin.active} />
+          <ChancingStateCompany id={item.companyAdmin.id} status={item.companyAdmin.active} />
         </td>
       </tr>
     </>

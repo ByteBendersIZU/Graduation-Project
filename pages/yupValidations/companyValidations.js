@@ -46,9 +46,12 @@ export const addCompanyYup = Yup.object().shape({
       .required("Company name is required.")
       .max(255, "Company name cannot be longer than 255 characters."),
     password: Yup.string()
-      .required("Password is required.")
-      .min(8, "Password must be at least 8 characters long.")
-      .max(255, "Password cannot be longer than 255 characters."),
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
+      ),
     taxName: Yup.string()
       .required("Tax name is required.")
       .max(255, "Tax name cannot be longer than 255 characters."),
@@ -98,4 +101,64 @@ export const addCompanyYup = Yup.object().shape({
       settingValue: Yup.string().required("Setting value is required."),
     })
   ),
+});
+
+//update
+export const updateCompanyYup = Yup.object().shape({
+  active: Yup.boolean().required("Company active status is required."),
+  address: Yup.string()
+    .required("Company address is required.")
+    .max(255, "Company address cannot be longer than 255 characters."),
+  companyShortName: Yup.string()
+    .required("Company short name is required.")
+    .max(50, "Company short name cannot be longer than 50 characters."),
+  email: Yup.string()
+    .email("Invalid email format.")
+    .required("Company email is required.")
+    .max(255, "Company email cannot be longer than 255 characters."),
+  name: Yup.string()
+    .required("Company name is required.")
+    .max(255, "Company name cannot be longer than 255 characters."),
+  taxName: Yup.string()
+    .required("Tax name is required.")
+    .max(255, "Tax name cannot be longer than 255 characters."),
+  taxNo: Yup.string()
+    .required("Tax number is required.")
+    .max(20, "Tax number cannot be longer than 20 characters."),
+  tel: Yup.string()
+    .required("Telephone number is required.")
+    .matches(/^\d{10}$/, "Telephone number must be a 10-digit number."),
+  tel2: Yup.string().matches(
+    /^\d{10}$/,
+    "Telephone number must be a 10-digit number."
+  ),
+  webSite: Yup.string().required("Url is required."),
+  zipCode: Yup.string()
+    .required("ZIP code is required.")
+    .matches(/^\d{5}$/, "ZIP code must be a 5-digit number."),
+});
+
+//update admin
+export const updateAdminYup = Yup.object().shape({
+  adminEmail: Yup.string()
+    .email("Invalid email format.")
+    .required("Admin email is required.")
+    .max(255, "Admin email cannot be longer than 255 characters."),
+  adminName: Yup.string().required("Admin name is required."),
+  adminSecondName: Yup.string(),
+  adminSurname: Yup.string().required("Admin surname is required."),
+});
+
+//updateAdminPassword
+export const updatePasswordAdminYup = Yup.object().shape({
+  password: Yup.string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters"),
+  // .matches(
+  //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+  //   "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
+  // ),
+  rePassword: Yup.string()
+    .required("Confirm password is required")
+    .oneOf([Yup.ref("password"), null], "Passwords must match"),
 });

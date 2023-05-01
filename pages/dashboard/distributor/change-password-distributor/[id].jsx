@@ -34,6 +34,7 @@ const ChangePasswordDist = ({ result }) => {
         })}
         onSubmit={async (values, { setSubmitting }) => {
           const payload = { ...values };
+          console.log(values)
           const data = await axios({
             method: "put",
             url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/password`,
@@ -48,7 +49,6 @@ const ChangePasswordDist = ({ result }) => {
               toast.error(error.response.data.message);
             }
           });
-          console.log(data);
           if (data.data.code) {
             toast.success(data.data.message);
           }

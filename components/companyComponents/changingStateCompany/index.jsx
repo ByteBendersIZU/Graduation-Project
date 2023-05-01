@@ -50,11 +50,11 @@ const ChancingStateDistributor = ({ id, status }) => {
     return data;
   };
   const stateController = (id) => {
-    if (status === true) {
-      companyActive(id);
+    if (state === true) {
+      companyUnactive(id);
       setState(!state);
     } else {
-      companyUnactive(id);
+      companyActive(id);
       setState(!state);
     }
   };

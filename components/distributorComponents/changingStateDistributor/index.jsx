@@ -4,7 +4,7 @@ import axios from "axios";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
-const ChancingStateDistributor = ({ id, status, stateButton }) => {
+const ChancingStateDistributor = ({ id, status }) => {
   const {
     data: {
       session: {
@@ -12,6 +12,7 @@ const ChancingStateDistributor = ({ id, status, stateButton }) => {
       },
     },
   } = useSession();
+
 
   const [state, setState] = useState(status);
 
@@ -50,7 +51,7 @@ const ChancingStateDistributor = ({ id, status, stateButton }) => {
     return data;
   };
   const stateController = (id) => {
-    if (status === true) {
+    if (state === true) {
       distUnactive(id);
       setState(!state);
     } else {
