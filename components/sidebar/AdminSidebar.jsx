@@ -1,7 +1,18 @@
 import { Sidebar } from "flowbite-react";
-import React from "react";
 
-const Denedene = () => {
+import React from "react";
+import Link from "next/link";
+import {
+  GrGroup,
+  GrHome,
+  GrLogout,
+  GrOrganization,
+  GrUser,
+} from "react-icons/gr";
+import { signOut } from "next-auth/react";
+import { BsFillPersonFill } from "react-icons/bs";
+
+const AdminSidebar = () => {
   const linkClass = "w-full h-full block";
   return (
     <div className="w-fit">
@@ -64,4 +75,4 @@ const Denedene = () => {
   );
 };
 
-export default Denedene;
+export default AdminSidebar;

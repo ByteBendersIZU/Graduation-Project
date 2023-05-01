@@ -8,11 +8,11 @@ import PageHeader from "../../../components/PageHeader";
 import Table from "../../../components/companyComponents/CompanyTable/index";
 import Input from "../../../components/ui/Input";
 
-
 const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
   const [getCompany, setGetCompany] = useState(props.data);
-  const inputKeys = ["name", "email", "workersCount"];
+  const inputKeys = ["name", "email"];
+  const col = ["name", "email", "workersCount"];
   const titles = [
     "Company name",
     "E-mail",
@@ -57,7 +57,7 @@ const List = (props) => {
       <Input changeInput={changeInput} />
       <Table
         data={currentPosts}
-        column={inputKeys}
+        column={col}
         titles={titles}
         buttons={buttons}
         inputSearch={inputSearch}

@@ -18,7 +18,7 @@ const CompanySidebar = () => {
       <Sidebar aria-label="Sidebar with multi-level dropdown example">
         <Sidebar.Logo
           className="mb-10"
-          href="#"
+          href="/dashboard"
           img="https://png.pngtree.com/png-clipart/20201208/original/pngtree-red-and-black-logo-png-image_5517319.jpg"
           imgAlt="Flowbite logo"
         >

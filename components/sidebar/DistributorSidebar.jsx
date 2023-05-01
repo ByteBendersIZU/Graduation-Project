@@ -1,4 +1,16 @@
+import { Sidebar } from "flowbite-react";
+
 import React from "react";
+import Link from "next/link";
+import {
+  GrGroup,
+  GrHome,
+  GrLogout,
+  GrOrganization,
+  GrUser,
+} from "react-icons/gr";
+import { signOut } from "next-auth/react";
+import { BsFillPersonFill } from "react-icons/bs";
 
 const DistributorSidebar = () => {
   const linkClass = "w-full h-full block";
@@ -7,7 +19,7 @@ const DistributorSidebar = () => {
       <Sidebar aria-label="Sidebar with multi-level dropdown example">
         <Sidebar.Logo
           className="mb-10"
-          href="#"
+          href="/dashboard"
           img="https://png.pngtree.com/png-clipart/20201208/original/pngtree-red-and-black-logo-png-image_5517319.jpg"
           imgAlt="Flowbite logo"
         >
