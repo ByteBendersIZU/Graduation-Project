@@ -14,12 +14,12 @@ import { toast } from "react-toastify";
 import React, { useState } from "react";
 import FormGroup from "../form/FormGroup";
 import FormButton from "../form/FormButton";
-import {
-  addNewBranchYup,
-  addNewDepartmentYup,
-} from "../../pages/yupValidations/yupValidations";
+import { addNewDepartmentYup } from "../../pages/yupValidations/yupValidations";
+import { useDispatch } from "react-redux";
+import { addDepartment } from "../../redux/slices/CopmanyDepartmentSlice";
 
 const AddNewDepartmentModal = () => {
+  const dispatch = useDispatch();
   const {
     data: {
       session: {
@@ -59,8 +59,8 @@ const AddNewDepartmentModal = () => {
                     toast.error(error.response.data.message);
                   }
                 });
-                console.log(data);
                 if (data.data.code) {
+                  dispatch(addDepartment(data));
                   toast.success(data.data.message);
                 }
               }}

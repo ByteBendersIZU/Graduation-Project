@@ -15,8 +15,11 @@ import React, { useState } from "react";
 import FormGroup from "../form/FormGroup";
 import FormButton from "../form/FormButton";
 import { addNewBranchYup } from "../../pages/yupValidations/yupValidations";
+import { useDispatch } from "react-redux";
+import { addBranch } from "../../redux/slices/CompanyBranchSlice";
 
 const AddNewBranchModal = () => {
+  const dispatch = useDispatch();
   const {
     data: {
       session: {
@@ -42,7 +45,6 @@ const AddNewBranchModal = () => {
                 const payload = { ...values };
                 setSubmitting(false);
                 setShow(false);
-                console.log("values", values);
                 const data = await axios({
                   method: "post",
                   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/branch`,
@@ -57,9 +59,9 @@ const AddNewBranchModal = () => {
                     toast.error(error.response.data.message);
                   }
                 });
-                console.log(data);
                 if (data.data.code) {
                   toast.success(data.data.message);
+                  dispatch(addBranch(data));
                 }
               }}
             >

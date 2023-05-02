@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import PageHeader from "../../../../components/PageHeader";
 import Pagination from "../../../../components/ui/pagination";
@@ -9,28 +9,30 @@ import axios from "axios";
 import UpdateBranch from "../../../../components/modals/UpdateBranchModel";
 import RemoveBranch from "../../../../components/modals/RemoveBranch";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { getBranchList } from "../../../../redux/slices/CompanyBranchSlice";
+import { fetchBranchList } from "../../../../redux/services/CompanyBranchService";
 
 const BranchList = ({ data }) => {
-  // to refresh the page after update or delete
-  // const router = useRouter();
-  // const refreshData = () => {
-  //   console.log("refreshed");
-  //   router.replace(router.asPath);
-  // };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchBranchList());
+  }, []);
+
+  const getBranches = useSelector(getBranchList);
 
   const [inputSearch, setInputSearch] = useState("");
-  const [getBranches, setGetBranches] = useState(data);
+  // const [getBranches, setGetBranches] = useState(data);
   const inputKeys = ["name", "address"];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
 
-  const filtredList = getBranches.filter((distributor) =>
+  const filtredList = getBranches.data.filter((distributor) =>
     inputKeys.some((key) =>
       distributor[key].toLowerCase().includes(inputSearch.toLowerCase())
     )
   );
-  console.log(filtredList);
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexFirstPost = indexOfLastPost - postPerPage;
@@ -109,25 +111,25 @@ BranchList.auth = true;
 
 export default BranchList;
 
-export const getServerSideProps = async (context) => {
-  const {
-    session: {
-      user: { jwt },
-    },
-  } = await getSession(context);
-  const {
-    data: { result },
-  } = await axios({
-    method: "get",
-    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/branch/list`,
-    headers: {
-      Authorization: `Bearer ${jwt}`,
-    },
-  });
+// export const getServerSideProps = async (context) => {
+//   const {
+//     session: {
+//       user: { jwt },
+//     },
+//   } = await getSession(context);
+//   const {
+//     data: { result },
+//   } = await axios({
+//     method: "get",
+//     url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/branch/list`,
+//     headers: {
+//       Authorization: `Bearer ${jwt}`,
+//     },
+//   });
 
-  return {
-    props: {
-      data: result,
-    },
-  };
-};
+//   return {
+//     props: {
+//       data: result,
+//     },
+//   };
+// };

@@ -18,8 +18,9 @@ import {
   addNewBranchYup,
   addNewCustomerYup,
 } from "../../pages/yupValidations/yupValidations";
-import { useDispatch } from "react-redux";
-import { addCustomer } from "../../redux/services/CompanyCustomerService";
+import { useDispatch, useSelector } from "react-redux";
+import { getCustomerMessage } from "../../redux/slices/CompanyCustomerSlice";
+import { addCustomer } from "../../redux/slices/CompanyCustomerSlice";
 
 const AddNewCustomerModal = () => {
   const dispatch = useDispatch();
@@ -47,25 +48,26 @@ const AddNewCustomerModal = () => {
                 const payload = { ...values };
                 setSubmitting(false);
                 setShow(false);
-                dispatch(addCustomer(values));
-                // const data = await axios({
-                //   method: "post",
-                //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-customer`,
-                //   headers: {
-                //     Authorization: `Bearer ${jwt}`,
-                //   },
-                //   data: {
-                //     ...values,
-                //   },
-                // }).catch(function (error) {
-                //   if (error.response) {
-                //     toast.error(error.response.data.message);
-                //   }
-                // });
-                // console.log(data);
-                // if (data.data.code) {
-                //   toast.success(data.data.message);
-                // }
+
+                const data = await axios({
+                  method: "post",
+                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-customer`,
+                  headers: {
+                    Authorization: `Bearer ${jwt}`,
+                  },
+                  data: {
+                    ...values,
+                  },
+                }).catch(function (error) {
+                  if (error.response) {
+                    toast.error(error.response.data.message);
+                  }
+                });
+                console.log(data);
+                if (data.data.code) {
+                  toast.success(data.data.message);
+                  dispatch(addCustomer(data));
+                }
               }}
             >
               {() => (

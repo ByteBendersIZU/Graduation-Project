@@ -1,7 +1,6 @@
 import React from "react";
 import SideBar from "./SideBar";
 import jwt_decode from "jwt-decode";
-import Denedene from "./Denedene";
 import AdminSidebar from "./sidebar/AdminSidebar";
 import CompanySidebar from "./sidebar/CompanySidebar";
 import DistributorSidebar from "./sidebar/DistributorSidebar";
