@@ -8,7 +8,7 @@ import FormGroup from "../../../../components/form/FormGroup";
 import FormButton from "../../../../components/form/FormButton";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-import { updatePasswordDistYup } from "../../../../components/yupValidations/distributorValidations";
+import { updatePasswordDistYup } from "../../../../yupValidations/distributorValidations";
 
 const ChangePasswordDist = ({ result }) => {
   const {
@@ -30,9 +30,9 @@ const ChangePasswordDist = ({ result }) => {
           password: "",
           rePassword: "",
         }}
-        validationSchema={updatePasswordDistYup}
+        validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
-          const payload = { ...values };
+          console.log(values)
           const data = await axios({
             method: "put",
             url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/password`,

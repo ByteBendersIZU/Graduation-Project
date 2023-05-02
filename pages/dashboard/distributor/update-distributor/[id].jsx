@@ -7,8 +7,9 @@ import PageHeader from "../../../../components/PageHeader";
 import FormGroup from "../../../../components/form/FormGroup";
 import FormButton from "../../../../components/form/FormButton";
 import { toast } from "react-toastify";
+import { distributorLicenseYup } from "../../../../yupValidations/distributorValidations";
 
-const Id = ({ result }) => {
+const Id = ({ distibutorUpdate, distributorLicenseUpdate }) => {
   const {
     data: {
       session: {
@@ -16,79 +17,123 @@ const Id = ({ result }) => {
       },
     },
   } = useSession();
+
+  const updateDist = async (values) => {
+    const data = await axios({
+      method: "put",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+      data: { ...values },
+    }).catch(function (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      }
+    });
+    if (data.data.code) {
+      toast.success(data.data.message);
+    }
+  };
+  const updateDistLicense = async (values, distId, licenseId) => {
+    const strigId = distId.toString();
+    const strigLicId = licenseId.toString();
+    const data = await axios({
+      method: "put",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor-license`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+      data: { distributorId: strigId, id: strigLicId, ...values },
+    }).catch(function (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      }
+    });
+    if (data.data.code) {
+      toast.success(data.data.message);
+    }
+  };
+
   return (
     <div>
       <PageHeader
-        header={"Add Distributeur"}
-        breadcrumb={["Distributeur", "Update Distributeur"]}
+        header={"Add Distributor"}
+        breadcrumb={["Distributor", "Update Distributor"]}
       />
       <Formik
         initialValues={{
-          email: result.email,
-          name: result.name,
-          surname: result.surname,
-          phoneNumber: result.phoneNumber,
+          distributor: {
+            email: distibutorUpdate.email,
+            name: distibutorUpdate.name,
+            surname: distibutorUpdate.surname,
+            phoneNumber: distibutorUpdate.phoneNumber,
+          },
+          distLicense: {
+            startDate: distributorLicenseUpdate.startDate,
+            endDate: distributorLicenseUpdate.endDate,
+            userLimit: distributorLicenseUpdate.userLimit,
+          },
         }}
-        validationSchema={Yup.object({
-          name: Yup.string()
-            .required("Please enter your name")
-            .min(3, "Name must be 3 characters or more")
-            .max(30, "Name must be 30 characters or less"),
-          surname: Yup.string()
-            .required("Please enter your surname")
-            .min(3, "Surname must be 3 characters or more")
-            .max(30, "Surname must be 30 characters or less"),
-        })}
+        validationSchema={distributorLicenseYup}
         onSubmit={async (values, { setSubmitting }) => {
-          const payload = { ...values };
-          const data = await axios({
-            method: "put",
-            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor`,
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-            },
-            data: {
-              ...values,
-            },
-          }).catch(function (error) {
-            if (error.response) {
-              toast.error(error.response.data.message);
-            }
-          });
-          console.log(data);
-          if (data.data.code) {
-            toast.success(data.data.message);
-          }
+          const distId = distributorLicenseUpdate.distributorId;
+          const licenseId = distributorLicenseUpdate.id;
+          await updateDist(values.distributor);
+          await updateDistLicense(values.distLicense, distId, licenseId);
         }}
       >
         {({ values }) => (
           <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
             <div className=" w-3/4">
+              <h3 className="text-2xl text-blue-500">Distributor Update</h3>
               <FormGroup
                 type="text"
-                name="name"
+                name="distributor.name"
                 labelName={"Name"}
-                value={values.name}
+                value={values.distributor.name}
               />
               <FormGroup
                 type="text"
-                name="surname"
+                name="distributor.surname"
                 labelName={"Surname"}
-                value={values.surname}
+                value={values.distributor.surname}
               />
               <FormGroup
-                value={values.phoneNumber}
+                value={values.distributor.phoneNumber}
                 type="text"
-                name="phoneNumber"
+                name="distributor.phoneNumber"
                 labelName={"Phone Number"}
               />
               <FormGroup
                 type="email"
-                name="email"
+                name="distributor.email"
                 labelName={"Email"}
-                value={values.email}
+                value={values.distributor.email}
               />
-              <FormButton type="submit" buttonName="Update Distributeur" />
+              <br />
+              <h3 className="text-2xl text-blue-500">License Update</h3>
+              <div>
+                <FormGroup
+                  type="date"
+                  name="distLicense.startDate"
+                  labelName={"License Start Date"}
+                  value={values.distLicense.startDate}
+                />
+                <FormGroup
+                  type="date"
+                  name="distLicense.endDate"
+                  labelName={"License End Date"}
+                  value={values.distLicense.endDate}
+                />
+                <FormGroup
+                  type="number"
+                  name="distLicense.userLimit"
+                  labelName={"User Limit"}
+                  value={values.distLicense.userLimit}
+                />
+              </div>
+              <FormButton type="submit" buttonName="Update Dsitributor" />
             </div>
           </Form>
         )}
@@ -107,19 +152,28 @@ export const getServerSideProps = async (context) => {
       user: { jwt },
     },
   } = await getSession(context);
-  const {
-    data: { result },
-  } = await axios({
-    method: "get",
-    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/${id}`,
-    headers: {
-      Authorization: `Bearer ${jwt}`,
-    },
-  });
+
+  const [distributorResponse, distLicenseResponse] = await Promise.all([
+    axios({
+      method: "get",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/${id}`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    }),
+    axios({
+      method: "get",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor-license/${id}`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    }),
+  ]);
+
+  const distibutorUpdate = distributorResponse.data.result;
+  const distributorLicenseUpdate = distLicenseResponse.data.result;
 
   return {
-    props: {
-      result,
-    },
+    props: { distibutorUpdate, distributorLicenseUpdate },
   };
 };
