@@ -4,13 +4,16 @@ import { Form, Formik } from "formik";
 import { useSession } from "next-auth/react";
 
 import { toast } from "react-toastify";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import FormGroup from "../form/FormGroup";
 import FormButton from "../form/FormButton";
 import { addNewDepartmentYup } from "../../pages/yupValidations/yupValidations";
 import { MdOutlineModeEdit } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { updateDepartment } from "../../redux/slices/CopmanyDepartmentSlice";
 
 const UpdateDepartmentModal = ({ department }) => {
+  const dispatch = useDispatch();
   const {
     data: {
       session: {
@@ -40,7 +43,6 @@ const UpdateDepartmentModal = ({ department }) => {
                 const payload = { ...values };
                 setSubmitting(false);
                 setShow(false);
-                console.log("values", values);
                 const data = await axios({
                   method: "put",
                   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/department`,
@@ -55,9 +57,9 @@ const UpdateDepartmentModal = ({ department }) => {
                     toast.error(error.response.data.message);
                   }
                 });
-                console.log(data);
                 if (data.data.code) {
                   toast.success(data.data.message);
+                  dispatch(updateDepartment(values));
                 }
               }}
             >

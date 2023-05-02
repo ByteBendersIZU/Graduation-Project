@@ -5,8 +5,11 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { removeDepartment } from "../../redux/slices/CopmanyDepartmentSlice";
 
 const RemoveDepartmentList = ({ id }) => {
+  const dispatch = useDispatch();
   const {
     data: {
       session: {
@@ -28,9 +31,9 @@ const RemoveDepartmentList = ({ id }) => {
         toast.error(error.response.data.message);
       }
     });
-    console.log(data);
     if (data.data.code) {
       toast.success(data.data.message);
+      dispatch(removeDepartment(id));
     }
     setShow(false);
   };

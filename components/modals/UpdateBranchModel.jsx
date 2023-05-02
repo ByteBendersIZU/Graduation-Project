@@ -9,8 +9,11 @@ import FormGroup from "../form/FormGroup";
 import FormButton from "../form/FormButton";
 import { addNewBranchYup } from "../../pages/yupValidations/yupValidations";
 import { MdOutlineModeEdit } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { fetchBranchList } from "../../redux/services/CompanyBranchService";
 
 const UpdateBranch = ({ branch }) => {
+  const dispatch = useDispatch();
   const {
     data: {
       session: {
@@ -58,6 +61,7 @@ const UpdateBranch = ({ branch }) => {
                 console.log(data);
                 if (data.data.code) {
                   toast.success(data.data.message);
+                  dispatch(fetchBranchList());
                 }
               }}
             >
@@ -77,7 +81,7 @@ const UpdateBranch = ({ branch }) => {
                       labelName={"Branch Location"}
                     />
 
-                    <FormButton type="submit" buttonName="Add New Branch" />
+                    <FormButton type="submit" buttonName="Update Branch" />
                   </div>
                 </Form>
               )}

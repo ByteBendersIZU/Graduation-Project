@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import PageHeader from "../../../../components/PageHeader";
 import Pagination from "../../../../components/ui/pagination";
@@ -10,29 +10,29 @@ import UpdateBranch from "../../../../components/modals/UpdateBranchModel";
 import { useRouter } from "next/router";
 import AddNewDepartmentModal from "../../../../components/modals/AddNewDepartmentModal";
 import UpdateDepartmentModal from "../../../../components/modals/UpdateDepartmentModal";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDepartmentList } from "../../../../redux/services/CompanyDepartmentService";
+import { getDepartmentList } from "../../../../redux/slices/CopmanyDepartmentSlice";
 
 const DepartmentList = ({ data }) => {
-  console.log(data);
-  // to refresh the page after update or delete
-  // const router = useRouter();
-  // const refreshData = () => {
-  //   console.log("refreshed");
-  //   router.replace(router.asPath);
-  // };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchDepartmentList());
+  }, []);
 
+  const getDepartments = useSelector(getDepartmentList);
   const [inputSearch, setInputSearch] = useState("");
-  const [getDepartments, setGetDepratments] = useState(data);
+  // const [getDepartments, setGetDepratments] = useState(data);
   const inputKeys = ["name"];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
 
-  const filtredList = getDepartments.filter((distributor) =>
+  const filtredList = getDepartments.data.filter((distributor) =>
     inputKeys.some((key) =>
       distributor[key].toLowerCase().includes(inputSearch.toLowerCase())
     )
   );
-  console.log(filtredList);
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexFirstPost = indexOfLastPost - postPerPage;

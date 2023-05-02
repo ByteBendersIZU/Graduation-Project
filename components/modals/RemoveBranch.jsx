@@ -5,8 +5,11 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { fetchBranchList } from "../../redux/services/CompanyBranchService";
 
 const RemoveBranch = ({ id }) => {
+  const dispatch = useDispatch();
   const {
     data: {
       session: {
@@ -31,6 +34,7 @@ const RemoveBranch = ({ id }) => {
     console.log(data);
     if (data.data.code) {
       toast.success(data.data.message);
+      dispatch(fetchBranchList());
     }
     setShow(false);
   };

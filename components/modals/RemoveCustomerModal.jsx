@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
-import { removeCustomer } from "../../redux/services/CompanyCustomerService";
+import { removeCustomer } from "../../redux/slices/CompanyCustomerSlice";
 
 const RemoveCustomerModal = ({ id }) => {
   const dispatch = useDispatch();
@@ -20,22 +20,22 @@ const RemoveCustomerModal = ({ id }) => {
   const [show, setShow] = useState(false);
 
   const handleDelete = async () => {
-    // const data = await axios({
-    //   method: "delete",
-    //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-customer/${id}`,
-    //   headers: {
-    //     Authorization: `Bearer ${jwt}`,
-    //   },
-    // }).catch(function (error) {
-    //   if (error.response) {
-    //     toast.error(error.response.data.message);
-    //   }
-    // });
-    // console.log(data);
-    // if (data.data.code) {
-    //   toast.success(data.data.message);
-    // }
-    dispatch(removeCustomer(id));
+    const data = await axios({
+      method: "delete",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-customer/${id}`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    }).catch(function (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      }
+    });
+    console.log(data);
+    if (data.data.code) {
+      toast.success(data.data.message);
+      dispatch(removeCustomer(id));
+    }
     setShow(false);
   };
 
