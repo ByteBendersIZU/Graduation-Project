@@ -17,7 +17,7 @@ import FormButton from "../form/FormButton";
 import {
   addNewBranchYup,
   addNewCustomerYup,
-} from "../../pages/yupValidations/yupValidations";
+} from "../../yupValidations/yupValidations";
 import { useDispatch, useSelector } from "react-redux";
 import { getCustomerMessage } from "../../redux/slices/CompanyCustomerSlice";
 import { addCustomer } from "../../redux/slices/CompanyCustomerSlice";

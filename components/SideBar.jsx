@@ -14,7 +14,7 @@ import {
   adminMenuItems,
   companyMenuItems,
   distributorMenuItems,
-} from "../pages/helpers/SideLinks";
+} from "../helpers/SideLinks";
 
 const SideBar = () => {
   const [subMenuOpen, setSubMenuOpen] = useState(false);

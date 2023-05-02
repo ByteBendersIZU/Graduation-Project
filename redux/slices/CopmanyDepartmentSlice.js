@@ -16,7 +16,6 @@ export const CompanyDepartmentSlice = createSlice({
       state.departmentList.data.push(action.payload.data.result);
     },
     updateDepartment: (state, action) => {
-      console.log("updated", action.payload);
       const updatedCompany = action.payload;
       const updatedList = state.departmentList.data.map((company) =>
         company.id === updatedCompany.id ? updatedCompany : company

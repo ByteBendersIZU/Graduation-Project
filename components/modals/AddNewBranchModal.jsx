@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 import React, { useState } from "react";
 import FormGroup from "../form/FormGroup";
 import FormButton from "../form/FormButton";
-import { addNewBranchYup } from "../../pages/yupValidations/yupValidations";
+import { addNewBranchYup } from "../../yupValidations/yupValidations";
 import { useDispatch } from "react-redux";
 import { addBranch } from "../../redux/slices/CompanyBranchSlice";
 
