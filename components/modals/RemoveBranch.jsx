@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
-import { fetchBranchList } from "../../redux/services/CompanyBranchService";
+import { removeBranch } from "../../redux/slices/CompanyBranchSlice";
 
 const RemoveBranch = ({ id }) => {
   const dispatch = useDispatch();
@@ -31,10 +31,9 @@ const RemoveBranch = ({ id }) => {
         toast.error(error.response.data.message);
       }
     });
-    console.log(data);
     if (data.data.code) {
       toast.success(data.data.message);
-      dispatch(fetchBranchList());
+      dispatch(removeBranch(id));
     }
     setShow(false);
   };

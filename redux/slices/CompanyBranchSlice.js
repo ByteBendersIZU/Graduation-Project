@@ -13,7 +13,21 @@ export const CompanyBranchSlice = createSlice({
   initialState,
   reducers: {
     addBranch: (state, action) => {
-      console.log("payload", action.payload);
+      console.log(action.payload.data.result);
+      state.branchList.data.push(action.payload.data.result);
+    },
+    updateBranch: (state, action) => {
+      const updatedCompany = action.payload;
+      const updatedList = state.branchList.data.map((company) =>
+        company.id === updatedCompany.id ? updatedCompany : company
+      );
+      state.branchList.data = updatedList;
+    },
+    removeBranch: (state, action) => {
+      const updatedList = state.branchList.data.filter(
+        (company) => company.id !== action.payload
+      );
+      state.branchList.data = updatedList;
     },
   },
   extraReducers: (builder) => {
@@ -30,24 +44,11 @@ export const CompanyBranchSlice = createSlice({
         console.log("rejected", action.error);
         state.branchList.status = "failed";
       });
-
-    // //Add Branch
-    // .addCase(addBranch.pending, (state) => {
-    //   state.addBranchStatus = "loading";
-    // })
-    // .addCase(addBranch.fulfilled, (state, action) => {
-    //   state.branchList.data.push(action.payload);
-    //   state.addBranchStatus = "succeeded";
-    //   console.log("payload", action.payload);
-    // })
-    // .addCase(addBranch.rejected, (state, action) => {
-    //   console.log("rejected", action);
-    //   state.addBranchStatus = "error";
-    // });
   },
 });
 export default CompanyBranchSlice.reducer;
 
-export const { addBranch } = CompanyBranchSlice.actions;
+export const { addBranch, updateBranch, removeBranch } =
+  CompanyBranchSlice.actions;
 
 export const getBranchList = (state) => state.companyBranch.branchList;

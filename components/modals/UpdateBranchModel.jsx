@@ -10,7 +10,7 @@ import FormButton from "../form/FormButton";
 import { addNewBranchYup } from "../../yupValidations/yupValidations";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { fetchBranchList } from "../../redux/services/CompanyBranchService";
+import { updateBranch } from "../../redux/slices/CompanyBranchSlice";
 
 const UpdateBranch = ({ branch }) => {
   const dispatch = useDispatch();
@@ -43,7 +43,6 @@ const UpdateBranch = ({ branch }) => {
                 const payload = { ...values };
                 setSubmitting(false);
                 setShow(false);
-                console.log("values", values);
                 const data = await axios({
                   method: "put",
                   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/branch`,
@@ -58,10 +57,9 @@ const UpdateBranch = ({ branch }) => {
                     toast.error(error.response.data.message);
                   }
                 });
-                console.log(data);
                 if (data.data.code) {
                   toast.success(data.data.message);
-                  dispatch(fetchBranchList());
+                  dispatch(updateBranch(values));
                 }
               }}
             >
