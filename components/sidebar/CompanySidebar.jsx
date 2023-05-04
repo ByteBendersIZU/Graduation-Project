@@ -33,10 +33,7 @@ const CompanySidebar = () => {
             </Sidebar.Item>
             <Sidebar.Collapse icon={GrOrganization} label="Organizationn">
               <Sidebar.Item>
-                <Link
-                  href="/dashboard/organization/branch-list"
-                  className={linkClass}
-                >
+                <Link href="/dashboard" className={linkClass}>
                   Manage Permission
                 </Link>
               </Sidebar.Item>
@@ -58,7 +55,7 @@ const CompanySidebar = () => {
               </Sidebar.Item>
               <Sidebar.Item>
                 <Link
-                  href="/dashboard/organization/branch-list"
+                  href="/dashboard/organization/position-list"
                   className={linkClass}
                 >
                   Position List
