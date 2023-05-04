@@ -32,16 +32,14 @@ const ChangePasswordDist = ({ result }) => {
         }}
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
-          console.log(values)
+          const { email, password, rePassword } = values;
           const data = await axios({
             method: "put",
             url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/password`,
             headers: {
               Authorization: `Bearer ${jwt}`,
             },
-            data: {
-              ...values,
-            },
+            data: {email},
           }).catch(function (error) {
             if (error.response) {
               toast.error(error.response.data.message);

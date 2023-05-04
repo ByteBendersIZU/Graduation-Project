@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import React, { useState } from "react";
 import FormGroup from "../form/FormGroup";
 import FormButton from "../form/FormButton";
-import { addNewCustomerYup } from "../../pages/yupValidations/yupValidations";
+import { addNewCustomerYup } from "../../yupValidations/yupValidations";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { updateCustomer } from "../../redux/slices/CompanyCustomerSlice";
