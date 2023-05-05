@@ -10,7 +10,6 @@ import {
   GrUser,
 } from "react-icons/gr";
 import { signOut } from "next-auth/react";
-import { BsFillPersonFill } from "react-icons/bs";
 
 const AdminSidebar = () => {
   const linkClass = "w-full h-full block";

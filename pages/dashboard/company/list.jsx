@@ -8,6 +8,7 @@ import PageHeader from "../../../components/PageHeader";
 import Table from "../../../components/companyComponents/CompanyTable/index";
 import Input from "../../../components/ui/Input";
 
+
 const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
   const [getCompany, setGetCompany] = useState(props.data);

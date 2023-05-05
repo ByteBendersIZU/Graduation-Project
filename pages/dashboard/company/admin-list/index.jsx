@@ -5,30 +5,14 @@ import { useState } from "react";
 import React from "react";
 import Pagination from "../../../../components/ui/pagination";
 import PageHeader from "../../../../components/PageHeader";
-import Table from "../../../../components/ui/Table";
+import Table from "../../../../components/adminComponents/CompanyTable";
 import Input from "../../../../components/ui/Input";
 
 const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
   const [getCompany, setGetCompany] = useState(props.data);
-  const inputKeys = ["name", "cityName", "email", "workersCount"];
-  const titles = [
-    "Company name",
-    "Address",
-    "E-mail",
-    "Workers Count",
-    "Edit",
-    "State",
-  ];
-  const buttons = [
-    { name: "Update", href: "./" },
-    { name: "Admin edit", href: "../contacts/update-people" },
-    { name: "Admin password", href: "../contacts/change-password-people" },
-  ];
-  // const stateButtons = [
-  //   {name:'Passive Admin'},
-  //   {name:'Passive Company'},
-  // ]
+  const inputKeys = ["name", "address", "email", "workersCount"];
+  const titles = ["Company name", "Address", "E-mail", "Workers Count"];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
@@ -63,7 +47,6 @@ const List = (props) => {
         data={currentPosts}
         column={inputKeys}
         titles={titles}
-        buttons={buttons}
         inputSearch={inputSearch}
       />
       <Pagination
@@ -89,7 +72,7 @@ export const getServerSideProps = async (context) => {
     data: { result },
   } = await axios({
     method: "get",
-    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/list/false`,
+    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/list-passive/false`,
     headers: {
       Authorization: `Bearer ${jwt}`,
     },

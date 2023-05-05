@@ -8,6 +8,10 @@ import FormGroup from "../../../../components/form/FormGroup";
 import FormButton from "../../../../components/form/FormButton";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
+import {
+  updateCompanyYup,
+  updatePasswordAdminYup,
+} from "../../../yupValidations/companyValidations";
 
 const ChangePasswordDist = ({ result }) => {
   const {
@@ -25,18 +29,18 @@ const ChangePasswordDist = ({ result }) => {
       />
       <Formik
         initialValues={{
-          adminEmail: result.adminEmail,
+          companyId: result.id,
+          userId: result.companyAdmin.id,
           password: "",
           rePassword: "",
         }}
-        validationSchema={Yup.object({
-          //email sifre denetle
-        })}
+        validationSchema={updatePasswordAdminYup}
         onSubmit={async (values, { setSubmitting }) => {
           const payload = { ...values };
+          console.log(values)
           const data = await axios({
-            method: "put",
-            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/password`,
+            method: "post",
+            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/user/change-password`,
             headers: {
               Authorization: `Bearer ${jwt}`,
             },
@@ -48,7 +52,6 @@ const ChangePasswordDist = ({ result }) => {
               toast.error(error.response.data.message);
             }
           });
-          console.log(data);
           if (data.data.code) {
             toast.success(data.data.message);
           }
@@ -61,7 +64,8 @@ const ChangePasswordDist = ({ result }) => {
                 type="text"
                 name="adminEmail"
                 labelName={"Email"}
-                value={values.adminEmail}
+                value={result.companyAdmin.email}
+                disabled={true}
               />
               <FormGroup
                 type="password"

@@ -1,6 +1,4 @@
 import React from "react";
-import Link from "next/link";
-import ChancingStateCompany from "../changingStateCompany/index";
 
 const Table = ({ data, column, titles, buttons, inputSearch }) => {
   return (
@@ -41,21 +39,6 @@ const TableRow = ({ item, column, buttons }) => {
         {column.map((columnItem) => (
           <td className="px-6 py-4">{item[`${columnItem}`]}</td>
         ))}
-        <td className="px-6 py-4">
-          {buttons.map((button, index) => (
-            <Link
-              key={index}
-              href={`${button.href}/${item.id}`}
-              className="mr-3 font-medium text-blue-600 dark:text-blue-500 hover:underline"
-            >
-              {button.name}
-            </Link>
-          ))}
-        </td>
-
-        <td className="px-6 py-4">
-          <ChancingStateCompany id={item.companyAdmin.id} status={item.companyAdmin.active} />
-        </td>
       </tr>
     </>
   );

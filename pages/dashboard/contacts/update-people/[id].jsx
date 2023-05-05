@@ -8,7 +8,7 @@ import FormGroup from "../../../../components/form/FormGroup";
 import FormButton from "../../../../components/form/FormButton";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-
+import { updateAdminYup } from "../../../yupValidations/companyValidations";
 
 const UpdateCompany = ({ result }) => {
   const {
@@ -26,14 +26,19 @@ const UpdateCompany = ({ result }) => {
       />
       <Formik
         initialValues={{
-          name: result.name,
+          companyId: result.id,
+          id: result.companyAdmin.id,
+          name: result.companyAdmin.name,
+          surname: result.companyAdmin.surname,
+          email: result.companyAdmin.email,
         }}
-        validationSchema={Yup.object({})}
+        validationSchema={Yup.object()}
         onSubmit={async (values, { setSubmitting }) => {
           const payload = { ...values };
+          console.log(values);
           const data = await axios({
             method: "put",
-            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
+            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/user/companyAdmin`,
             headers: {
               Authorization: `Bearer ${jwt}`,
             },
@@ -55,24 +60,26 @@ const UpdateCompany = ({ result }) => {
             <div className=" w-3/4">
               <FormGroup
                 type="text"
-                name="company.adminName"
+                name="name"
                 labelName={"Admin Name*"}
-                value={values.adminName}
+                value={values.name}
               />
-              <FormGroup
+              {/* <FormGroup
                 type="text"
                 name="company.adminSecondName"
                 labelName={"Admin Second Name"}
-              />
+              /> */}
               <FormGroup
                 type="text"
-                name="company.adminSurname"
+                name="surname"
                 labelName={"Admin Surname*"}
+                value={values.surname}
               />
               <FormGroup
                 type="text"
-                name="company.adminEmail"
+                name="email"
                 labelName={"Admin Email*"}
+                value={values.email}
               />
               <FormButton type="submit" buttonName="Update" />
             </div>

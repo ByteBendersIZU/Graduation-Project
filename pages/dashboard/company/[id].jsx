@@ -9,8 +9,9 @@ import FormButton from "../../../components/form/FormButton";
 import FormToggle from "../../../components/form/FormToggle";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
+import { updateCompanyYup } from "../../yupValidations/companyValidations";
 
-const UpdateCompany = ({ result }) => {
+const UpdateCompany = ({ company, shift }) => {
   const {
     data: {
       session: {
@@ -18,6 +19,56 @@ const UpdateCompany = ({ result }) => {
       },
     },
   } = useSession();
+  console.log(company.result.id);
+
+  const updateCompanyFunc = async (values, id) => {
+    const stringId = id.toString();
+    const data = await axios({
+      method: "put",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+      data: {
+        id: stringId,
+        areaCode:'',
+        cityId:0,
+        cityName:'',
+        countryId:0,
+        districtId:0,
+        neighborhoodId:0,
+        ...values,
+      },
+    }).catch(function (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      }
+    });
+    if (data.data.code) {
+      toast.success(data.data.message);
+    }
+  };
+
+  const updateShift = async (values, id) => {
+    console.log(values);
+    const data = await axios({
+      method: "put",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-setting/${id}`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+      data: values,
+    }).catch(function (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      }
+    });
+    if (data.data.code) {
+      toast.success(data.data.message);
+    }
+    return data;
+  };
+
   return (
     <div>
       <PageHeader
@@ -26,28 +77,38 @@ const UpdateCompany = ({ result }) => {
       />
       <Formik
         initialValues={{
-          ...result,
+          company: {
+            name: company.result.name,
+            companyShortName: company.result.companyShortName,
+            email: company.result.email,
+            webSite: company.result.webSite,
+            taxName: company.result.taxName,
+            taxNo: company.result.taxNo,
+            tel: company.result.tel,
+            tel2: company.result.tel,
+            zipCode: company.result.zipCode,
+            address: company.result.address,
+          },
+          companySetting: [
+            {
+              settingKey: "timebookType",
+              settingValue: shift.result[0].settingValue,
+            },
+            {
+              settingKey: "workingHour",
+              settingValue: shift.result[1].settingValue,
+            },
+            {
+              settingKey: "timeBookConnectionShift",
+              settingValue: shift.result[2].settingValue,
+            },
+          ],
         }}
-        validationSchema={Yup.object({})}
+        validationSchema={Yup.object()}
         onSubmit={async (values, { setSubmitting }) => {
-          const payload = { ...values };
-          const data = await axios({
-            method: "put",
-            url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company`,
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-            },
-            data: {
-              ...values,
-            },
-          }).catch(function (error) {
-            if (error.response) {
-              toast.error(error.response.data.message);
-            }
-          });
-          if (data.data.code) {
-            toast.success(data.data.message);
-          }
+          const compId = company.result.id;
+          await updateCompanyFunc(values.company, compId);
+          await updateShift(values.companySetting, compId);
         }}
       >
         {({ values }) => (
@@ -55,63 +116,82 @@ const UpdateCompany = ({ result }) => {
             <div className=" w-3/4">
               <FormGroup
                 type="text"
-                name="name"
+                name="company.name"
                 labelName={"Company Name"}
-                value={values.name}
+                value={values.company.name}
               />
               <FormGroup
                 type="text"
-                name="companyShortName"
+                name="company.companyShortName"
                 labelName={"Company Short Name"}
-                value={values.companyShortName}
+                value={values.company.companyShortName}
               />
               <FormGroup
                 type="email"
-                name="email"
+                name="company.email"
                 labelName={"Email"}
-                value={values.email}
+                value={values.company.email}
               />
               <FormGroup
                 type="text"
-                name="webSite"
+                name="company.webSite"
                 labelName={"Web Site"}
-                value={values.webSite}
+                value={values.company.webSite}
               />
               <FormGroup
                 type="text"
-                name="taxName"
+                name="company.taxName"
                 labelName={"Tax Name"}
-                value={values.taxName}
+                value={values.company.taxName}
               />
               <FormGroup
                 type="text"
-                name="taxNo"
+                name="company.taxNo"
                 labelName={"Tax No"}
-                value={values.taxNo}
+                value={values.company.taxNo}
               />
               <FormGroup
                 type="text"
-                name="tel"
+                name="company.tel"
                 labelName={"Tel No"}
-                value={values.tel}
+                value={values.company.tel}
               />
               <FormGroup
                 type="text"
-                name="tel2"
+                name="company.tel2"
                 labelName={"Tel No 2"}
-                value={values.tel2}
+                value={values.company.tel2}
               />
               <FormGroup
                 type="text"
-                name="zipCode"
+                name="company.zipCode"
                 labelName={"Zip Code"}
-                value={values.zipCode}
+                value={values.company.zipCode}
               />
               <FormGroup
                 type="text"
-                name="address"
+                name="company.address"
                 labelName={"Address"}
-                value={values.address}
+                value={values.company.address}
+              />
+              <br />
+              <FormGroup
+                type="text"
+                name="companySetting[0].settingValue"
+                labelName={"Puantaj"}
+                value={values.companySetting[0].settingValue}
+              />
+              <FormGroup
+                type="text"
+                name="companySetting[1].settingValue"
+                labelName={"Working Hours"}
+                value={values.companySetting[1].settingValue}
+              />
+              <FormGroup
+                type="text"
+                name="companySetting[2].settingValue"
+                labelName={"Connect puantaj with shift"}
+                value={values.companySetting[2].settingValue}
               />
               <FormButton type="submit" buttonName="Update Company" />
             </div>
@@ -134,19 +214,27 @@ export const getServerSideProps = async (context) => {
     },
   } = await getSession(context);
 
-  const {
-    data: { result },
-  } = await axios({
-    method: "get",
-    url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/${id}`,
-    headers: {
-      Authorization: `Bearer ${jwt}`,
-    },
-  });
+  const [companyResponse, shiftResponse] = await Promise.all([
+    axios({
+      method: "get",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/${id}`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    }),
+    axios({
+      method: "get",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-setting/${id}`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    }),
+  ]);
+
+  const company = companyResponse.data;
+  const shift = shiftResponse.data;
 
   return {
-    props: {
-      result,
-    },
+    props: { company, shift },
   };
 };

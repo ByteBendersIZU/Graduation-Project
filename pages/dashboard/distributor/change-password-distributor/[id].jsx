@@ -8,6 +8,7 @@ import FormGroup from "../../../../components/form/FormGroup";
 import FormButton from "../../../../components/form/FormButton";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
+import { updatePasswordDistYup } from "../../../../yupValidations/distributorValidations";
 
 const ChangePasswordDist = ({ result }) => {
   const {
@@ -29,26 +30,21 @@ const ChangePasswordDist = ({ result }) => {
           password: "",
           rePassword: "",
         }}
-        validationSchema={Yup.object({
-          //email sifre denetle
-        })}
+        validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
-          const payload = { ...values };
+          const { email, password, rePassword } = values;
           const data = await axios({
             method: "put",
             url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor/password`,
             headers: {
               Authorization: `Bearer ${jwt}`,
             },
-            data: {
-              ...values,
-            },
+            data: {email},
           }).catch(function (error) {
             if (error.response) {
               toast.error(error.response.data.message);
             }
           });
-          console.log(data);
           if (data.data.code) {
             toast.success(data.data.message);
           }
@@ -62,6 +58,7 @@ const ChangePasswordDist = ({ result }) => {
                 name="email"
                 labelName={"Email"}
                 value={values.email}
+                disabled={true}
               />
               <FormGroup
                 type="password"
