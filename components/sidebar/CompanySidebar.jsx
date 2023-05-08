@@ -33,10 +33,7 @@ const CompanySidebar = () => {
             </Sidebar.Item>
             <Sidebar.Collapse icon={GrOrganization} label="Organizationn">
               <Sidebar.Item>
-                <Link
-                  href="/dashboard/organization/branch-list"
-                  className={linkClass}
-                >
+                <Link href="/dashboard" className={linkClass}>
                   Manage Permission
                 </Link>
               </Sidebar.Item>
@@ -58,7 +55,7 @@ const CompanySidebar = () => {
               </Sidebar.Item>
               <Sidebar.Item>
                 <Link
-                  href="/dashboard/organization/branch-list"
+                  href="/dashboard/organization/position-list"
                   className={linkClass}
                 >
                   Position List
@@ -82,6 +79,34 @@ const CompanySidebar = () => {
               <Sidebar.Item>
                 <Link href="/dashboard" className={linkClass}>
                   Branch List
+                </Link>
+              </Sidebar.Item>
+            </Sidebar.Collapse>
+            <Sidebar.Collapse icon={BsFillPersonFill} label="Inventory">
+              <Sidebar.Item>
+                <Link
+                  href="/dashboard"
+                  className={linkClass}
+                >
+                  Inventory Permission
+                </Link>
+              </Sidebar.Item>
+              <Sidebar.Item>
+                <Link
+                  href="/dashboard/inventory/list-inventory-type"
+                  className={linkClass}
+                >
+                  Inventory Type List
+                </Link>
+              </Sidebar.Item>
+              <Sidebar.Item>
+                <Link href="/dashboard/inventory/list" className={linkClass}>
+                  Inventory List
+                </Link>
+              </Sidebar.Item>
+              <Sidebar.Item>
+                <Link href="/dashboard/inventory/user-appointment-list" className={linkClass}>
+                  Inventory Assignments
                 </Link>
               </Sidebar.Item>
             </Sidebar.Collapse>

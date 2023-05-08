@@ -3,41 +3,36 @@ import React, { useEffect, useState } from "react";
 import PageHeader from "../../../../components/PageHeader";
 import Pagination from "../../../../components/ui/pagination";
 import Input from "../../../../components/ui/Input";
-import AddNewCustomerModal from "../../../../components/modals/AddNewCustomerModal";
+import NewBranchModal from "../../../../components/modals/AddNewBranchModal";
 import { getSession } from "next-auth/react";
 import axios from "axios";
 import UpdateBranch from "../../../../components/modals/UpdateBranchModel";
 import RemoveBranch from "../../../../components/modals/RemoveBranch";
 import { useRouter } from "next/router";
-import UpdateCustomerModal from "../../../../components/modals/UpdateCustomerModal";
-import RemoveCustomerModal from "../../../../components/modals/RemoveCustomerModal";
 import { useDispatch, useSelector } from "react-redux";
-import { fethcCustomerList } from "../../../../redux/services/CompanyCustomerService";
-import { getCustomerList } from "../../../../redux/slices/CompanyCustomerSlice";
+import { getBranchList } from "../../../../redux/slices/CompanyBranchSlice";
+import { fetchBranchList } from "../../../../redux/services/CompanyBranchService";
 
-const CustomerList = ({ data }) => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fethcCustomerList());
-  }, []);
+const InventoryTypeList = ({ data }) => {
+//   const dispatch = useDispatch();
+//   useEffect(() => {
+//     dispatch(fetchInventoryTypeList());
+//   }, []);
 
-  const getCustomers = useSelector(getCustomerList);
+//   const getBranches = useSelector(getInventoryTypeList);
 
   const [inputSearch, setInputSearch] = useState("");
-  // const [getCustomers, setGetCustomers] = useState(data);
-  const inputKeys = ["customer"];
+  // const [getBranches, setGetBranches] = useState(data);
+  const inputKeys = ["name", "address"];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
 
-  console.log(getCustomers);
-
-  const filtredList = getCustomers.data.filter((distributor) =>
+  const filtredList = getBranches.data.filter((distributor) =>
     inputKeys.some((key) =>
       distributor[key].toLowerCase().includes(inputSearch.toLowerCase())
     )
   );
-  console.log(filtredList);
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexFirstPost = indexOfLastPost - postPerPage;
@@ -54,14 +49,14 @@ const CustomerList = ({ data }) => {
   return (
     <div>
       <PageHeader
-        header={"Customers"}
-        breadcrumb={["Organization", "Customers"]}
+        header={"Branches"}
+        breadcrumb={["Organization", "Branches"]}
       />
       <div className="flex items-center w-full gap-3">
         <div className="flex-auto">
           <Input changeInput={changeInput} />
         </div>
-        <AddNewCustomerModal />
+        <NewBranchModal />
       </div>
       <div className="flex flex-col overflow-scroll mt-10">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -70,7 +65,10 @@ const CustomerList = ({ data }) => {
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   <th scope="col" className="px-6 py-3">
-                    Customer
+                    Branch Name
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Address
                   </th>
 
                   <th scope="col" className="px-6 py-3 text-right">
@@ -79,18 +77,19 @@ const CustomerList = ({ data }) => {
                 </tr>
               </thead>
               <tbody>
-                {currentPosts.map((customer) => (
+                {currentPosts.map((branch) => (
                   <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                     <th
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {customer.customer}
+                      {branch.name}
                     </th>
+                    <td className="px-6 py-4">{branch.address}</td>
                     <td className="px-6 py-4 flex justify-end text-xl gap-3">
-                      <UpdateCustomerModal customer={customer} />
+                      <UpdateBranch branch={branch} />
 
-                      <RemoveCustomerModal id={customer.id} />
+                      <RemoveBranch id={branch.id} />
                     </td>
                   </tr>
                 ))}
@@ -108,9 +107,9 @@ const CustomerList = ({ data }) => {
   );
 };
 
-CustomerList.auth = true;
+InventoryTypeList.auth = true;
 
-export default CustomerList;
+export default InventoryTypeList;
 
 // export const getServerSideProps = async (context) => {
 //   const {
@@ -122,7 +121,7 @@ export default CustomerList;
 //     data: { result },
 //   } = await axios({
 //     method: "get",
-//     url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company-customer/list`,
+//     url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/branch/list`,
 //     headers: {
 //       Authorization: `Bearer ${jwt}`,
 //     },
