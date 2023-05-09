@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchTypeList } from "../services/InventoryTypeService";
+import { fetchTypeList } from "../../services/inventory/InventoryTypeService";
 
 const initialState = {
   typeList: {

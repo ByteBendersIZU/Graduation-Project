@@ -3,7 +3,7 @@ import CompanyCustomerSlice from "./slices/CompanyCustomerSlice";
 import CompanyBranchSlice from "./slices/CompanyBranchSlice";
 import CompanyDepartmentSlice from "./slices/CopmanyDepartmentSlice";
 import CompanyPositionSlice from "./slices/CompanyPositionSlice";
-import InventoryTypeSlice from "./slices/InventoryTypeSlice";
+import InventoryTypeSlice from "./slices/inventory/InventoryTypeSlice";
 
 export const store = configureStore({
   reducer: {

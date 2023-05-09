@@ -3,15 +3,15 @@ import React, { useEffect, useState } from "react";
 import PageHeader from "../../../../components/PageHeader";
 import Pagination from "../../../../components/ui/pagination";
 import Input from "../../../../components/ui/Input";
-import NewBranchModal from "../../../../components/modals/AddNewBranchModal";
+import AddType from "../../../../components/modals/inventory/AddTypeModal";
 import { getSession } from "next-auth/react";
 import axios from "axios";
 import UpdateBranch from "../../../../components/modals/UpdateBranchModel";
 import RemoveBranch from "../../../../components/modals/RemoveBranch";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { getBranchList } from "../../../../redux/slices/CompanyBranchSlice";
-import { fetchBranchList } from "../../../../redux/services/CompanyBranchService";
+import { getTypeList } from "../../../../redux/slices/InventoryTypeSlice";
+import { fetchTypeList } from "../../../../redux/services/InventoryTypeService";
 
 const InventoryTypeList = ({ data }) => {
 //   const dispatch = useDispatch();
@@ -19,18 +19,18 @@ const InventoryTypeList = ({ data }) => {
 //     dispatch(fetchInventoryTypeList());
 //   }, []);
 
-//   const getBranches = useSelector(getInventoryTypeList);
+  const getType = useSelector(getTypeList);
 
   const [inputSearch, setInputSearch] = useState("");
-  // const [getBranches, setGetBranches] = useState(data);
-  const inputKeys = ["name", "address"];
+  // const [getType, setType] = useState(data);
+  const inputKeys = ["inventoryTypeName", "address"];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
 
-  const filtredList = getBranches.data.filter((distributor) =>
+  const filtredList = getType.data.filter((type) =>
     inputKeys.some((key) =>
-      distributor[key].toLowerCase().includes(inputSearch.toLowerCase())
+      type[key].toLowerCase().includes(inputSearch.toLowerCase())
     )
   );
 
@@ -49,14 +49,14 @@ const InventoryTypeList = ({ data }) => {
   return (
     <div>
       <PageHeader
-        header={"Branches"}
-        breadcrumb={["Organization", "Branches"]}
+        header={"Types"}
+        breadcrumb={["Inventory", "Types"]}
       />
       <div className="flex items-center w-full gap-3">
         <div className="flex-auto">
           <Input changeInput={changeInput} />
         </div>
-        <NewBranchModal />
+        <AddType />
       </div>
       <div className="flex flex-col overflow-scroll mt-10">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -65,31 +65,26 @@ const InventoryTypeList = ({ data }) => {
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   <th scope="col" className="px-6 py-3">
-                    Branch Name
+                    Type Name
                   </th>
-                  <th scope="col" className="px-6 py-3">
-                    Address
-                  </th>
-
                   <th scope="col" className="px-6 py-3 text-right">
                     Actions
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {currentPosts.map((branch) => (
+                {currentPosts.map((type) => (
                   <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                     <th
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {branch.name}
+                      {type.name}
                     </th>
-                    <td className="px-6 py-4">{branch.address}</td>
                     <td className="px-6 py-4 flex justify-end text-xl gap-3">
-                      <UpdateBranch branch={branch} />
+                      <UpdateBranch type={type} />
 
-                      <RemoveBranch id={branch.id} />
+                      <RemoveBranch id={type.id} />
                     </td>
                   </tr>
                 ))}
