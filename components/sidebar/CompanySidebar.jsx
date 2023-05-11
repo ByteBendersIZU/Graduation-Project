@@ -82,6 +82,34 @@ const CompanySidebar = () => {
                 </Link>
               </Sidebar.Item>
             </Sidebar.Collapse>
+            <Sidebar.Collapse icon={BsFillPersonFill} label="Inventory">
+              <Sidebar.Item>
+                <Link
+                  href="/dashboard"
+                  className={linkClass}
+                >
+                  Inventory Permission
+                </Link>
+              </Sidebar.Item>
+              <Sidebar.Item>
+                <Link
+                  href="/dashboard/inventory/list-inventory-type"
+                  className={linkClass}
+                >
+                  Inventory Type List
+                </Link>
+              </Sidebar.Item>
+              <Sidebar.Item>
+                <Link href="/dashboard/inventory/list" className={linkClass}>
+                  Inventory List
+                </Link>
+              </Sidebar.Item>
+              <Sidebar.Item>
+                <Link href="/dashboard/inventory/user-appointment-list" className={linkClass}>
+                  Inventory Assignments
+                </Link>
+              </Sidebar.Item>
+            </Sidebar.Collapse>
             <Sidebar.Item icon={GrLogout}>
               <button
                 onClick={() => {

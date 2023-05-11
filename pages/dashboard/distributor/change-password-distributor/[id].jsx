@@ -39,7 +39,9 @@ const ChangePasswordDist = ({ result }) => {
             headers: {
               Authorization: `Bearer ${jwt}`,
             },
-            data: {email},
+            email,
+            password,
+            rePassword,
           }).catch(function (error) {
             if (error.response) {
               toast.error(error.response.data.message);
