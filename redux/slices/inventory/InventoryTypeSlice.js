@@ -32,7 +32,6 @@ export const InventoryTypeSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    //Customer List Controller
     builder
       .addCase(fetchTypeList.pending, (state) => {
         state.typeList.status = "loading";
@@ -48,8 +47,8 @@ export const InventoryTypeSlice = createSlice({
   },
 });
 
+export default InventoryTypeSlice.reducer;
+
 export const { addType, updateType, removeType } = InventoryTypeSlice.actions;
 
 export const getTypeList = (state) => state.inventoryType.typeList;
-
-export default InventoryTypeSlice.reducer;

@@ -6,18 +6,18 @@ import Input from "../../../../components/ui/Input";
 import AddType from "../../../../components/modals/inventory/AddTypeModal";
 import { getSession } from "next-auth/react";
 import axios from "axios";
-import UpdateBranch from "../../../../components/modals/UpdateBranchModel";
-import RemoveBranch from "../../../../components/modals/RemoveBranch";
+import UpdateType from "../../../../components/modals/inventory/UpdateTypeModal";
+import RemoveType from "../../../../components/modals/inventory/DeleteTypeModal";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { getTypeList } from "../../../../redux/slices/InventoryTypeSlice";
-import { fetchTypeList } from "../../../../redux/services/InventoryTypeService";
+import { getTypeList } from "../../../../redux/slices/inventory/InventoryTypeSlice";
+import { fetchTypeList } from "../../../../redux/services/inventory/InventoryTypeService";
 
 const InventoryTypeList = ({ data }) => {
-//   const dispatch = useDispatch();
-//   useEffect(() => {
-//     dispatch(fetchInventoryTypeList());
-//   }, []);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchTypeList());
+  }, []);
 
   const getType = useSelector(getTypeList);
 
@@ -48,10 +48,7 @@ const InventoryTypeList = ({ data }) => {
   };
   return (
     <div>
-      <PageHeader
-        header={"Types"}
-        breadcrumb={["Inventory", "Types"]}
-      />
+      <PageHeader header={"Types"} breadcrumb={["Inventory", "Types"]} />
       <div className="flex items-center w-full gap-3">
         <div className="flex-auto">
           <Input changeInput={changeInput} />
@@ -79,12 +76,12 @@ const InventoryTypeList = ({ data }) => {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {type.name}
+                      {type.inventoryTypeName}
                     </th>
                     <td className="px-6 py-4 flex justify-end text-xl gap-3">
-                      <UpdateBranch type={type} />
+                      <UpdateType type={type} />
 
-                      <RemoveBranch id={type.id} />
+                      <RemoveType id={type.id} />
                     </td>
                   </tr>
                 ))}
