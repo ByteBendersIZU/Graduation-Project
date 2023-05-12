@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchTypeList } from "../../services/inventory/InventoryTypeService";
+import { fetchList } from "../../services/inventory/InventoryListService";
 
 const initialState = {
   inventoryList: {
@@ -8,49 +8,47 @@ const initialState = {
   },
 };
 
-export const InventoryListSlice = createSlice({
-  name: "inventoryList",
+export const InventorySlice = createSlice({
+  name: "inventory",
   initialState,
   reducers: {
     addType: (state, action) => {
       console.log("action payload", action.payload.data.result);
-      state.typeList.data.push(action.payload.data.result);
+      state.inventoryList.data.push(action.payload.data.result);
     },
     updateType: (state, action) => {
       console.log("efefef", action.payload.data.result);
       const updatedCompany = action.payload.data.result;
-      const updatedList = state.typeList.data.map((company) =>
+      const updatedList = state.inventoryList.data.map((company) =>
         company.id === updatedCompany.id ? updatedCompany : company
       );
-      state.typeList.data = updatedList;
+      state.inventoryList.data = updatedList;
     },
     removeType: (state, action) => {
-      const updatedList = state.typeList.data.filter(
+      const updatedList = state.inventoryList.data.filter(
         (company) => company.id !== action.payload
       );
-      state.typeList.data = updatedList;
+      state.inventoryList.data = updatedList;
     },
   },
   extraReducers: (builder) => {
-    //Customer List Controller
     builder
-      .addCase(fetchTypeList.pending, (state) => {
-        state.typeList.status = "loading";
+      .addCase(fetchList.pending, (state) => {
+        state.inventoryList.status = "loading";
       })
-      .addCase(fetchTypeList.fulfilled, (state, action) => {
-        state.typeList.status = "succeeded";
-        state.typeList.data = action.payload;
+      .addCase(fetchList.fulfilled, (state, action) => {
+        state.inventoryList.status = "succeeded";
+        state.inventoryList.data = action.payload;
       })
-      .addCase(fetchTypeList.rejected, (state, action) => {
+      .addCase(fetchList.rejected, (state, action) => {
         console.log("rejected", action.error);
-        state.typeList.status = "failed";
+        state.inventoryList.status = "failed";
       });
   },
 });
 
-export default InventoryListSlice.reducer;
+export default InventorySlice.reducer;
 
-export const { addList, updateList, removeList } = InventoryListSlice.actions;
+export const { addType, updateType, removeType } = InventorySlice.actions;
 
-export const getList = (state) => state.inventoryList.list;
-
+export const getList = (state) => state.inventory.inventoryList;

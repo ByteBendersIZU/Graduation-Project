@@ -3,34 +3,34 @@ import React, { useEffect, useState } from "react";
 import PageHeader from "../../../../components/PageHeader";
 import Pagination from "../../../../components/ui/pagination";
 import Input from "../../../../components/ui/Input";
-import AddType from "../../../../components/modals/inventory/AddTypeModal";
+import AddInventory from "../../../../components/modals/inventory/AddInventoryModal";
 import { getSession } from "next-auth/react";
 import axios from "axios";
-import UpdateType from "../../../../components/modals/inventory/UpdateTypeModal";
-import RemoveType from "../../../../components/modals/inventory/DeleteTypeModal";
+import UpdateInventory from "../../../../components/modals/inventory/UpdateInventoryModal";
+import RemoveInventory from "../../../../components/modals/inventory/DeleteInventoryModal";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { getTypeList } from "../../../../redux/slices/inventory/InventoryTypeSlice";
-import { fetchTypeList } from "../../../../redux/services/inventory/InventoryTypeService";
+import { getList } from "../../../../redux/slices/inventory/InventoryListSlice";
+import { fetchList } from "../../../../redux/services/inventory/InventoryListService";
 
-const InventoryTypeList = ({ data }) => {
+const InventoryList = ({ data }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchTypeList());
+    dispatch(fetchList());
   }, []);
 
-  const getType = useSelector(getTypeList);
+  const getInventory = useSelector(getList);
 
   const [inputSearch, setInputSearch] = useState("");
-  // const [getType, setType] = useState(data);
-  const inputKeys = ["inventoryTypeName", "address"];
+  // const [getInventory, setType] = useState(data);
+  const inputKeys = ["name"];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
 
-  const filtredList = getType.data.filter((type) =>
+  const filtredList = getInventory.data.filter((inven) =>
     inputKeys.some((key) =>
-      type[key].toLowerCase().includes(inputSearch.toLowerCase())
+      inven[key].toLowerCase().includes(inputSearch.toLowerCase())
     )
   );
 
@@ -48,12 +48,12 @@ const InventoryTypeList = ({ data }) => {
   };
   return (
     <div>
-      <PageHeader header={"Types"} breadcrumb={["Inventory", "Types"]} />
+      <PageHeader header={"Inventory"} breadcrumb={["Inventory", "Inventories"]} />
       <div className="flex items-center w-full gap-3">
         <div className="flex-auto">
           <Input changeInput={changeInput} />
         </div>
-        <AddType />
+        <AddInventory />
       </div>
       <div className="flex flex-col overflow-scroll mt-10">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -62,7 +62,7 @@ const InventoryTypeList = ({ data }) => {
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   <th scope="col" className="px-6 py-3">
-                    Type Name
+                    Inventory Name
                   </th>
                   <th scope="col" className="px-6 py-3 text-right">
                     Actions
@@ -76,12 +76,12 @@ const InventoryTypeList = ({ data }) => {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {type.inventoryTypeName}
+                      {type.name}
                     </th>
                     <td className="px-6 py-4 flex justify-end text-xl gap-3">
-                      <UpdateType type={type} />
+                      <UpdateInventory type={type} />
 
-                      <RemoveType id={type.id} />
+                      <RemoveInventory id={type.id} />
                     </td>
                   </tr>
                 ))}
@@ -99,9 +99,9 @@ const InventoryTypeList = ({ data }) => {
   );
 };
 
-InventoryTypeList.auth = true;
+InventoryList.auth = true;
 
-export default InventoryTypeList;
+export default InventoryList;
 
 // export const getServerSideProps = async (context) => {
 //   const {

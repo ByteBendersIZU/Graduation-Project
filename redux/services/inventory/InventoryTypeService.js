@@ -23,7 +23,6 @@ export const fetchTypeList = createAsyncThunk(
         return error.response;
       }
     });
-
     return result;
   }
 );
