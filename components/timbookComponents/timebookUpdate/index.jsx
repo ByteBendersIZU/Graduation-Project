@@ -15,12 +15,12 @@ import React, { useState } from "react";
 import FormGroup from "../../form/FormGroup";
 import FormButton from "../../form/FormButton";
 import * as Yup from "yup";
+import TimebookSubmit from "../timebookSubmit";
 
-const timebookUpdate = () => {
+const timebookUpdate = ({ userId, date }) => {
   const [value, setValue] = useState(0);
-
   return (
-    <div className="mx-4 border">
+    <div className="mx-4">
       <div className="flex divide-gray-400 justify-center items-center">
         <div>
           <button
@@ -31,13 +31,16 @@ const timebookUpdate = () => {
             -
           </button>
         </div>
-        <div className="mx-4"><p className="text-sm">{value}</p></div>
+        <div className="mx-4">
+          <p className="text-sm">{value}</p>
+        </div>
         <div>
           <button type="button" onClick={() => setValue(value + 1)}>
             +
           </button>
         </div>
       </div>
+      <TimebookSubmit userId={userId} dateValue={value} date={date} />
     </div>
   );
 };

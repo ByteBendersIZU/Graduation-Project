@@ -6,6 +6,7 @@ import CompanyPositionSlice from "./slices/CompanyPositionSlice";
 import InventoryTypeSlice from "./slices/inventory/InventoryTypeSlice";
 import InventoryListSlice from "./slices/inventory/InventoryListSlice";
 import InventoryAppointmentSlice from "./slices/inventory/InventoryAppointmentSlice";
+import TimebookUserSlice from "./slices/timebook/TimebookUserSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     inventoryType: InventoryTypeSlice,
     inventoryList: InventoryListSlice,
     inventoryAppointment: InventoryAppointmentSlice,
+    timebookUser: TimebookUserSlice,
   },
 });
