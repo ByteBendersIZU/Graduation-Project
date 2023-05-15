@@ -40,7 +40,12 @@ import {
             <div className="space-y-6">
               <Formik
                 initialValues={{
-                  inventoryTypeName: "",
+                  name:'',
+                  branch:'',
+                  serialNumber:'',
+                  quantity:'',
+                  inventoryTypeId:'',
+                  features:''
                 }}
                 validationSchema={Yup.object({})}
                 onSubmit={async (values, { setSubmitting }) => {
@@ -92,7 +97,7 @@ import {
                       />
                       <FormGroup
                         type="text"
-                        name="?"
+                        name="inventoryTypeId"
                         labelName={"Inventory Type"}
                       />
                       <FormGroup

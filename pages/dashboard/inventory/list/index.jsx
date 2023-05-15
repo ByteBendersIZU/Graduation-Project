@@ -10,16 +10,16 @@ import UpdateInventory from "../../../../components/modals/inventory/UpdateInven
 import RemoveInventory from "../../../../components/modals/inventory/DeleteInventoryModal";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { getList } from "../../../../redux/slices/inventory/InventoryListSlice";
-import { fetchList } from "../../../../redux/services/inventory/InventoryListService";
+import { getProductList } from "../../../../redux/slices/inventory/InventoryProductSlice";
+import { fetchProductList } from "../../../../redux/services/inventory/InventoryProductService";
 
 const InventoryList = ({ data }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchList());
+    dispatch(fetchProductList());
   }, []);
 
-  const getInventory = useSelector(getList);
+  const getInventory = useSelector(getProductList);
 
   const [inputSearch, setInputSearch] = useState("");
   // const [getInventory, setType] = useState(data);

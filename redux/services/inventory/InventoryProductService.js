@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getSession } from "next-auth/react";
 
-export const fetchList = createAsyncThunk(
-  "inventoryController/inventoryList",
+export const fetchProductList = createAsyncThunk(
+  "inventoryProductController/productList",
   async (context) => {
     const {
       session: {
