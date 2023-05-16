@@ -22,15 +22,15 @@ const InventoryAppointmentList = ({ data }) => {
   const getAppointment = useSelector(getAppointmentList);
 
   const [inputSearch, setInputSearch] = useState("");
-  // const [getAppointment, setAppointment] = useState(data);
-  const inputKeys = ["inventoryAppointmentName", "address"];
+  const inputKeys = ["id"];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
+  console.log(getAppointment)
 
-  const filtredList = getAppointment.data.filter((type) =>
+  const filtredList = getAppointment.data.filter((appointment) =>
     inputKeys.some((key) =>
-      type[key].toLowerCase().includes(inputSearch.toLowerCase())
+      appointment[key].toLowerCase().includes(inputSearch.toLowerCase())
     )
   );
 
@@ -62,7 +62,13 @@ const InventoryAppointmentList = ({ data }) => {
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   <th scope="col" className="px-6 py-3">
-                  Appointment Name
+                  Inventory Name
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                  User Name
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                  Issue Date
                   </th>
                   <th scope="col" className="px-6 py-3 text-right">
                     Actions
@@ -76,10 +82,23 @@ const InventoryAppointmentList = ({ data }) => {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {type.name}
+                      {type.inventory.name}
                     </th>
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {type.user.name}
+                    </th>
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {type.dateOfIssue}
+                    </th>
+
                     <td className="px-6 py-4 flex justify-end text-xl gap-3">
-                      <UpdateAppointment type={type} />
+                      <UpdateAppointment values={type} />
 
                       <RemoveAppointment id={type.id} />
                     </td>

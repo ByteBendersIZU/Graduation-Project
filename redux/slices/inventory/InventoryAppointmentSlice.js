@@ -51,4 +51,4 @@ export default InventoryAppointmentSlice.reducer;
 
 export const { addAppointment, updateAppointment, removeAppointment } = InventoryAppointmentSlice.actions;
 
-export const getAppointmentList = (state) => state.inventoryAppointment.appoinmentList;
+export const getAppointmentList = (state) => state.inventoryAppointment.appointmentList;

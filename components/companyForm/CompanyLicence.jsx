@@ -5,8 +5,8 @@ import DropDown from "../form/DropDown";
 
 const CompanyLicence = () => {
   const [licenseType, setLicencetype] = useState([
-    { value: 0, name: "Monthly Licence" },
-    { value: 1, name: "Yearly Licence" },
+    { id: 0, name: "Monthly Licence" },
+    { id: 1, name: "Yearly Licence" },
   ]);
   return (
     <div className="mt-8">

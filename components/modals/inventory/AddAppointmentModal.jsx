@@ -1,24 +1,30 @@
 import {
   Button,
   Checkbox,
+  Dropdown,
   Label,
   Modal,
   Progress,
   TextInput,
 } from "flowbite-react";
 import axios from "axios";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import { useSession } from "next-auth/react";
 
 import { toast } from "react-toastify";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormGroup from "../../form/FormGroup";
 import FormButton from "../../form/FormButton";
+import DropDown from "../../form/DropDown";
 import { addNewBranchYup } from "../../../yupValidations/yupValidations";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as Yup from "yup";
-import { addType } from "../../../redux/slices/inventory/InventoryTypeSlice";
+import { addAppointment } from "../../../redux/slices/inventory/InventoryAppointmentSlice";
+import { getProductList } from "../../../redux/slices/inventory/InventoryProductSlice";
+import { getUserList } from "../../../redux/slices/timebook/TimebookUserSlice";
+import { fetchProductList } from "../../../redux/services/inventory/InventoryProductService";
+import { fetchUserList } from "../../../redux/services/timebook/TimebookUserService";
 
 
 const AddAppointment = () => {
@@ -30,7 +36,27 @@ const AddAppointment = () => {
       },
     },
   } = useSession();
+
+  useEffect(() => {
+    dispatch(fetchProductList());
+    dispatch(fetchUserList())
+  }, []);
+
   const [show, setShow] = useState(false);
+
+  const [inventorySituation, setInventorySituation] = useState([
+    { id: 0, name: "Brand New" },
+    { id: 1, name: "Like New" },
+    { id: 2, name: "Very Good" },
+    { id: 3, name: "Good" },
+    { id: 4, name: "Fair" },
+  ]);
+
+  const getInventory = useSelector(getProductList);
+  const getUser = useSelector(getUserList);
+  const getInventoryData = getInventory.data;
+  const getUserData = getUser.data;
+
   return (
     <React.Fragment>
       <Button onClick={() => setShow(true)}>Inventory Appointment</Button>
@@ -40,9 +66,11 @@ const AddAppointment = () => {
           <div className="space-y-6">
             <Formik
               initialValues={{
+                inventoryId: "",
+                userId: "",
                 amount: 0,
-                dateOfIssue:'',
-                situation:0
+                situation: 0,
+                dateOfIssue: "",
               }}
               validationSchema={Yup.object({})}
               onSubmit={async (values, { setSubmitting }) => {
@@ -72,22 +100,28 @@ const AddAppointment = () => {
               {() => (
                 <Form className="px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
                   <div>
+                    <DropDown
+                      options={getInventoryData}
+                      name="inventoryId"
+                      labelName={"Inventory Name"}
+                    />
+                    <DropDown options={getUserData} name="userId" labelName={"User"} />
                     <FormGroup
-                      type="text"
-                      name="inventoryTypeName"
-                      labelName={"Inventory Type Name"}
+                      type="number"
+                      name="amount"
+                      labelName={"Amount"}
+                    />
+                    <DropDown
+                      options={inventorySituation}
+                      name="situation"
+                      labelName={"Inventory Situation"}
                     />
                     <FormGroup
-                      type="text"
-                      name="inventoryTypeName"
-                      labelName={"Inventory Type Name"}
+                      type="date"
+                      name="dateOfIssue"
+                      labelName={"Date of Issue"}
                     />
-                    <FormGroup
-                      type="text"
-                      name="inventoryTypeName"
-                      labelName={"Inventory Type Name"}
-                    />
-                    <FormButton type="submit" buttonName="Add New Type" />
+                    <FormButton type="submit" buttonName="Add Appointment" />
                   </div>
                 </Form>
               )}

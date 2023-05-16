@@ -79,7 +79,7 @@ const InventoryList = ({ data }) => {
                       {type.name}
                     </th>
                     <td className="px-6 py-4 flex justify-end text-xl gap-3">
-                      <UpdateInventory type={type} />
+                      <UpdateInventory values={type} />
 
                       <RemoveInventory id={type.id} />
                     </td>
