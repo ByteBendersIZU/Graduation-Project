@@ -18,7 +18,7 @@ import { addNewBranchYup } from "../../../yupValidations/yupValidations";
 import { useDispatch } from "react-redux";
 
 import * as Yup from "yup";
-import { addType } from "../../../redux/slices/InventoryTypeSlice";
+import { addType } from "../../../redux/slices/inventory/InventoryTypeSlice";
 
 
 const AddType = () => {
@@ -49,7 +49,7 @@ const AddType = () => {
                 setShow(false);
                 const data = await axios({
                   method: "post",
-                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/inventory-type`,
+                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/inventory-type/`,
                   headers: {
                     Authorization: `Bearer ${jwt}`,
                   },
@@ -73,8 +73,9 @@ const AddType = () => {
                     <FormGroup
                       type="text"
                       name="inventoryTypeName"
-                      labelName={"Type Name"}
+                      labelName={"Inventory Type Name"}
                     />
+                    
                     <FormButton type="submit" buttonName="Add New Type" />
                   </div>
                 </Form>

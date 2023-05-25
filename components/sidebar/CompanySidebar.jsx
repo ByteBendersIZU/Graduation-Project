@@ -84,10 +84,7 @@ const CompanySidebar = () => {
             </Sidebar.Collapse>
             <Sidebar.Collapse icon={BsFillPersonFill} label="Inventory">
               <Sidebar.Item>
-                <Link
-                  href="/dashboard"
-                  className={linkClass}
-                >
+                <Link href="/dashboard" className={linkClass}>
                   Inventory Permission
                 </Link>
               </Sidebar.Item>
@@ -105,11 +102,30 @@ const CompanySidebar = () => {
                 </Link>
               </Sidebar.Item>
               <Sidebar.Item>
-                <Link href="/dashboard/inventory/user-appointment-list" className={linkClass}>
+                <Link
+                  href="/dashboard/inventory/user-appointment-list"
+                  className={linkClass}
+                >
                   Inventory Assignments
                 </Link>
               </Sidebar.Item>
             </Sidebar.Collapse>
+            <Sidebar.Collapse icon={BsFillPersonFill} label="Timebook">
+              <Sidebar.Item>
+                <Link href="/dashboard" className={linkClass}>
+                  Timebook Permission
+                </Link>
+              </Sidebar.Item>
+              <Sidebar.Item>
+                <Link
+                  href="/dashboard/timebook/user-timebook"
+                  className={linkClass}
+                >
+                  Timebook List
+                </Link>
+              </Sidebar.Item>
+            </Sidebar.Collapse>
+
             <Sidebar.Item icon={GrLogout}>
               <button
                 onClick={() => {

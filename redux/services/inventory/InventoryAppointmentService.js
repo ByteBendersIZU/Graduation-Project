@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getSession } from "next-auth/react";
 
-export const fetchTypeList = createAsyncThunk(
-  "inventoryTypeController/typeList",
+export const fetchAppointmentList = createAsyncThunk(
+  "inventoryAppointmentController/appointmentList",
   async (context) => {
     const {
       session: {
@@ -14,7 +14,7 @@ export const fetchTypeList = createAsyncThunk(
       data: { result },
     } = await axios({
       method: "get",
-      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/inventory-type/list`,
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/user-inventory/getUserInventoryListByCompany`,
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
