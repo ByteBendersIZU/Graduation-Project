@@ -13,7 +13,8 @@ import CompanyPack from "../../../components/companyForm/CompanyPack";
 import CompanyLicence from "../../../components/companyForm/CompanyLicence";
 import AddCompanyForm from "../../../components/companyForm/AddCompanyForm";
 import CompanySetting from "../../../components/companyForm/CompanySetting";
-// import { addCompanyYup } from "../../../components/yupValidations/companyValidations";
+
+import { addCompanyYup } from "../../../yupValidations/companyValidations";
 
 const AddCompany = () => {
   const [cities, setCities] = useState(State.getStatesOfCountry("TR"));
