@@ -8,7 +8,7 @@ import FormGroup from "../../../../components/form/FormGroup";
 import FormButton from "../../../../components/form/FormButton";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-import { updateAdminYup } from "../../../yupValidations/companyValidations";
+// import { updateAdminYup } from "../../../yupValidations/companyValidations";
 
 const UpdateCompany = ({ result }) => {
   const {

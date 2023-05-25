@@ -77,8 +77,8 @@ const CompanySidebar = () => {
                 </Link>
               </Sidebar.Item>
               <Sidebar.Item>
-                <Link href="/dashboard" className={linkClass}>
-                  Branch List
+                <Link href="/dashboard/staff/employee" className={linkClass}>
+                  Employee
                 </Link>
               </Sidebar.Item>
             </Sidebar.Collapse>

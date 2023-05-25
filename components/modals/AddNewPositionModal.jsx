@@ -76,6 +76,7 @@ const AddNewPositionModal = () => {
                 <Form className="px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
                   <div>
                     <Dropdown2
+                      placeholder="Select Department"
                       name="departmentId"
                       labelName={"Department Name"}
                       options={getDepartments.data}
