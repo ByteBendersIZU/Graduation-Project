@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
-const ChancingStateCompany = ({ id, status }) => {
+const ChangingStateCompanyAdmin = ({ id, status }) => {
   const {
     data: {
       session: {
@@ -15,11 +15,10 @@ const ChancingStateCompany = ({ id, status }) => {
 
   const [state, setState] = useState(status);
 
-
   const companyActive = async (id) => {
     const data = await axios({
       method: "post",
-      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/set-active/${id}`,
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/company-admin-active/${id}`,
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
@@ -36,7 +35,7 @@ const ChancingStateCompany = ({ id, status }) => {
   const companyUnactive = async (id) => {
     const data = await axios({
       method: "post",
-      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/update-status/${id}`,
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/company/company-admin-passive/${id}`,
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
@@ -69,6 +68,6 @@ const ChancingStateCompany = ({ id, status }) => {
   );
 };
 
-ChancingStateCompany.auth = true;
+ChangingStateCompanyAdmin.auth = true;
 
-export default ChancingStateCompany;
+export default ChangingStateCompanyAdmin;

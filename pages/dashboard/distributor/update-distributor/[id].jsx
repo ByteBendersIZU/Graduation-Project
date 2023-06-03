@@ -132,8 +132,8 @@ const Id = ({ distibutorUpdate, distributorLicenseUpdate }) => {
                   labelName={"User Limit"}
                   value={values.distLicense.userLimit}
                 />
-              </div> */}
-              <FormButton type="submit" buttonName="Update Dsitributor" />
+              </div>
+              <FormButton type="submit" buttonName="Update Distributor" />
             </div>
           </Form>
         )}

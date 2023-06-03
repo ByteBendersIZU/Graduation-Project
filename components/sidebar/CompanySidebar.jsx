@@ -125,6 +125,21 @@ const CompanySidebar = () => {
                 </Link>
               </Sidebar.Item>
             </Sidebar.Collapse>
+            <Sidebar.Collapse icon={BsFillPersonFill} label="Shift">
+              <Sidebar.Item>
+                <Link href="/dashboard" className={linkClass}>
+                  Shift Permission
+                </Link>
+              </Sidebar.Item>
+              <Sidebar.Item>
+                <Link
+                  href="/dashboard/shift/shift-chart"
+                  className={linkClass}
+                >
+                  Shift List
+                </Link>
+              </Sidebar.Item>
+            </Sidebar.Collapse>
 
             <Sidebar.Item icon={GrLogout}>
               <button

@@ -13,9 +13,8 @@ const DropDown = ({ name, labelName, options, selected }) => {
         value={selected}
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-darkBg dark:text-white "
       >
-        <option value="">Select</option>
         {options.map((option, index) => (
-          <option key={index} value={option.id}>
+          <option key={index} value={option.name}>
             {option.name}
           </option>
         ))}

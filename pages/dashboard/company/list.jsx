@@ -19,7 +19,8 @@ const List = (props) => {
     "E-mail",
     "Workers Count",
     "Edit",
-    "Change State",
+    "Change Admin State",
+    "Change Company State",
   ];
   const buttons = [
     { name: "Update", href: "./" },

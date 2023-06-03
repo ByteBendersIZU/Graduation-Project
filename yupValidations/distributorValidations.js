@@ -13,7 +13,7 @@ export const updatePasswordDistYup = Yup.object().shape({
     .oneOf([Yup.ref("password"), null], "Passwords must match"),
 });
 
-export const distributorLicenseYup = Yup.object().shape({
+export const addDistributorYup = Yup.object().shape({
   distLicense: Yup.object().shape({
     startDate: Yup.date()
       .required("Start date is required")
@@ -21,12 +21,16 @@ export const distributorLicenseYup = Yup.object().shape({
     endDate: Yup.date()
       .required("End date is required")
       .min(Yup.ref("startDate"), "End date cannot be before start date"),
+    userLimit: Yup.number().required("User limit is required"),
   }),
 
   distributor: Yup.object().shape({
     name: Yup.string().required("Name is required"),
     surname: Yup.string().required("Surname is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters"),
     phoneNumber: Yup.string()
       .required("Phone number is required")
       .matches(/^\d{10}$/, "Telephone number must be a 10-digit number."),

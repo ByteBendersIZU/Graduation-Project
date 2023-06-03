@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import ChancingStateCompany from "../changingStateCompany/index";
+import ChancingStateCompanyAdmin from "../ChangingStateCompanyAdmin";
+import ChancingStateCompany from "../ChangingStateCompany/index";
 
 const Table = ({ data, column, titles, buttons, inputSearch }) => {
+
   return (
     <div className="relative my-10 overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -21,7 +23,7 @@ const Table = ({ data, column, titles, buttons, inputSearch }) => {
               )
             )
             .map((item) => (
-              <TableRow item={item} column={column} buttons={buttons} />
+              <TableRow  item={item} column={column} buttons={buttons} />
             ))}
         </tbody>
       </table>
@@ -54,7 +56,13 @@ const TableRow = ({ item, column, buttons }) => {
         </td>
 
         <td className="px-6 py-4">
-          <ChancingStateCompany id={item.companyAdmin.id} status={item.companyAdmin.active} />
+          <ChancingStateCompanyAdmin
+            id={item.companyAdmin.id}
+            status={item.active}
+          />
+        </td>
+        <td className="px-6 py-4">
+          <ChancingStateCompany  id={item.id} status={item.active} />
         </td>
       </tr>
     </>

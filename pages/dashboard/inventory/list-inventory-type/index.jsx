@@ -5,10 +5,8 @@ import Pagination from "../../../../components/ui/pagination";
 import Input from "../../../../components/ui/Input";
 import AddType from "../../../../components/modals/inventory/AddTypeModal";
 import { getSession } from "next-auth/react";
-import axios from "axios";
 import UpdateType from "../../../../components/modals/inventory/UpdateTypeModal";
 import RemoveType from "../../../../components/modals/inventory/DeleteTypeModal";
-import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { getTypeList } from "../../../../redux/slices/inventory/InventoryTypeSlice";
 import { fetchTypeList } from "../../../../redux/services/inventory/InventoryTypeService";
@@ -22,8 +20,7 @@ const InventoryTypeList = ({ data }) => {
   const getType = useSelector(getTypeList);
 
   const [inputSearch, setInputSearch] = useState("");
-  // const [getType, setType] = useState(data);
-  const inputKeys = ["inventoryTypeName", "address"];
+  const inputKeys = ["inventoryTypeName"];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
@@ -102,26 +99,3 @@ const InventoryTypeList = ({ data }) => {
 InventoryTypeList.auth = true;
 
 export default InventoryTypeList;
-
-// export const getServerSideProps = async (context) => {
-//   const {
-//     session: {
-//       user: { jwt },
-//     },
-//   } = await getSession(context);
-//   const {
-//     data: { result },
-//   } = await axios({
-//     method: "get",
-//     url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/branch/list`,
-//     headers: {
-//       Authorization: `Bearer ${jwt}`,
-//     },
-//   });
-
-//   return {
-//     props: {
-//       data: result,
-//     },
-//   };
-// };

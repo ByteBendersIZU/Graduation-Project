@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { updateCustomer } from "../../redux/slices/CompanyCustomerSlice";
 
 const UpdateCustomerModal = ({ customer }) => {
+  console.log(customer)
   const dispatch = useDispatch();
   const {
     data: {

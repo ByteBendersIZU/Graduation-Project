@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import AddDistributorForm from "../../../components/distributorForm/AddDistributorForm";
 import AddDistLicenseForm from "../../../components/distributorForm/AddDistLicenseForm";
-import { CheckLg } from "react-bootstrap-icons";
+import {addDistributorYup} from '../../../yupValidations/distributorValidations'
 
 const AddDistributor = () => {
   const {
@@ -89,24 +89,7 @@ const AddDistributor = () => {
             userLimit: 0,
           },
         }}
-        validationSchema={Yup.object({
-          // email: Yup.string()
-          //   .max(30, "Email must be 30 characters or less")
-          //   .email("Invalid email address")
-          //   .required("Please enter your email"),
-          // password: Yup.string()
-          //   .required("Please enter your password")
-          //   .min(6, "Password must be 6 characters or more")
-          //   .max(30, "Password must be 30 characters or less"),
-          // name: Yup.string()
-          //   .required("Please enter your name")
-          //   .min(3, "Name must be 3 characters or more")
-          //   .max(30, "Name must be 30 characters or less"),
-          // surname: Yup.string()
-          //   .required("Please enter your surname")
-          //   .min(3, "Surname must be 3 characters or more")
-          //   .max(30, "Surname must be 30 characters or less"),
-        })}
+        validationSchema={addDistributorYup}
         onSubmit={async (values, { setSubmitting }) => {
           const newDist = await addDistributor(values.distributor);
           const distId = await newDist.data.result.id;

@@ -12,7 +12,6 @@ import { useDispatch } from "react-redux";
 import { updateType } from "../../../redux/slices/inventory/InventoryTypeSlice";
 import * as Yup from "yup";
 
-
 const UpdateType = ({ type }) => {
   const dispatch = useDispatch();
   const {
@@ -37,7 +36,9 @@ const UpdateType = ({ type }) => {
           <div className="space-y-6">
             <Formik
               initialValues={{
-                ...type,
+                inventoryTypeName: type.inventoryTypeName,
+                id: type.id,
+                companyId: type.companyId,
               }}
               validationSchema={Yup.object({})}
               onSubmit={async (values, { setSubmitting }) => {
@@ -70,8 +71,8 @@ const UpdateType = ({ type }) => {
                     <FormGroup
                       type="text"
                       name="inventoryTypeName"
-                      value={values.inventoryTypeName}
                       labelName={"Inventory Type Name"}
+                      value={values.inventoryTypeName}
                     />
 
                     <FormButton type="submit" buttonName="Update Type" />

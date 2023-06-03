@@ -9,7 +9,7 @@ import FormButton from "../../../components/form/FormButton";
 import FormToggle from "../../../components/form/FormToggle";
 import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-// import { updateCompanyYup } from "../../yupValidations/companyValidations";
+import { updateCompanyYup } from "../../../yupValidations/companyValidations";
 
 const UpdateCompany = ({ company, shift }) => {
   const {

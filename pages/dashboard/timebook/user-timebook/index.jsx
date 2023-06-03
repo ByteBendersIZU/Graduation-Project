@@ -119,26 +119,3 @@ const Timebook = ({ data }) => {
 Timebook.auth = true;
 
 export default Timebook;
-
-// export const getServerSideProps = async (context) => {
-//   const {
-//     session: {
-//       user: { jwt },
-//     },
-//   } = await getSession(context);
-//   const {
-//     data: { result },
-//   } = await axios({
-//     method: "get",
-//     url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/branch/list`,
-//     headers: {
-//       Authorization: `Bearer ${jwt}`,
-//     },
-//   });
-
-//   return {
-//     props: {
-//       data: result,
-//     },
-//   };
-// };

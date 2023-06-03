@@ -3,42 +3,52 @@ import React, { useEffect, useState } from "react";
 import PageHeader from "../../../../components/PageHeader";
 import Pagination from "../../../../components/ui/pagination";
 import Input from "../../../../components/ui/Input";
-import AddAppointment from "../../../../components/modals/inventory/AddAppointmentModal";
 import { getSession } from "next-auth/react";
-import axios from "axios";
-import UpdateAppointment from "../../../../components/modals/inventory/UpdateAppointmentModal";
-import RemoveAppointment from "../../../../components/modals/inventory/DeleteAppointmentModal";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { getAppointmentList } from "../../../../redux/slices/inventory/InventoryAppointmentSlice";
-import { fetchAppointmentList } from "../../../../redux/services/inventory/InventoryAppointmentService";
+import { getUserList } from "../../../../redux/slices/timebook/TimebookUserSlice";
+import { fetchUserList } from "../../../../redux/services/timebook/TimebookUserService";
 
-const InventoryAppointmentList = ({ data }) => {
+import TimebookUpdate from "../../../../components/timbookComponents/timebookUpdate";
+import FormButton from "../../../../components/form/FormButton";
+
+const ShiftChart = ({ data }) => {
+  const [newDate, setNewDate] = useState(new Date());
+
+  const selectedDateObject = newDate ? new Date(newDate) : new Date();
+
+  const dates = [...Array(7)].map((_, i) => {
+    const date = new Date(selectedDateObject);
+    date.setDate(selectedDateObject.getDate() + i);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  });
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchAppointmentList());
+    dispatch(fetchUserList());
   }, []);
 
-  const getAppointment = useSelector(getAppointmentList);
-  console.log(getAppointment)
+  const getUser = useSelector(getUserList);
 
   const [inputSearch, setInputSearch] = useState("");
-  const inputKeys = ["id",'amount'];
+  // const [getUser, setType] = useState(data);
+  const inputKeys = ["name"];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);
 
-  const filtredList = getAppointment.data.filter((appointment) =>
+  const filtredList = getUser.data.slice(1).filter((type) =>
     inputKeys.some((key) =>
-      appointment[key].toLowerCase().includes(inputSearch.toLowerCase())
+      type[key].toLowerCase().includes(inputSearch.toLowerCase())
     )
   );
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexFirstPost = indexOfLastPost - postPerPage;
   const currentPosts = filtredList.slice(indexFirstPost, indexOfLastPost);
-
-  console.log(currentPosts)
 
   const changeInput = (value) => {
     setCurrentPage(1);
@@ -48,14 +58,17 @@ const InventoryAppointmentList = ({ data }) => {
   const handleCurrentPage = (page) => {
     setCurrentPage(page);
   };
+
   return (
     <div>
-      <PageHeader header={"Appointment"} breadcrumb={["Inventory", "Appointment"]} />
+      <PageHeader header={"Shift"} breadcrumb={["Shift", "Shift Charts"]} />
       <div className="flex items-center w-full gap-3">
         <div className="flex-auto">
           <Input changeInput={changeInput} />
         </div>
-        <AddAppointment />
+        <div>
+          <input type="date" onChange={(e) => setNewDate(e.target.value)}  value={newDate}/>
+        </div>
       </div>
       <div className="flex flex-col overflow-scroll mt-10">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -64,17 +77,11 @@ const InventoryAppointmentList = ({ data }) => {
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   <th scope="col" className="px-6 py-3">
-                  Inventory Name
+                    Type Name
                   </th>
-                  <th scope="col" className="px-6 py-3">
-                  User Name
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                  Issue Date
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-right">
-                    Actions
-                  </th>
+                  {dates.map((date) => (
+                    <th key={date}>{date} </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
@@ -84,26 +91,15 @@ const InventoryAppointmentList = ({ data }) => {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {type.inventory.name}
+                      {type.name}
                     </th>
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    >
-                      {type.user.name}
-                    </th>
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    >
-                      {type.dateOfIssue}
-                    </th>
-
-                    <td className="px-6 py-4 flex justify-end text-xl gap-3">
-                      <UpdateAppointment values={type} />
-
-                      <RemoveAppointment id={type.id} />
-                    </td>
+                    {dates.map((date) => (
+                      <td>
+                        <th key={date}>
+                        deneme
+                        </th>
+                      </td>
+                    ))}
                   </tr>
                 ))}
               </tbody>
@@ -120,6 +116,7 @@ const InventoryAppointmentList = ({ data }) => {
   );
 };
 
-InventoryAppointmentList.auth = true;
+ShiftChart.auth = true;
 
-export default InventoryAppointmentList;
+export default ShiftChart;
+

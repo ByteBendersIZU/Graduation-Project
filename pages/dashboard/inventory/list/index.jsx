@@ -5,10 +5,10 @@ import Pagination from "../../../../components/ui/pagination";
 import Input from "../../../../components/ui/Input";
 import AddInventory from "../../../../components/modals/inventory/AddInventoryModal";
 import { getSession } from "next-auth/react";
-import axios from "axios";
+
 import UpdateInventory from "../../../../components/modals/inventory/UpdateInventoryModal";
 import RemoveInventory from "../../../../components/modals/inventory/DeleteInventoryModal";
-import { useRouter } from "next/router";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getProductList } from "../../../../redux/slices/inventory/InventoryProductSlice";
 import { fetchProductList } from "../../../../redux/services/inventory/InventoryProductService";
@@ -22,7 +22,6 @@ const InventoryList = ({ data }) => {
   const getInventory = useSelector(getProductList);
 
   const [inputSearch, setInputSearch] = useState("");
-  // const [getInventory, setType] = useState(data);
   const inputKeys = ["name"];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -102,26 +101,3 @@ const InventoryList = ({ data }) => {
 InventoryList.auth = true;
 
 export default InventoryList;
-
-// export const getServerSideProps = async (context) => {
-//   const {
-//     session: {
-//       user: { jwt },
-//     },
-//   } = await getSession(context);
-//   const {
-//     data: { result },
-//   } = await axios({
-//     method: "get",
-//     url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/branch/list`,
-//     headers: {
-//       Authorization: `Bearer ${jwt}`,
-//     },
-//   });
-
-//   return {
-//     props: {
-//       data: result,
-//     },
-//   };
-// };

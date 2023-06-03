@@ -17,6 +17,7 @@ import { getProductList } from "../../../redux/slices/inventory/InventoryProduct
 import { getUserList } from "../../../redux/slices/timebook/TimebookUserSlice";
 import { fetchProductList } from "../../../redux/services/inventory/InventoryProductService";
 import { fetchUserList } from "../../../redux/services/timebook/TimebookUserService";
+import Dropdown2 from "../../form/Dropdown2";
 
 const UpdateAppointment = ({ values }) => {
   const dispatch = useDispatch();
@@ -88,17 +89,17 @@ const UpdateAppointment = ({ values }) => {
                 {({values}) => (
                   <Form className="px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
                     <div>
-                    <DropDown
+                    <Dropdown2
                       options={getInventoryData}
                       name="inventoryId"
                       labelName={"Inventory Name"}
                       selected={values.inventory.name}
                     />
-                    <FormGroup
-                      type="text"
+                    <Dropdown2
+                      options={getUserData}
                       name="userId"
                       labelName={"User"}
-                      value={values.user.name}
+                      selected={values.user.name}
 
                     />
                     <FormGroup
@@ -108,7 +109,7 @@ const UpdateAppointment = ({ values }) => {
                       value={values.amount}
 
                     />
-                    <DropDown
+                    <Dropdown2
                       options={inventorySituation}
                       name="situation"
                       labelName={"Inventory Situation"}
