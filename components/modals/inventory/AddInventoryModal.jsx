@@ -23,9 +23,10 @@ import DropDown from "../../form/DropDown";
 
 import { getTypeList } from "../../../redux/slices/inventory/InventoryTypeSlice";
 import { fetchTypeList } from "../../../redux/services/inventory/InventoryTypeService";
-
 import { getBranchList } from "../../../redux/slices/CompanyBranchSlice";
 import { fetchBranchList } from "../../../redux/services/CompanyBranchService";
+
+import Dropdown2 from "../../form/Dropdown2";
 
 const AddInventory = () => {
   const dispatch = useDispatch();
@@ -66,7 +67,7 @@ const AddInventory = () => {
                 branch: "",
                 serialNumber: "",
                 quantity: "",
-                inventoryTypeId: "",
+                inventoryTypeId: "9eef9219-7696-42da-8152-8ffecdbf8f25",
                 features: "",
               }}
               validationSchema={Yup.object({})}
@@ -102,7 +103,7 @@ const AddInventory = () => {
                       name="name"
                       labelName={"Inventory Name"}
                     />
-                    <DropDown
+                    <Dropdown2
                       options={getBranchData}
                       name="branch"
                       labelName={"Branch Name"}

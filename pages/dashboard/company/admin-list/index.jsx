@@ -11,8 +11,8 @@ import Input from "../../../../components/ui/Input";
 const List = (props) => {
   const [inputSearch, setInputSearch] = useState("");
   const [getCompany, setGetCompany] = useState(props.data);
-  const inputKeys = ["name", "address", "email", "workersCount"];
-  const titles = ["Company name", "Address", "E-mail", "Workers Count"];
+  const inputKeys = ["name", "address", "email",];
+  const titles = ["Company name", "Address", "E-mail",];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(10);

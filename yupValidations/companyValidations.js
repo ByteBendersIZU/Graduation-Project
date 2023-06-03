@@ -71,9 +71,8 @@ export const addCompanyYup = Yup.object().shape({
       .matches(/^\d{5}$/, "ZIP code must be a 5-digit number."),
   }),
   companyPayment: Yup.object().shape({
-    licenseType: Yup.string()
-      .required("License type is required.")
-      .min(0, "License type cannot be negative."),
+    licenseType: Yup.number()
+      .required("License type is required."),
     userLimit: Yup.number()
       .integer("User limit must be an integer.")
       .required("User limit is required.")
@@ -81,19 +80,6 @@ export const addCompanyYup = Yup.object().shape({
     totalPrice: Yup.number()
       .required("Total price is required.")
       .min(0, "Total price cannot be negative."),
-    invoice: Yup.string().required("Invoice number is required."),
-    paymentState: Yup.number()
-      .integer("Payment state must be an integer.")
-      .required("Payment state is required.")
-      .min(0, "Payment state cannot be negative."),
-    paymentType: Yup.number()
-      .integer("Payment type must be an integer.")
-      .required("Payment type is required.")
-      .min(0, "Payment type cannot be negative."),
-    currencyType: Yup.number()
-      .integer("Currency type must be an integer.")
-      .required("Currency type is required.")
-      .min(0, "Currency type cannot be negative."),
   }),
   companySetting: Yup.array().of(
     Yup.object().shape({

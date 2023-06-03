@@ -47,18 +47,6 @@ const DistributorSidebar = () => {
                 </Link>
               </Sidebar.Item>
             </Sidebar.Collapse>
-            <Sidebar.Collapse icon={BsFillPersonFill} label="Personel">
-              <Sidebar.Item>
-                <Link href="/dashboard" className={linkClass}>
-                  Support Employee
-                </Link>
-              </Sidebar.Item>
-              <Sidebar.Item>
-                <Link href="/dashboard" className={linkClass}>
-                  Add Support Employee
-                </Link>
-              </Sidebar.Item>
-            </Sidebar.Collapse>
             <Sidebar.Item icon={GrLogout}>
               <button
                 onClick={() => {

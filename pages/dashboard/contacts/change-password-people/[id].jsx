@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import {
   updateCompanyYup,
   updatePasswordAdminYup,
-} from "../../../yupValidations/companyValidations";
+} from "../../../../yupValidations/companyValidations";
 
 const ChangePasswordDist = ({ result }) => {
   const {

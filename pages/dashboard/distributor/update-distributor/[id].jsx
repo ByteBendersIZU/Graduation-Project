@@ -133,7 +133,7 @@ const Id = ({ distibutorUpdate, distributorLicenseUpdate }) => {
                   value={values.distLicense.userLimit}
                 />
               </div>
-              <FormButton type="submit" buttonName="Update Dsitributor" />
+              <FormButton type="submit" buttonName="Update Distributor" />
             </div>
           </Form>
         )}

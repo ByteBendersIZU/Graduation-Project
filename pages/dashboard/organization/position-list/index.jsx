@@ -41,6 +41,7 @@ const PositionList = ({ data }) => {
     setCurrentPage(1);
     setInputSearch(value.toLowerCase());
   };
+  console.log(currentPosts)
 
   const handleCurrentPage = (page) => {
     setCurrentPage(page);

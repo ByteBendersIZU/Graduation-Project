@@ -18,6 +18,7 @@ import FormButton from "../../form/FormButton";
 import DropDown from "../../form/DropDown";
 import { addNewBranchYup } from "../../../yupValidations/yupValidations";
 import { useDispatch, useSelector } from "react-redux";
+import Dropdown2 from '../../../components/form/Dropdown2'
 
 import * as Yup from "yup";
 import { addAppointment } from "../../../redux/slices/inventory/InventoryAppointmentSlice";
@@ -100,18 +101,18 @@ const AddAppointment = () => {
               {() => (
                 <Form className="px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
                   <div>
-                    <DropDown
+                    <Dropdown2
                       options={getInventoryData}
                       name="inventoryId"
                       labelName={"Inventory Name"}
                     />
-                    <DropDown options={getUserData} name="userId" labelName={"User"} />
+                    <Dropdown2 options={getUserData} name="userId" labelName={"User"} />
                     <FormGroup
                       type="number"
                       name="amount"
                       labelName={"Amount"}
                     />
-                    <DropDown
+                    <Dropdown2
                       options={inventorySituation}
                       name="situation"
                       labelName={"Inventory Situation"}
