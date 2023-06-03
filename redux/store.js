@@ -3,6 +3,8 @@ import CompanyCustomerSlice from "./slices/CompanyCustomerSlice";
 import CompanyBranchSlice from "./slices/CompanyBranchSlice";
 import CompanyDepartmentSlice from "./slices/CopmanyDepartmentSlice";
 import CompanyPositionSlice from "./slices/CompanyPositionSlice";
+import HelperSlice from "./slices/HelperSlice";
+import CompanyEmployeeSlice from "./slices/CompanyEmployeeSlice";
 import InventoryTypeSlice from "./slices/inventory/InventoryTypeSlice";
 import InventoryAppointmentSlice from "./slices/inventory/InventoryAppointmentSlice";
 import TimebookUserSlice from "./slices/timebook/TimebookUserSlice";
@@ -14,6 +16,8 @@ export const store = configureStore({
     companyBranch: CompanyBranchSlice,
     companyDepartment: CompanyDepartmentSlice,
     companyPosition: CompanyPositionSlice,
+    companyEmployee: CompanyEmployeeSlice,
+    companyHelper: HelperSlice,
     inventoryType: InventoryTypeSlice,
     inventoryProduct: InventoryProductSlice,
     inventoryAppointment: InventoryAppointmentSlice,

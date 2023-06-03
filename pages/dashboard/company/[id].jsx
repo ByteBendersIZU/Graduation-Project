@@ -31,12 +31,12 @@ const UpdateCompany = ({ company, shift }) => {
       },
       data: {
         id: stringId,
-        areaCode:'',
-        cityId:0,
-        cityName:'',
-        countryId:0,
-        districtId:0,
-        neighborhoodId:0,
+        areaCode: "",
+        cityId: 0,
+        cityName: "",
+        countryId: 0,
+        districtId: 0,
+        neighborhoodId: 0,
         ...values,
       },
     }).catch(function (error) {

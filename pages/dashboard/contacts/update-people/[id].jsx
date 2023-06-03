@@ -10,6 +10,7 @@ import { getSession, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import { updateAdminYup } from "../../../../yupValidations/companyValidations";
 
+
 const UpdateCompany = ({ result }) => {
   const {
     data: {

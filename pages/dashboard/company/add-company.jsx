@@ -13,6 +13,7 @@ import CompanyPack from "../../../components/companyForm/CompanyPack";
 import CompanyLicence from "../../../components/companyForm/CompanyLicence";
 import AddCompanyForm from "../../../components/companyForm/AddCompanyForm";
 import CompanySetting from "../../../components/companyForm/CompanySetting";
+
 import { addCompanyYup } from "../../../yupValidations/companyValidations";
 
 const AddCompany = () => {
@@ -189,7 +190,7 @@ const AddCompany = () => {
             { settingKey: "timeBookConnectionShift", settingValue: "" },
           ],
         }}
-        validationSchema={addCompanyYup}
+        validationSchema={Yup.object()}
         onSubmit={async (values, { setSubmitting }) => {
           const newCompany = await companyFunc(values.company);
           const compId = await newCompany.data.result.id;
