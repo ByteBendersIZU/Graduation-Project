@@ -15,6 +15,7 @@ import { getEmployeeList } from "../../redux/slices/CompanyEmployeeSlice";
 const CompanyPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(fetchMe());
     dispatch(fetchEmployeeList());
   }, []);
   const getEmployees = useSelector(getEmployeeList);
