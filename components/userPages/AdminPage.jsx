@@ -12,7 +12,7 @@ const AdminPage = () => {
       <div className="flex items-center justify-between bg-white shadow-md p-5 px-10 dark:bg-darkMain rounded-lg">
         <div>
           <p className="font-semibold text-3xl mb-1">
-            <CountUp end={42} />
+            <CountUp end={3} />
           </p>
           <p className="text-gray-500 font-normal">Number of Companies</p>
         </div>

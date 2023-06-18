@@ -7,14 +7,19 @@ import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
 import FormGroup from "../../form/FormGroup";
 import FormButton from "../../form/FormButton";
-import { addNewCustomerYup } from "../../../yupValidations/yupValidations";
-import { MdOutlineModeEdit } from "react-icons/md";
+import {
+  addNewCustomerYup,
+  changeUserPasswordYup,
+} from "../../../yupValidations/yupValidations";
+import { BiLockOpenAlt } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCustomer } from "../../../redux/slices/CompanyCustomerSlice";
 import { updateEmployee } from "../../../redux/slices/CompanyEmployeeSlice";
+import { getMyCompanyId } from "../../../redux/slices/HelperSlice";
 
-const UpdateUserModal = ({ user }) => {
+const ChangeUserPasswordModal = ({ user }) => {
   const dispatch = useDispatch();
+  const companyId = useSelector(getMyCompanyId);
 
   const {
     data: {
@@ -27,35 +32,37 @@ const UpdateUserModal = ({ user }) => {
   return (
     <React.Fragment>
       <div
-        className="text-blue-600 cursor-pointer"
+        className="text-orange-400 cursor-pointer"
         onClick={() => setShow(true)}
       >
-        <MdOutlineModeEdit />
+        <BiLockOpenAlt />
       </div>
       <Modal show={show} onClose={() => setShow(false)}>
-        <Modal.Header>Update User</Modal.Header>
-        <Modal.Header>Update User</Modal.Header>
-        <Modal.Header>Update User</Modal.Header>
+        <Modal.Header>Change User Password</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
             <Formik
               initialValues={{
-                ...user,
+                userId: user.id,
+                password: "",
+                rePassword: "",
+                companyId,
               }}
-              //   validationSchema={addNewCustomerYup}
+              validationSchema={changeUserPasswordYup}
               onSubmit={async (values, { setSubmitting }) => {
                 const payload = { ...values };
                 setSubmitting(false);
                 setShow(false);
                 console.log("values", values);
                 const data = await axios({
-                  method: "put",
-                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/user`,
+                  method: "post",
+                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/user/change-password`,
                   headers: {
                     Authorization: `Bearer ${jwt}`,
                   },
                   data: {
                     ...values,
+                    companyId,
                   },
                 }).catch(function (error) {
                   if (error.response) {
@@ -73,49 +80,16 @@ const UpdateUserModal = ({ user }) => {
                 <Form className="px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
                   <div>
                     <FormGroup
-                      type="text"
-                      name="name"
-                      value={values.name}
-                      labelName={"Name"}
+                      type="password"
+                      name="password"
+                      labelName={"Password"}
                     />
                     <FormGroup
-                      type="text"
-                      name="secondName"
-                      value={
-                        values.secondName === "string" ? "" : values.secondName
-                      }
-                      labelName={"Second Name"}
+                      type="password"
+                      name="rePassword"
+                      labelName={"Re Password"}
                     />
-                    <FormGroup
-                      type="text"
-                      name="surname"
-                      value={values.surname}
-                      labelName={"Surname"}
-                    />
-                    <FormGroup
-                      type="text"
-                      name="gender"
-                      value={values.gender}
-                      labelName={"Gender (Male:0, Female:1)"}
-                    />
-                    <FormGroup
-                      type="text"
-                      name="gender"
-                      value={values.identificationNumber}
-                      labelName={"Identification Number"}
-                    />
-                    <FormGroup
-                      type="text"
-                      name="tel"
-                      value={values.tel}
-                      labelName={"Phone Number"}
-                    />
-                    <FormGroup
-                      type="text"
-                      name="email"
-                      value={values.email}
-                      labelName={"Email"}
-                    />
+
                     <FormButton type="submit" buttonName="Update User" />
                   </div>
                 </Form>
@@ -128,4 +102,4 @@ const UpdateUserModal = ({ user }) => {
   );
 };
 
-export default UpdateUserModal;
+export default ChangeUserPasswordModal;

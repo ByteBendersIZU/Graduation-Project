@@ -62,3 +62,12 @@ export const addNewUserYup = Yup.object({
     .min(5, "Min 5 Characters")
     .required("Password is Required"),
 });
+export const changeUserPasswordYup = Yup.object({
+  password: Yup.string()
+    .max(30, "Max 30 character")
+    .min(5, "Min 5 Characters")
+    .required("Password is Required"),
+  rePassword: Yup.string()
+    .required("Re Password is Required")
+    .oneOf([Yup.ref("password"), null], "Passwords must match"),
+});

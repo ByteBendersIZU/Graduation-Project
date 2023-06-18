@@ -19,7 +19,7 @@ const AdminSidebar = () => {
         <Sidebar.Logo
           className="mb-10"
           href="/dashboard"
-          img="https://png.pngtree.com/png-clipart/20201208/original/pngtree-red-and-black-logo-png-image_5517319.jpg"
+          img="../../assets/images/hr-connect-logo.png"
           imgAlt="Flowbite logo"
         >
           HrConnect

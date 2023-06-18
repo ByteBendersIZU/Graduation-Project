@@ -80,7 +80,9 @@ const UpdatePositionModal = ({ position }) => {
                     <Dropdown2
                       name="departmentId"
                       labelName={"Department Name"}
+                      selected={values.department.name}
                       options={getDepartments.data}
+                      placeholder={"Select Department"}
                     />
                     <FormGroup
                       type="text"
