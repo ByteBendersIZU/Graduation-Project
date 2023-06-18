@@ -69,18 +69,18 @@ const Id = ({ distibutorUpdate, distributorLicenseUpdate }) => {
             surname: distibutorUpdate.surname,
             phoneNumber: distibutorUpdate.phoneNumber,
           },
-          // distLicense: {
-          //   startDate: distributorLicenseUpdate.startDate,
-          //   endDate: distributorLicenseUpdate.endDate,
-          //   userLimit: distributorLicenseUpdate.userLimit,
-          // },
+          distLicense: {
+            startDate: distributorLicenseUpdate.startDate,
+            endDate: distributorLicenseUpdate.endDate,
+            userLimit: distributorLicenseUpdate.userLimit,
+          },
         }}
-        validationSchema={distributorLicenseYup}
+        validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {
-          // const distId = distributorLicenseUpdate.distributorId;
-          // const licenseId = distributorLicenseUpdate.id;
+          const distId = distributorLicenseUpdate.distributorId;
+          const licenseId = distributorLicenseUpdate.id;
           await updateDist(values.distributor);
-          // await updateDistLicense(values.distLicense, distId, licenseId);
+          await updateDistLicense(values.distLicense, distId, licenseId);
         }}
       >
         {({ values }) => (
@@ -112,7 +112,7 @@ const Id = ({ distibutorUpdate, distributorLicenseUpdate }) => {
                 value={values.distributor.email}
               />
               <br />
-              {/* <h3 className="text-2xl text-blue-500">License Update</h3>
+               <h3 className="text-2xl text-blue-500">License Update</h3>
               <div>
                 <FormGroup
                   type="date"
@@ -161,19 +161,19 @@ export const getServerSideProps = async (context) => {
         Authorization: `Bearer ${jwt}`,
       },
     }),
-    // axios({
-    //   method: "get",
-    //   url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor-license/${id}`,
-    //   headers: {
-    //     Authorization: `Bearer ${jwt}`,
-    //   },
-    // }),
+    axios({
+      method: "get",
+      url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/distributor-license/${id}`,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    }),
   ]);
 
   const distibutorUpdate = distributorResponse.data.result;
-  // const distributorLicenseUpdate = distLicenseResponse.data.result;
+  const distributorLicenseUpdate = distLicenseResponse.data.result;
 
   return {
-    props: { distibutorUpdate },
+    props: { distibutorUpdate,distributorLicenseUpdate },
   };
 };

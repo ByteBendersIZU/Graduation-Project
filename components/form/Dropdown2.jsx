@@ -10,7 +10,6 @@ const Dropdown2 = ({ name, labelName, options, placeholder }) => {
       <Field
         as="select"
         name={name}
-        defaultValue={selected}
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-darkBg dark:text-white "
       >
         <option value="">{placeholder}</option>

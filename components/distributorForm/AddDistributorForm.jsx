@@ -18,11 +18,11 @@ const AddDistributorForm = () => {
         name="distributor.password"
         labelName={"Password"}
       />
-      <FormToggle
+      {/* <FormToggle
         type="checkbox"
         labelName="Accountant"
         name="distributor.accountant"
-      />
+      /> */}
     </div>
   );
 };

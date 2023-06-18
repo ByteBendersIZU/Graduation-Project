@@ -47,7 +47,10 @@ const InventoryList = ({ data }) => {
   };
   return (
     <div>
-      <PageHeader header={"Inventory"} breadcrumb={["Inventory", "Inventories"]} />
+      <PageHeader
+        header={"Inventory"}
+        breadcrumb={["Inventory", "Inventories"]}
+      />
       <div className="flex items-center w-full gap-3">
         <div className="flex-auto">
           <Input changeInput={changeInput} />
@@ -70,7 +73,10 @@ const InventoryList = ({ data }) => {
               </thead>
               <tbody>
                 {currentPosts.map((type) => (
-                  <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                  <tr
+                    key={type.id}
+                    className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                  >
                     <th
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"

@@ -11,6 +11,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { updateType } from "../../../redux/slices/inventory/InventoryTypeSlice";
 import * as Yup from "yup";
+import { updateTypeYup } from "../../../yupValidations/inventoryTypeValidations";
 
 const UpdateType = ({ type }) => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const UpdateType = ({ type }) => {
                 id: type.id,
                 companyId: type.companyId,
               }}
-              validationSchema={Yup.object({})}
+              validationSchema={updateTypeYup}
               onSubmit={async (values, { setSubmitting }) => {
                 const payload = { ...values };
                 setSubmitting(false);

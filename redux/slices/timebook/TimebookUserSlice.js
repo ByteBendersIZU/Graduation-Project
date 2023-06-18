@@ -1,8 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserList } from "../../services/timebook/TimebookUserService";
+import {
+  fetchTimebookList,
+  fetchUserList,
+} from "../../services/timebook/TimebookUserService";
 
 const initialState = {
   userList: {
+    status: "idle",
+    data: [],
+  },
+  timeList: {
     status: "idle",
     data: [],
   },
@@ -43,6 +50,17 @@ export const TimebookUserSlice = createSlice({
       .addCase(fetchUserList.rejected, (state, action) => {
         console.log("rejected", action.error);
         state.userList.status = "failed";
+      })
+      .addCase(fetchTimebookList.pending, (state) => {
+        state.timeList.status = "loading";
+      })
+      .addCase(fetchTimebookList.fulfilled, (state, action) => {
+        state.timeList.status = "succeeded";
+        state.timeList.data = action.payload;
+      })
+      .addCase(fetchTimebookList.rejected, (state, action) => {
+        console.log("rejected", action.error);
+        state.timeList.status = "failed";
       });
   },
 });
@@ -52,3 +70,4 @@ export default TimebookUserSlice.reducer;
 export const { addUser, updateUser, removeUser } = TimebookUserSlice.actions;
 
 export const getUserList = (state) => state.timebookUser.userList;
+export const getTimeList = (state) => state.timebookUser.timeList;

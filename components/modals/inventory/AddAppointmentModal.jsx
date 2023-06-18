@@ -28,7 +28,7 @@ import { fetchProductList } from "../../../redux/services/inventory/InventoryPro
 import { fetchUserList } from "../../../redux/services/timebook/TimebookUserService";
 
 
-const AddAppointment = () => {
+const AddAppointment = ({}) => {
   const dispatch = useDispatch();
   const {
     data: {
@@ -95,6 +95,7 @@ const AddAppointment = () => {
                 if (data.data.code) {
                   toast.success(data.data.message);
                   dispatch(addAppointment(data));
+                  // setAppointments((prevAppointments) => [...prevAppointments, data]); // Yeni randevuyu listeye ekleyin
                 }
               }}
             >

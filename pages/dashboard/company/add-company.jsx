@@ -156,25 +156,21 @@ const AddCompany = () => {
             webSite: "",
             zipCode: "",
           },
-          packages: {
-            packages: [
-              {
-                packagesName: "Personel Paketi",
-                price: "",
-              },
-              {
-                packagesName: "Vardiya Paketi",
-                price: "",
-              },
-              {
-                packagesName: "Bordro Paketi",
-                price: "",
-              },
-            ],
-            toggle0: false,
-            toggle1: false,
-            toggle2: false,
-          },
+          // packages: {
+          //   packages: [
+          //     {
+          //       packagesName: "Timebook Package",
+          //       price: "",
+          //     },
+          //     {
+          //       packagesName: "Shift Package",
+          //       price: "",
+          //     },
+          //   ],
+          //   toggle0: false,
+          //   toggle1: false,
+          //   toggle2: false,
+          // },
           companyPayment: {
             licenseType: 0,
             userLimit: 0,
@@ -194,7 +190,7 @@ const AddCompany = () => {
         onSubmit={async (values, { setSubmitting }) => {
           const newCompany = await companyFunc(values.company);
           const compId = await newCompany.data.result.id;
-          await companyPackFunc(values.packages, compId);
+          // await companyPackFunc(values.packages, compId);
           await companyPaymentFunc(values.companyPayment, compId);
           await companySettingFunc(values.companySetting);
         }}
@@ -203,16 +199,16 @@ const AddCompany = () => {
           <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
             <div className=" w-3/4">
               <AddCompanyForm company={values.company} />
-              <h3 className="mt-10 text-2xl text-blue-500">
+              {/* <h3 className="mt-10 text-2xl text-blue-500">
                 Package Management
               </h3>
               <br />
-              <CompanyPack packages={values.packages} />
+              <CompanyPack packages={values.packages} /> */}
+              <br />
               <h3 className="mt-10 text-2xl text-blue-500">Company Licence</h3>
-              <br />
               <CompanyLicence companyPayment={values.companyPayment} />
-              <h3 className="mt-10 text-2xl text-blue-500">Shift Setting</h3>
               <br />
+              <h3 className="mt-10 text-2xl text-blue-500">Shift Setting</h3>
               <CompanySetting />
               <FormButton type="submit" buttonName="Add Company" />
             </div>

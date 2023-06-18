@@ -35,9 +35,9 @@ const TimebookSubmit = ({ userId, dateValue, date }) => {
         toast.error(error.response.data.message);
       }
     });
-    console.log(data);
     if (data.data.code) {
       toast.success(data.data.message);
+      console.log(data)
     }
     return data;
   };
@@ -48,6 +48,7 @@ const TimebookSubmit = ({ userId, dateValue, date }) => {
         initialValues={{
           userId: userId,
           date: date,
+          datevalue: dateValue
         }}
         validationSchema={Yup.object({})}
         onSubmit={async (values, { setSubmitting }) => {

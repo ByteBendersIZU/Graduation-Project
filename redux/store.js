@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import CompanyCustomerSlice from "./slices/CompanyCustomerSlice";
 import CompanyBranchSlice from "./slices/CompanyBranchSlice";
 import CompanyDepartmentSlice from "./slices/CopmanyDepartmentSlice";
@@ -9,6 +9,7 @@ import InventoryTypeSlice from "./slices/inventory/InventoryTypeSlice";
 import InventoryAppointmentSlice from "./slices/inventory/InventoryAppointmentSlice";
 import TimebookUserSlice from "./slices/timebook/TimebookUserSlice";
 import InventoryProductSlice from "./slices/inventory/InventoryProductSlice";
+import timebookReducer from "./slices/timebook/TimebookUserSlice";
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,9 @@ export const store = configureStore({
     inventoryType: InventoryTypeSlice,
     inventoryProduct: InventoryProductSlice,
     inventoryAppointment: InventoryAppointmentSlice,
-    timebookUser: TimebookUserSlice,
+    timebookUser: timebookReducer,
+
+    
   },
+  middleware: [...getDefaultMiddleware({ serializableCheck: false })],
 });

@@ -17,8 +17,7 @@ export const InventoryTypeSlice = createSlice({
       state.typeList.data.push(action.payload.data.result);
     },
     updateType: (state, action) => {
-      console.log("efefef", action.payload.data.result);
-      const updatedCompany = action.payload.data.result;
+      const updatedCompany = action.payload;
       const updatedList = state.typeList.data.map((company) =>
         company.id === updatedCompany.id ? updatedCompany : company
       );

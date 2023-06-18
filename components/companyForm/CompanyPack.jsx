@@ -5,7 +5,7 @@ import { Formik, Form, Field } from "formik";
 const CompanyPack = ({ packages }) => {
   return (
     <div className="flex justify-around bg-white mt-8">
-      <div>
+      {/* <div>
         <Field type="checkbox" name="packages.toggle0" />
         <h3>Personel Paketi</h3>
         <div className="">
@@ -16,7 +16,7 @@ const CompanyPack = ({ packages }) => {
             labelName={"Price"}
           />
         </div>
-      </div>
+      </div> */}
       <div>
         <Field type="checkbox" name="packages.toggle1" />
         <h3>Vardiya Paketi</h3>

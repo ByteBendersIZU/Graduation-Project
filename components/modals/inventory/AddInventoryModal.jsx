@@ -27,6 +27,7 @@ import { getBranchList } from "../../../redux/slices/CompanyBranchSlice";
 import { fetchBranchList } from "../../../redux/services/CompanyBranchService";
 
 import Dropdown2 from "../../form/Dropdown2";
+import { addProductYup } from "../../../yupValidations/inventoryProductValidations";
 
 const AddInventory = () => {
   const dispatch = useDispatch();
@@ -60,17 +61,17 @@ const AddInventory = () => {
       <Modal show={show} onClose={() => setShow(false)}>
         <Modal.Header>Add New Inventory</Modal.Header>
         <Modal.Body>
-          <div className="space-y-6">
+          <div className="space-y-6 overflow-y-auto max-h-96">
             <Formik
               initialValues={{
                 name: "",
                 branch: "",
                 serialNumber: "",
                 quantity: "",
-                inventoryTypeId: "9eef9219-7696-42da-8152-8ffecdbf8f25",
+                inventoryTypeId: "",
                 features: "",
               }}
-              validationSchema={Yup.object({})}
+              validationSchema={addProductYup}
               onSubmit={async (values, { setSubmitting }) => {
                 const payload = { ...values };
                 setSubmitting(false);

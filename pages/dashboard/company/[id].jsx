@@ -180,18 +180,21 @@ const UpdateCompany = ({ company, shift }) => {
                 name="companySetting[0].settingValue"
                 labelName={"Puantaj"}
                 value={values.companySetting[0].settingValue}
+                placeholder={"0: Daily - 1: Hourly"}
               />
               <FormGroup
                 type="text"
                 name="companySetting[1].settingValue"
                 labelName={"Working Hours"}
                 value={values.companySetting[1].settingValue}
+                placeholder={"Daily working hours"}
               />
               <FormGroup
                 type="text"
                 name="companySetting[2].settingValue"
                 labelName={"Connect puantaj with shift"}
                 value={values.companySetting[2].settingValue}
+                placeholder={"0: No - 1: Yes"}
               />
               <FormButton type="submit" buttonName="Update Company" />
             </div>

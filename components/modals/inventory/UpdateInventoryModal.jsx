@@ -18,6 +18,7 @@ import { fetchTypeList } from "../../../redux/services/inventory/InventoryTypeSe
 import { getBranchList } from "../../../redux/slices/CompanyBranchSlice";
 import { fetchBranchList } from "../../../redux/services/CompanyBranchService";
 import Dropdown2 from "../../form/Dropdown2";
+import { updateProductYup } from "../../../yupValidations/inventoryProductValidations";
 
 const UpdateProduct = ({ values }) => {
   const dispatch = useDispatch();
@@ -39,8 +40,9 @@ const UpdateProduct = ({ values }) => {
   const newType = {
     data: getType.data.map((item) => {
       return {
-        name: item.inventoryTypeName,
         ...item,
+        name: item.inventoryTypeName,
+        key: item.id,
       };
     }),
   };
@@ -58,12 +60,12 @@ const UpdateProduct = ({ values }) => {
       <Modal show={show} onClose={() => setShow(false)}>
         <Modal.Header>Update Product</Modal.Header>
         <Modal.Body>
-          <div className="space-y-6">
+          <div className="space-y-6 overflow-y-auto max-h-96p">
             <Formik
               initialValues={{
                 ...values,
               }}
-              validationSchema={Yup.object({})}
+              validationSchema={updateProductYup}
               onSubmit={async (values, { setSubmitting }) => {
                 const payload = { ...values };
                 setSubmitting(false);

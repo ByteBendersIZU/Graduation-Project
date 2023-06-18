@@ -10,7 +10,8 @@ const CompanyPack = () => {
           <FormGroup
             type="text"
             name="companySetting[0].settingValue"
-            labelName={"Puantaj"}
+            labelName={"Timebook"}
+            placeholder={"0: Daily - 1: Hourly"}
           />
         </div>
       </div>
@@ -20,6 +21,7 @@ const CompanyPack = () => {
             type="text"
             name="companySetting[1].settingValue"
             labelName={"Working Hours"}
+            placeholder={"Daily working hours"}
           />
         </div>
       </div>
@@ -28,7 +30,8 @@ const CompanyPack = () => {
           <FormGroup
             type="text"
             name="companySetting[2].settingValue"
-            labelName={"Connect puantaj with shift"}
+            labelName={"Connect timebook with shift"}
+            placeholder={"0: No - 1: Yes"}
           />
         </div>
       </div>

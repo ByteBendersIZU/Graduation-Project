@@ -14,11 +14,10 @@ import { toast } from "react-toastify";
 import React, { useState } from "react";
 import FormGroup from "../../form/FormGroup";
 import FormButton from "../../form/FormButton";
-import { addNewBranchYup } from "../../../yupValidations/yupValidations";
 import { useDispatch } from "react-redux";
 
-import * as Yup from "yup";
 import { addType } from "../../../redux/slices/inventory/InventoryTypeSlice";
+import { addTypeYup } from "../../../yupValidations/inventoryTypeValidations";
 
 
 const AddType = () => {
@@ -42,7 +41,7 @@ const AddType = () => {
               initialValues={{
                 inventoryTypeName: "",
               }}
-              validationSchema={Yup.object({})}
+              validationSchema={addTypeYup}
               onSubmit={async (values, { setSubmitting }) => {
                 const payload = { ...values };
                 setSubmitting(false);
