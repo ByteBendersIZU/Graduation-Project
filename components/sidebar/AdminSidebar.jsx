@@ -46,7 +46,7 @@ const AdminSidebar = () => {
                 </Link>
               </Sidebar.Item>
             </Sidebar.Collapse>
-            <Sidebar.Collapse icon={GrGroup} label="Organization">
+            {/* <Sidebar.Collapse icon={GrGroup} label="Organization">
               <Sidebar.Item>
                 <Link
                   href="/dashboard/company/admin-list"
@@ -55,7 +55,7 @@ const AdminSidebar = () => {
                   Company List
                 </Link>
               </Sidebar.Item>
-            </Sidebar.Collapse>
+            </Sidebar.Collapse> */}
             <Sidebar.Item icon={GrLogout}>
               <button
                 onClick={() => {

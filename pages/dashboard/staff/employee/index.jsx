@@ -13,6 +13,7 @@ import { fethcCustomerList } from "../../../../redux/services/CompanyCustomerSer
 import UpdateUserModal from "../../../../components/modals/staffModals/UpdateUserModal";
 import AddNewUserModal from "../../../../components/modals/staffModals/AddNewUserModal";
 import { fetchMe } from "../../../../redux/services/HelperService";
+import ChangeUserPasswordModal from "../../../../components/modals/staffModals/ChangeUserPasswordModal";
 
 const Employee = () => {
   const dispatch = useDispatch();
@@ -102,7 +103,7 @@ const Employee = () => {
                     <td className="px-6 py-4 flex justify-end text-xl gap-3">
                       <UpdateUserModal user={user} />
 
-                      <RemoveCustomerModal id={user.id} />
+                      <ChangeUserPasswordModal user={user} />
                     </td>
                   </tr>
                 ))}

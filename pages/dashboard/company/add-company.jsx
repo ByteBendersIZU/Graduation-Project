@@ -186,7 +186,7 @@ const AddCompany = () => {
             { settingKey: "timeBookConnectionShift", settingValue: "" },
           ],
         }}
-        validationSchema={Yup.object()}
+        validationSchema={addCompanyYup}
         onSubmit={async (values, { setSubmitting }) => {
           const newCompany = await companyFunc(values.company);
           const compId = await newCompany.data.result.id;

@@ -33,11 +33,6 @@ const CompanySidebar = () => {
             </Sidebar.Item>
             <Sidebar.Collapse icon={GrOrganization} label="Organizationn">
               <Sidebar.Item>
-                <Link href="/dashboard" className={linkClass}>
-                  Manage Permission
-                </Link>
-              </Sidebar.Item>
-              <Sidebar.Item>
                 <Link
                   href="/dashboard/organization/branch-list"
                   className={linkClass}
@@ -72,22 +67,12 @@ const CompanySidebar = () => {
             </Sidebar.Collapse>
             <Sidebar.Collapse icon={BsFillPersonFill} label="Staff">
               <Sidebar.Item>
-                <Link href="/dashboard" className={linkClass}>
-                  Manage Permission
-                </Link>
-              </Sidebar.Item>
-              <Sidebar.Item>
                 <Link href="/dashboard/staff/employee" className={linkClass}>
                   Employee
                 </Link>
               </Sidebar.Item>
             </Sidebar.Collapse>
             <Sidebar.Collapse icon={BsFillPersonFill} label="Inventory">
-              <Sidebar.Item>
-                <Link href="/dashboard" className={linkClass}>
-                  Inventory Permission
-                </Link>
-              </Sidebar.Item>
               <Sidebar.Item>
                 <Link
                   href="/dashboard/inventory/list-inventory-type"
@@ -112,11 +97,6 @@ const CompanySidebar = () => {
             </Sidebar.Collapse>
             <Sidebar.Collapse icon={BsFillPersonFill} label="Timebook">
               <Sidebar.Item>
-                <Link href="/dashboard" className={linkClass}>
-                  Timebook Permission
-                </Link>
-              </Sidebar.Item>
-              <Sidebar.Item>
                 <Link
                   href="/dashboard/timebook/user-timebook"
                   className={linkClass}
@@ -127,15 +107,7 @@ const CompanySidebar = () => {
             </Sidebar.Collapse>
             <Sidebar.Collapse icon={BsFillPersonFill} label="Shift">
               <Sidebar.Item>
-                <Link href="/dashboard" className={linkClass}>
-                  Shift Permission
-                </Link>
-              </Sidebar.Item>
-              <Sidebar.Item>
-                <Link
-                  href="/dashboard/shift/shift-chart"
-                  className={linkClass}
-                >
+                <Link href="/dashboard/shift/shift-chart" className={linkClass}>
                   Shift List
                 </Link>
               </Sidebar.Item>

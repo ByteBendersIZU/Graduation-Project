@@ -71,8 +71,6 @@ export const addCompanyYup = Yup.object().shape({
       .matches(/^\d{5}$/, "ZIP code must be a 5-digit number."),
   }),
   companyPayment: Yup.object().shape({
-    licenseType: Yup.number()
-      .required("License type is required."),
     userLimit: Yup.number()
       .integer("User limit must be an integer.")
       .required("User limit is required.")

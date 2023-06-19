@@ -1,6 +1,7 @@
 import { Inter } from "@next/font/google";
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,7 +14,9 @@ export default function Home() {
   return (
     <div className={styles.homePage}>
       <div className={styles.header}>
-        <div>Logo</div>
+        <div className="font-bold text-2xl">
+        HrConnect
+        </div>
         <button className={styles.btn} onClick={pushLogIn}>
           Giris Yap
         </button>
@@ -21,7 +24,7 @@ export default function Home() {
       <div className={styles.body}>
         <div className={styles.first}>
           <h2 className={styles.h2}>
-            Buyumek isteyen sirketlerin 1. numarali tercihi
+            Buyumek isteyen sirketlerin 1 numarali tercihi
           </h2>
           <p>
             Sirketinizi daha kolay sekilde takip etmek ve yonetmek mi

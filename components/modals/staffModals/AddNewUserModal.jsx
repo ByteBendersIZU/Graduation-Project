@@ -24,6 +24,7 @@ import { getMyCompanyId } from "../../../redux/slices/HelperSlice";
 const UpdateUserModal = () => {
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(fetchMe());
     dispatch(fetchBranchList());
   }, []);
   const branches = useSelector(getBranchList);
@@ -45,9 +46,10 @@ const UpdateUserModal = () => {
         <Modal.Body>
           <div className="space-y-6">
             <Formik
-              initialValues={{ companyId }}
+              initialValues={{}}
               onSubmit={async (values, { setSubmitting }) => {
                 const payload = { ...values };
+
                 setSubmitting(false);
                 setShow(false);
                 console.log(values);
@@ -59,6 +61,7 @@ const UpdateUserModal = () => {
                   },
                   data: {
                     ...values,
+                    companyId,
                   },
                 }).catch(function (error) {
                   if (error.response) {

@@ -12,7 +12,7 @@ const signin = () => {
   const [logInError, setLogInError] = useState(false);
 
   return (
-    <div className="w-screen  flex items-center justify-center h-screen">
+    <div className="w-screen flex items-center justify-center h-screen">
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={Yup.object({

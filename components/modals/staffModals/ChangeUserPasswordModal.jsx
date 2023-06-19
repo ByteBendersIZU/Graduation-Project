@@ -5,24 +5,22 @@ import { useSession } from "next-auth/react";
 
 import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
-import FormGroup from "../form/FormGroup";
-import FormButton from "../form/FormButton";
-import { MdOutlineModeEdit } from "react-icons/md";
+import FormGroup from "../../form/FormGroup";
+import FormButton from "../../form/FormButton";
+import {
+  addNewCustomerYup,
+  changeUserPasswordYup,
+} from "../../../yupValidations/yupValidations";
+import { BiLockOpenAlt } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
+import { updateCustomer } from "../../../redux/slices/CompanyCustomerSlice";
+import { updateEmployee } from "../../../redux/slices/CompanyEmployeeSlice";
+import { getMyCompanyId } from "../../../redux/slices/HelperSlice";
 
-import { fetchDepartmentList } from "../../redux/services/CompanyDepartmentService";
-import { getDepartmentList } from "../../redux/slices/CopmanyDepartmentSlice";
-import Dropdown2 from "../form/Dropdown2";
-import FormToggle from "../form/FormToggle";
-import { addNewPositionYup } from "../../yupValidations/yupValidations";
-import { updatePosition } from "../../redux/slices/companyPositionSlice";
-
-const UpdatePositionModal = ({ position }) => {
+const ChangeUserPasswordModal = ({ user }) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchDepartmentList());
-  }, []);
-  const getDepartments = useSelector(getDepartmentList);
+  const companyId = useSelector(getMyCompanyId);
+
   const {
     data: {
       session: {
@@ -34,33 +32,37 @@ const UpdatePositionModal = ({ position }) => {
   return (
     <React.Fragment>
       <div
-        className="text-blue-600 cursor-pointer"
+        className="text-orange-400 cursor-pointer"
         onClick={() => setShow(true)}
       >
-        <MdOutlineModeEdit />
+        <BiLockOpenAlt />
       </div>
       <Modal show={show} onClose={() => setShow(false)}>
-        <Modal.Header>Update position</Modal.Header>
+        <Modal.Header>Change User Password</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
             <Formik
               initialValues={{
-                ...position,
-                departmentId: "",
+                userId: user.id,
+                password: "",
+                rePassword: "",
+                companyId,
               }}
-              validationSchema={addNewPositionYup}
+              validationSchema={changeUserPasswordYup}
               onSubmit={async (values, { setSubmitting }) => {
                 const payload = { ...values };
                 setSubmitting(false);
                 setShow(false);
+                console.log("values", values);
                 const data = await axios({
-                  method: "put",
-                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/position`,
+                  method: "post",
+                  url: `http://${process.env.NEXT_PUBLIC_IP_ADRESS}/v1/user/change-password`,
                   headers: {
                     Authorization: `Bearer ${jwt}`,
                   },
                   data: {
                     ...values,
+                    companyId,
                   },
                 }).catch(function (error) {
                   if (error.response) {
@@ -70,31 +72,25 @@ const UpdatePositionModal = ({ position }) => {
                 console.log(data);
                 if (data.data.code) {
                   toast.success(data.data.message);
-                  dispatch(updatePosition(data));
+                  dispatch(updateEmployee(values));
                 }
               }}
             >
               {({ values }) => (
                 <Form className="px-8 pt-6 pb-8 mb-4 w-full dark:bg-darkMain">
                   <div>
-                    <Dropdown2
-                      name="departmentId"
-                      labelName={"Department Name"}
-                      selected={values.department.name}
-                      options={getDepartments.data}
-                      placeholder={"Select Department"}
+                    <FormGroup
+                      type="password"
+                      name="password"
+                      labelName={"Password"}
                     />
                     <FormGroup
-                      type="text"
-                      name="name"
-                      value={values.name}
-                      labelName={"Position Name"}
+                      type="password"
+                      name="rePassword"
+                      labelName={"Re Password"}
                     />
-                    <FormToggle
-                      name="highestPosition"
-                      labelName={"is higher position ?"}
-                    />
-                    <FormButton type="submit" buttonName="Update Position" />
+
+                    <FormButton type="submit" buttonName="Update User" />
                   </div>
                 </Form>
               )}
@@ -106,4 +102,4 @@ const UpdatePositionModal = ({ position }) => {
   );
 };
 
-export default UpdatePositionModal;
+export default ChangeUserPasswordModal;
